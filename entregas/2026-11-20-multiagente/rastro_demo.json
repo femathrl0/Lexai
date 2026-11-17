@@ -1,0 +1,339 @@
+{
+  "tarefa_id": "0df9765a8f0e",
+  "pergunta": "Quais verbas recebo na demissão sem justa causa e em quanto tempo?",
+  "persona": "leigo",
+  "consulta": "Quais verbas recebo na demissão sem justa causa e em quanto tempo?",
+  "triagem": {
+    "acao": "responder",
+    "pergunta_sanitizada": "Quais verbas recebo na demissão sem justa causa e em quanto tempo?",
+    "sinais": [],
+    "motivo": "Pergunta informativa.",
+    "resposta_fixa": null
+  },
+  "evidencias": {
+    "tarefa_id": "0df9765a8f0e",
+    "consulta": "Quais verbas recebo na demissão sem justa causa e em quanto tempo?",
+    "trechos": [
+      {
+        "id": "lei:217320cdaff1d3f1",
+        "indice": "corpus_juridico",
+        "tipo_fonte": "lei",
+        "texto": "Art. 3º\n\nTerá direito à percepção do seguro-desemprego o trabalhador dispensado sem justa causa que comprove:\n\nI - ter recebido salários de pessoa jurídica ou de pessoa física a ela equiparada, relativos a: (Redação dada pela Lei nº 13.134, de 2015)\n\na) pelo menos 12 (doze) meses nos últimos 18 (dezoito) meses imediatamente anteriores à data de dispensa, quando da primeira solicitação; (Incluído pela Lei nº 13.134, de 2015)\n\nb) pelo menos 9 (nove) meses nos últimos 12 (doze) meses imediatamente anteriores à data de dispensa, quando da segunda solicitação; e (Incluído pela Lei nº 13.134, de 2015)\n\nc) cada um dos 6 (seis) meses imediatamente anteriores à data de dispensa, quando das demais solicitações; (Incluído pela Lei nº 13.134, de 2015)\n\nII - (Revogado); (Redação dada pela Lei nº 13.134, de 2015)\n\nIII - não estar em gozo de qualquer benefício previdenciário de prestação continuada, previsto no Regulamento dos Benefícios da Previdência Social, excetuado o auxílio-acidente e o auxílio suplementar previstos na Lei nº 6.367, de 19 de outubro de 1976, bem como o abono de permanência em serviço previsto na Lei nº 5.890, de 8 de junho de 1973;\n\nIV - não estar em gozo do auxílio-desemprego; e\n\nV - não possuir renda própria de qualquer natureza suficiente à sua manutenção e de sua família.\n\nVI - matrícula e frequência, quando aplicável, nos termos do regulamento, em curso de formação inicial e continuada ou de qualificação profissional habilitado pelo Ministério da Educação, nos termos do art. 18 da Lei nº 12.513, de 26 de outubro de 2011, ofertado por meio da Bolsa-Formação Trabalhador concedida no âmbito do Programa Nacional de Acesso ao Ensino Técnico e Emprego (Pronatec), instituído pela Lei nº 12.513, de 26 de outubro de 2011, ou de vagas gratuitas na rede de educação profissional e tecnológica. (Incluído pela Lei nº 13.134, de 2015)\n\n§ 1º A União poderá condicionar o recebimento da assistência financeira do Programa de Seguro-Desemprego à comprovação da matrícula e da frequência do trabalhador segurado em curso de formação inicial e continuada ou qualificação profissional, com carga horária mínima de 160 (cento e sessenta) horas. (Incluído pela Lei nº 12.513, de 2011)\n\n§ 2º O Poder Executivo regulamentará os critérios e requisitos para a concessão da assistência financeira do Programa de Seguro-Desemprego nos casos previstos no § 1º, considerando a disponibilidade de bolsas-formação no âmbito do Pronatec ou de vagas gratuitas na rede de educação profissional e tecnológica para o cumprimento da condicionalidade pelos respectivos beneficiários. (Incluído pela Lei nº 12.513, de 2011)\n\n§ 3º A oferta de bolsa para formação dos trabalhadores de que trata este artigo considerará, entre outros critérios, a capacidade de oferta, a reincidência no recebimento do benefício, o nível de escolaridade e a faixa etária do trabalhador. (Incluído pela Lei nº 12.513, de 2011)\n\n§ 4º O registro como Microempreendedor Individual - MEI, de que trata o art. 18-A da Lei Complementar nº 123, de 14 de dezembro de 2006, não comprovará renda própria suficiente à manutenção da família, exceto se demonstrado na declaração anual simplificada da microempresa individual. (Incluído pela Lei Complementar nº 155, de 2016) Produção de efeito",
+        "fonte": "Lei 7.998/1990 (seguro-desemprego), Art. 3º",
+        "versao": "lawcodex:c2e2edbf4172",
+        "vigencia_inicio": null,
+        "vigencia_fim": null,
+        "nota_reranker": 0.7461
+      },
+      {
+        "id": "lei:cae32d6aba758cbe",
+        "indice": "corpus_juridico",
+        "tipo_fonte": "lei",
+        "texto": "Art. 26. O\n\nempregado doméstico que for dispensado sem justa causa fará jus ao benefício do seguro-desemprego, na forma da Lei nº 7.998, de 11 de janeiro de 1990, no valor de 1 (um) salário-mínimo, por período máximo de 3 (três) meses, de forma contínua ou alternada.\n\n§ 1º O benefício de que trata o caput será concedido ao empregado nos termos do regulamento do Conselho Deliberativo do Fundo de Amparo ao Trabalhador (Codefat).\n\n§ 2º O benefício do seguro-desemprego será cancelado, sem prejuízo das demais sanções cíveis e penais cabíveis:\n\nI - pela recusa, por parte do trabalhador desempregado, de outro emprego condizente com sua qualificação registrada ou declarada e com sua remuneração anterior;\n\nII - por comprovação de falsidade na prestação das informações necessárias à habilitação;\n\nIII - por comprovação de fraude visando à percepção indevida do benefício do seguro-desemprego; ou\n\nIV - por morte do segurado.",
+        "fonte": "LC 150/2015 (doméstico), Art. 26",
+        "versao": "lawcodex:a857c64a3fb7",
+        "vigencia_inicio": null,
+        "vigencia_fim": null,
+        "nota_reranker": 0.7375
+      },
+      {
+        "id": "lei:49da491553a0f879",
+        "indice": "corpus_juridico",
+        "tipo_fonte": "lei",
+        "texto": "Art. 147\n\nO empregado que for despedido sem justa causa, ou cujo contrato de trabalho se extinguir em prazo predeterminado, antes de completar 12 (doze) meses de serviço, terá direito à remuneração relativa ao período incompleto de férias, de conformidade com o disposto no artigo anterior. (Redação dada pelo Decreto-lei nº 1.535, de 13.4.1977",
+        "fonte": "CLT, Art. 147",
+        "versao": "lawcodex:59106e488eed",
+        "vigencia_inicio": null,
+        "vigencia_fim": null,
+        "nota_reranker": 0.6413
+      }
+    ],
+    "sem_fonte_segura": false
+  },
+  "explicacao": {
+    "tarefa_id": "0df9765a8f0e",
+    "prompt_id": "analise/v1",
+    "modelo_llm": "qwen3:8b",
+    "frases": [
+      {
+        "ordem": 0,
+        "texto": "O trabalhador demitido sem justa causa (falta grave que permite encerrar o contrato sem algumas verbas) tem direito à remuneração das férias não gozadas, se o contrato acaba antes de 12 meses de trabalho, conforme o Art. 147 da CLT.",
+        "trecho_id": "lei:49da491553a0f879"
+      },
+      {
+        "ordem": 1,
+        "texto": "O trabalhador demitido sem justa causa pode ter direito ao seguro-desemprego, desde que tenha recebido salários de empresa ou pessoa física equivalente por pelo menos 12 meses nos 18 meses antes da demissão, conforme o Art. 3º da Lei 7.998/1990.",
+        "trecho_id": "lei:217320cdaff1d3f1"
+      },
+      {
+        "ordem": 2,
+        "texto": "O seguro-desemprego para empregados domésticos demitidos sem justa causa tem valor de 1 salário-mínimo, por até 3 meses, conforme o Art. 26 da LC 150/2015.",
+        "trecho_id": "lei:cae32d6aba758cbe"
+      }
+    ]
+  },
+  "resposta": {
+    "tarefa_id": "0df9765a8f0e",
+    "frases": [
+      {
+        "ordem": 0,
+        "texto": "O trabalhador demitido sem justa causa (falta grave que permite encerrar o contrato sem algumas verbas) tem direito à remuneração das férias não gozadas, se o contrato acaba antes de 12 meses de trabalho, conforme o Art. 147 da CLT.",
+        "trecho_id": "lei:49da491553a0f879",
+        "fonte": "CLT, Art. 147",
+        "veredito": "sustenta"
+      },
+      {
+        "ordem": 1,
+        "texto": "O trabalhador demitido sem justa causa pode ter direito ao seguro-desemprego, desde que tenha recebido salários de empresa ou pessoa física equivalente por pelo menos 12 meses nos 18 meses antes da demissão, conforme o Art. 3º da Lei 7.998/1990.",
+        "trecho_id": "lei:217320cdaff1d3f1",
+        "fonte": "Lei 7.998/1990 (seguro-desemprego), Art. 3º",
+        "veredito": "sustenta"
+      },
+      {
+        "ordem": 2,
+        "texto": "O seguro-desemprego para empregados domésticos demitidos sem justa causa tem valor de 1 salário-mínimo, por até 3 meses, conforme o Art. 26 da LC 150/2015.",
+        "trecho_id": "lei:cae32d6aba758cbe",
+        "fonte": "LC 150/2015 (doméstico), Art. 26",
+        "veredito": "sustenta"
+      }
+    ],
+    "avisos": [
+      "Esta resposta é informativa e não substitui a orientação de um advogado, da Defensoria Pública ou do sindicato da categoria."
+    ],
+    "versoes": {
+      "modelos": {
+        "llm": "qwen3:8b",
+        "nli": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+        "buscador": "local:8b5acc135736"
+      },
+      "prompt": "analise/v1",
+      "indices": {
+        "corpus_juridico": "lawcodex:c2e2edbf4172"
+      }
+    }
+  },
+  "frases_para_refazer": {},
+  "novas_buscas": 0,
+  "reescritas": 0,
+  "rastro": {
+    "mensagens": [
+      {
+        "ordem": 0,
+        "de": "orquestrador",
+        "para": "triagem",
+        "tipo": "pedido",
+        "resumo": "classificar a intenção da pergunta",
+        "dados": {},
+        "motivo": null,
+        "ms": null,
+        "em": "2026-11-17T20:16:17.601124Z"
+      },
+      {
+        "ordem": 1,
+        "de": "triagem",
+        "para": "orquestrador",
+        "tipo": "resultado",
+        "resumo": "ação 'responder' (Pergunta informativa.) → segue para a Pesquisa",
+        "dados": {
+          "acao": "responder",
+          "sinais": [],
+          "pergunta_sanitizada": "Quais verbas recebo na demissão sem justa causa e em quanto tempo?"
+        },
+        "motivo": null,
+        "ms": 0.7,
+        "em": "2026-11-17T20:16:17.601981Z"
+      },
+      {
+        "ordem": 2,
+        "de": "orquestrador",
+        "para": "pesquisa",
+        "tipo": "pedido",
+        "resumo": "buscar trechos de lei e jurisprudência para a consulta",
+        "dados": {},
+        "motivo": null,
+        "ms": null,
+        "em": "2026-11-17T20:16:17.601991Z"
+      },
+      {
+        "ordem": 3,
+        "de": "pesquisa",
+        "para": "orquestrador",
+        "tipo": "resultado",
+        "resumo": "3 trechos (3 lei)",
+        "dados": {
+          "consulta": "Quais verbas recebo na demissão sem justa causa e em quanto tempo?",
+          "buscador": "local:8b5acc135736",
+          "trechos": [
+            {
+              "id": "lei:217320cdaff1d3f1",
+              "fonte": "Lei 7.998/1990 (seguro-desemprego), Art. 3º",
+              "nota": 0.7461
+            },
+            {
+              "id": "lei:cae32d6aba758cbe",
+              "fonte": "LC 150/2015 (doméstico), Art. 26",
+              "nota": 0.7375
+            },
+            {
+              "id": "lei:49da491553a0f879",
+              "fonte": "CLT, Art. 147",
+              "nota": 0.6413
+            }
+          ]
+        },
+        "motivo": null,
+        "ms": 3497.9,
+        "em": "2026-11-17T20:16:21.099919Z"
+      },
+      {
+        "ordem": 4,
+        "de": "orquestrador",
+        "para": "analise",
+        "tipo": "pedido",
+        "resumo": "explicar a pergunta frase a frase, cada frase com o trecho que a sustenta",
+        "dados": {},
+        "motivo": null,
+        "ms": null,
+        "em": "2026-11-17T20:16:21.099938Z"
+      },
+      {
+        "ordem": 5,
+        "de": "analise",
+        "para": "orquestrador",
+        "tipo": "resultado",
+        "resumo": "escreveu 3 frases",
+        "dados": {
+          "prompt": "analise/v1",
+          "prompt_sha256": "e3fc4cfc2f2d",
+          "modelo": "qwen3:8b",
+          "frases": [
+            {
+              "ordem": 0,
+              "texto": "O trabalhador dispensado sem justa causa tem direito à remuneração relativa ao período incompleto de férias, se o contrato de trabalho se extinguir antes de completar 12 meses de serviço, conforme o Art. 147 da CLT.",
+              "trecho_id": "lei:49da491553a0f879"
+            },
+            {
+              "ordem": 1,
+              "texto": "O trabalhador dispensado sem justa causa pode ter direito ao seguro-desemprego, desde que comprove ter recebido salários de pessoa jurídica ou física a ela equiparada por pelo menos 12 meses nos 18 meses anteriores à dispensa, conforme o Art. 3º da Lei 7.998/1990.",
+              "trecho_id": "lei:217320cdaff1d3f1"
+            },
+            {
+              "ordem": 2,
+              "texto": "O seguro-desemprego tem valor de 1 salário-mínimo, por período máximo de 3 meses, para empregados domésticos dispensados sem justa causa, conforme o Art. 26 da LC 150/2015.",
+              "trecho_id": "lei:cae32d6aba758cbe"
+            }
+          ]
+        },
+        "motivo": null,
+        "ms": 27851.1,
+        "em": "2026-11-17T20:16:48.951049Z"
+      },
+      {
+        "ordem": 6,
+        "de": "orquestrador",
+        "para": "comunicacao",
+        "tipo": "pedido",
+        "resumo": "adaptar a explicação ao público 'leigo' sem mudar o conteúdo",
+        "dados": {},
+        "motivo": null,
+        "ms": null,
+        "em": "2026-11-17T20:16:48.951116Z"
+      },
+      {
+        "ordem": 7,
+        "de": "comunicacao",
+        "para": "orquestrador",
+        "tipo": "resultado",
+        "resumo": "adaptou 3 frases para 'leigo' (legibilidade 54.2 → 59.4)",
+        "dados": {
+          "prompt": "comunicacao/v1",
+          "legibilidade_antes": 54.2,
+          "legibilidade_depois": 59.4,
+          "termos_glossario": [
+            "justa causa"
+          ],
+          "frases": [
+            {
+              "ordem": 0,
+              "texto": "O trabalhador demitido sem justa causa (falta grave que permite encerrar o contrato sem algumas verbas) tem direito à remuneração das férias não gozadas, se o contrato acaba antes de 12 meses de trabalho, conforme o Art. 147 da CLT.",
+              "trecho_id": "lei:49da491553a0f879"
+            },
+            {
+              "ordem": 1,
+              "texto": "O trabalhador demitido sem justa causa pode ter direito ao seguro-desemprego, desde que tenha recebido salários de empresa ou pessoa física equivalente por pelo menos 12 meses nos 18 meses antes da demissão, conforme o Art. 3º da Lei 7.998/1990.",
+              "trecho_id": "lei:217320cdaff1d3f1"
+            },
+            {
+              "ordem": 2,
+              "texto": "O seguro-desemprego para empregados domésticos demitidos sem justa causa tem valor de 1 salário-mínimo, por até 3 meses, conforme o Art. 26 da LC 150/2015.",
+              "trecho_id": "lei:cae32d6aba758cbe"
+            }
+          ]
+        },
+        "motivo": null,
+        "ms": 17053.8,
+        "em": "2026-11-17T20:17:06.004914Z"
+      },
+      {
+        "ordem": 8,
+        "de": "orquestrador",
+        "para": "validacao",
+        "tipo": "pedido",
+        "resumo": "conferir cada frase contra o trecho citado e liberar só o que for sustentado",
+        "dados": {},
+        "motivo": null,
+        "ms": null,
+        "em": "2026-11-17T20:17:06.004943Z"
+      },
+      {
+        "ordem": 9,
+        "de": "validacao",
+        "para": "orquestrador",
+        "tipo": "resultado",
+        "resumo": "liberou 3 frases",
+        "dados": {
+          "julgamento": [
+            {
+              "ordem": 0,
+              "aprovada": true,
+              "motivo": "sustentada pelo trecho (p=0.81)",
+              "nli": {
+                "sustenta": 0.811,
+                "nao_trata": 0.1887,
+                "contradiz": 0.0003
+              },
+              "trecho": "lei:49da491553a0f879"
+            },
+            {
+              "ordem": 1,
+              "aprovada": true,
+              "motivo": "sustentada pelo trecho (p=0.99)",
+              "nli": {
+                "sustenta": 0.9922,
+                "nao_trata": 0.0073,
+                "contradiz": 0.0007
+              },
+              "trecho": "lei:217320cdaff1d3f1"
+            },
+            {
+              "ordem": 2,
+              "aprovada": true,
+              "motivo": "sustentada pelo trecho (p=0.59)",
+              "nli": {
+                "sustenta": 0.5942,
+                "nao_trata": 0.0469,
+                "contradiz": 0.3591
+              },
+              "trecho": "lei:cae32d6aba758cbe"
+            }
+          ],
+          "limiar_sustenta": 0.5,
+          "verificador": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli"
+        },
+        "motivo": null,
+        "ms": 5931.4,
+        "em": "2026-11-17T20:17:11.936403Z"
+      }
+    ]
+  }
+}

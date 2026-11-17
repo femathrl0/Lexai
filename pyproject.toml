@@ -33,6 +33,9 @@ worker = [
     "psycopg[binary]>=3.2",
     "pgvector>=0.3",
     "sentence-transformers>=3.0",
+    "transformers>=4.44",
+    "sentencepiece>=0.2",
+    "protobuf>=4.25",
     "mlflow-skinny>=2.14",
 ]
 # Treino e MLOps (Eng. de ML) e dados (Eng. de dados).
@@ -82,7 +85,7 @@ markers = [
 ]
 
 [tool.ruff]
-line-length = 120
+line-length = 130
 target-version = "py312"
 # Código migrado do lex_clt.ai fica fora do lint até ser revisado por cada dono.
 extend-exclude = [

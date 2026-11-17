@@ -2,6 +2,7 @@
 
 Mudar um contrato exige um pull request próprio, aprovado por quem produz e por quem consome.
 """
+from .agentes import DecisaoTriagem, EstadoTarefa, Mensagem, Rastro
 from .base import Versoes
 from .classificacao import Campo, Classificacao, ResultadoPedido
 from .documento import Bloco, DocumentoLido, Pagina
@@ -12,7 +13,29 @@ from .resposta import FraseAprovada, RespostaVerificada
 from .segmentos import Segmentos, Trecho
 
 __all__ = [
-    "Aviso", "Bloco", "Campo", "Classificacao", "Concluido", "DocumentoLido", "Erro", "Evento", "Evidencias",
-    "Explicacao", "Frase", "FraseAprovada", "FraseGerada", "Pagina", "RespostaVerificada", "ResultadoPedido",
-    "Segmentos", "Status", "Trecho", "TrechoEvidencia", "Versoes",
+    "Aviso",
+    "Bloco",
+    "Campo",
+    "Classificacao",
+    "Concluido",
+    "DecisaoTriagem",
+    "DocumentoLido",
+    "Erro",
+    "EstadoTarefa",
+    "Evento",
+    "Evidencias",
+    "Explicacao",
+    "Frase",
+    "FraseAprovada",
+    "FraseGerada",
+    "Mensagem",
+    "Pagina",
+    "Rastro",
+    "RespostaVerificada",
+    "ResultadoPedido",
+    "Segmentos",
+    "Status",
+    "Trecho",
+    "TrechoEvidencia",
+    "Versoes",
 ]
