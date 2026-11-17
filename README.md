@@ -20,14 +20,14 @@ Toda decisão de arquitetura e processo está no [Manual de MLOps e arquitetura]
 
 | Cargo | Titular | Par (revisa e cobre) | Issues |
 |---|---|---|---|
-| 1. Eng. de dados | Davi | Felipe (Eng. de ML e MLOps) | [`cargo:eng-dados`](../../issues?q=label%3Acargo%3Aeng-dados) |
+| 1. Eng. de dados | Davi ([@Withy-S](https://github.com/Withy-S)) | Felipe (Eng. de ML e MLOps) | [`cargo:eng-dados`](../../issues?q=label%3Acargo%3Aeng-dados) |
 | 2. Cientista de dados | Laisa ([@paiva-l](https://github.com/paiva-l)) | Mayara (Eng. de IA) | [`cargo:cientista-dados`](../../issues?q=label%3Acargo%3Acientista-dados) |
 | 3. Eng. de ML e MLOps | Felipe ([@femathrl0](https://github.com/femathrl0)) | Laisa (Cientista de dados) | [`cargo:eng-ml`](../../issues?q=label%3Acargo%3Aeng-ml) |
-| 4. Eng. de IA (LLM e RAG) | Mayara | João (Eng. de software) | [`cargo:eng-ia`](../../issues?q=label%3Acargo%3Aeng-ia) |
-| 5. Eng. de software | João | Davi (Eng. de dados) | [`cargo:eng-software`](../../issues?q=label%3Acargo%3Aeng-software) |
+| 4. Eng. de IA (LLM e RAG) | Mayara ([@MayaraVieiraa](https://github.com/MayaraVieiraa)) | João (Eng. de software) | [`cargo:eng-ia`](../../issues?q=label%3Acargo%3Aeng-ia) |
+| 5. Eng. de software | João ([@joaomarcosmelo2023](https://github.com/joaomarcosmelo2023)) | Davi (Eng. de dados) | [`cargo:eng-software`](../../issues?q=label%3Acargo%3Aeng-software) |
 | Curadoria jurídica | Laisa ([@paiva-l](https://github.com/paiva-l)) | — | [`curadoria`](../../issues?q=label%3Acuradoria) |
 
-> Primeiro PR de cada pessoa: colocar seu usuário do GitHub nesta tabela (testa o fluxo de revisão com o par). Os portões semanais ficam com o Felipe.
+> Os portões semanais ficam com o Felipe. Primeiro PR de cada pessoa: um ajuste pequeno no README, para testar o fluxo de revisão com o par.
 
 ## Primeiro dia
 

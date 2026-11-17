@@ -8,7 +8,7 @@ cargos:
     nome: Eng. de dados
     label: cargo:eng-dados
     titular: Davi
-    github: null
+    github: Withy-S
     par: Felipe (Eng. de ML e MLOps)
     missao: Transformar documentos em dados confiáveis, versionados e sem dado pessoal desnecessário.
     pastas: [worker/leitura/, worker/ingestao/, dados/]
@@ -56,7 +56,7 @@ cargos:
     nome: Eng. de IA (LLM e RAG)
     label: cargo:eng-ia
     titular: Mayara
-    github: null
+    github: MayaraVieiraa
     par: João (Eng. de software)
     missao: Transformar trechos recuperados em explicações fiéis e rastreáveis; dono do RAG jurídico, da geração e da integração da validação.
     pastas: [worker/evidencia/, worker/ingestao/, prompts/, corpus/]
@@ -73,7 +73,7 @@ cargos:
     nome: Eng. de software
     label: cargo:eng-software
     titular: João
-    github: null
+    github: joaomarcosmelo2023
     par: Davi (Eng. de dados)
     missao: Fazer tudo rodar de forma reprodutível, segura e utilizável.
     pastas: [frontend/, backend/, contratos/, infra/, worker/main.py, worker/publicacao.py, .github/]
