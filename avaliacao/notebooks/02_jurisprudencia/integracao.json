@@ -1,0 +1,13 @@
+{
+  "estado": "concluido",
+  "destino": "03_limpeza_estruturacao_jurisprudencia.ipynb",
+  "historico": {
+    "04_revisao_prontidao_jurisprudencia.ipynb": "notebooks\\02_jurisprudencia\\historico\\pre_integracao_20261114T094538808297Z\\04_revisao_prontidao_jurisprudencia.ipynb",
+    "05_origens_recuperacao_jurisprudencia.ipynb": "notebooks\\02_jurisprudencia\\historico\\pre_integracao_20261114T094538808297Z\\05_origens_recuperacao_jurisprudencia.ipynb"
+  },
+  "manifesto": "reports\\jurisprudencia\\integracao_notebooks\\20261114T094538808297Z\\manifesto.json",
+  "prefixos": {
+    "04_revisao_prontidao_jurisprudencia.ipynb": "rev04_",
+    "05_origens_recuperacao_jurisprudencia.ipynb": "ori05_"
+  }
+}

@@ -1,0 +1,424 @@
+# Fonte das issues do GitHub: uma por cargo × semana + uma de portão por semana.
+# Gerado a partir do "Roteiro de 7 semanas" e do "Guia por cargo" de docs/manual.md.
+# Itens com "feito:" já existem (herdados do lex_clt.ai @ 9c3f43f ou do esqueleto) e entram marcados.
+# Para recriar/atualizar: python scripts/criar_issues.py --repo <dono>/Lexai [--dry-run]
+
+cargos:
+  eng-dados:
+    nome: Eng. de dados
+    label: cargo:eng-dados
+    par: Eng. de ML e MLOps
+    missao: Transformar documentos em dados confiáveis, versionados e sem dado pessoal desnecessário.
+    pastas: [worker/leitura/, worker/ingestao/, dados/]
+    recebe: Curadoria (validação dos sintéticos) e Cientista de dados (esquema dos rótulos)
+    entrega: Eng. de ML (lotes rotulados), Eng. de IA (corpus dividido) e Cientista de dados (lotes para anotar)
+    metricas: cobertura do acervo por tipo de documento, taxa de erro do OCR, acerto do segmentador por regras, lotes reprovados no esquema
+    como_fazer_bem:
+      - Guarde página e posição de todo trecho — o app mostra o trecho literal ao lado da explicação.
+      - Passe a qualidade da leitura adiante no contrato; é ela que permite ao app dizer "não consegui ler bem".
+      - Teste o leitor com PDFs de varas diferentes do TRT-10; o layout muda de uma para outra.
+      - Nunca suba documento cru no Git; tudo passa pelo DVC depois da anonimização.
+  cientista-dados:
+    nome: Cientista de dados
+    label: cargo:cientista-dados
+    par: Eng. de IA
+    missao: Definir o que conta como acerto e medir se o sistema acerta.
+    pastas: [avaliacao/]
+    recebe: Eng. de dados (lotes), Eng. de ML e Eng. de IA (saídas para avaliar)
+    entrega: todos (definição de acerto e limiares) e Eng. de ML (rótulos e pares-ouro)
+    metricas: kappa entre anotadores, precisão validada por especialista, erros graves, compreensão, autonomia
+    como_fazer_bem:
+      - Escreva os casos armadilha antes de o modelo existir; eles definem o que é erro grave.
+      - Nos pares-ouro do verificador, inclua contradições sutis (pedido parcialmente procedente, valor diferente, prazo trocado).
+      - Peça a montagem dos lotes ao Eng. de dados e os rascunhos ao Eng. de IA; revise, não redija.
+      - Separe erro grave de erro comum em todo relatório.
+  eng-ml:
+    nome: Eng. de ML e MLOps
+    label: cargo:eng-ml
+    par: Cientista de dados
+    missao: Entregar os modelos que têm resposta certa e o ciclo que os leva com segurança até o app.
+    pastas: [treino/, worker/modelos/, .github/workflows/]
+    recebe: Eng. de dados (lotes) e Cientista de dados (rótulos, pares-ouro, limiares)
+    entrega: Eng. de IA (modelos em uso e seus limiares) e Eng. de software (portões no CI)
+    metricas: F1 por classe, acerto por campo, resultado invertido, nDCG do reranker, F1 do verificador, taxa de abstenção
+    como_fazer_bem:
+      - Baseline sempre primeiro; o modelo maior só entra se vencer na validação.
+      - Avalie por classe; o erro que importa é a troca entre procedente e improcedente.
+      - Mantenha o orçamento de memória do worker — todos os modelos juntos cabem com folga ao lado da LLM.
+      - Ajuste fino dos cross-encoders só com ganho medido nos pares-ouro, registrado como qualquer outro modelo.
+  eng-ia:
+    nome: Eng. de IA (LLM e RAG)
+    label: cargo:eng-ia
+    par: Eng. de software
+    missao: Transformar trechos recuperados em explicações fiéis e rastreáveis; dono do RAG jurídico, da geração e da integração da validação.
+    pastas: [worker/evidencia/, worker/ingestao/, prompts/, corpus/]
+    recebe: Eng. de dados (corpus dividido e Segmentos), Eng. de ML (modelos) e Curadoria (aprovações)
+    entrega: Eng. de software (RespostaVerificada e eventos) e Curadoria (rascunhos do catálogo e dos checklists)
+    metricas: recall por tipo de fonte (lei e jurisprudência), fidelidade, % de frases com fonte, recusa correta, legibilidade
+    como_fazer_bem:
+      - Nenhum trecho jurídico entra sem fonte, versão e vigência.
+      - Meça a recuperação separadamente por tipo de fonte; na média, um tipo bom esconde o ruim.
+      - O explicador recebe campos e trechos, não o documento inteiro.
+      - Prompt só muda por PR, com a suíte de perguntas verde e amostra revisada pela Curadoria.
+      - Publique uma frase só depois do verificador e da guarda de saída.
+  eng-software:
+    nome: Eng. de software
+    label: cargo:eng-software
+    par: Eng. de dados
+    missao: Fazer tudo rodar de forma reprodutível, segura e utilizável.
+    pastas: [frontend/, backend/, contratos/, infra/, worker/main.py, worker/publicacao.py, .github/]
+    recebe: todos os cargos (contratos e módulos para integrar)
+    entrega: todos (ambiente, CI e contratos) e a demo
+    metricas: latência até a primeira frase, tempo de espera na fila, disponibilidade da demo, usabilidade (SUS), incidentes de segurança
+    como_fazer_bem:
+      - O backend nunca importa biblioteca de ML; se precisar de um modelo, a tarefa vai para a fila.
+      - Toda consulta a trechos_usuario passa pela função que exige o id do usuário, e o teste de isolamento roda em todo PR.
+      - Tarefas são idempotentes; uma reentrega não duplica resultado.
+      - O app reconecta o streaming sozinho e mostra o que já foi gravado.
+      - Teste acessibilidade com teclado e leitor de tela, não só no olho.
+  curadoria:
+    nome: Curadoria jurídica
+    label: curadoria
+    par: "— (papel transversal: advogada do grupo + Cientista de dados)"
+    missao: Decidir sobre o conteúdo jurídico — sem redigir. Cada item chega pela fila "revisao-juridica" com rascunho, fonte e a pergunta exata.
+    pastas: [corpus/, avaliacao/, prompts/]
+    recebe: rascunhos e fontes de todos os cargos
+    entrega: aprova, corrige ou veta — com o motivo em uma frase
+    metricas: precisão (explicações aprovadas sem correção), horas de revisão dentro do limite combinado
+    como_fazer_bem:
+      - Responda no formato curto — aprova, corrige ou veta, com o motivo em uma frase.
+      - Todo veto vira um caso armadilha na suíte, para o erro não voltar.
+      - Se a fila passar das horas combinadas, avise no mesmo dia; o grupo corta escopo pelo plano de corte.
+
+semanas:
+  - numero: 1
+    titulo: Problema, stakeholders, riscos e métricas
+    deck: definições do projeto
+    portao: Escopo, métricas e guia de anotação aprovados pelo grupo; entrevistas registradas.
+    tarefas:
+      eng-dados:
+        requisitos: [RF01, RF02, RNF01]
+        itens:
+          - texto: Inventário de fontes — legislação (CLT e 24 normas correlatas do LawCodex)
+            feito: docs/legado/semana2_base_conhecimento_e_rag.md, corpus/manifesto.yml
+          - texto: Inventário de fontes — jurisprudência (base reduzida auditada)
+            feito: docs/legado/auditoria_jurisprudencia.md
+          - texto: Inventário de fontes — decisões públicas do TRT-10 e súmulas/OJs do TST
+          - texto: Protocolo de anonimização (CPF, nomes, endereços, saúde, testemunhas, empregador) e registro do que foi removido — partir de docs/legado/protecao_cpf_jurisprudencia.md (hoje só CPF)
+          - texto: Acervo sob DVC
+            feito: dados/*.dvc (corpus e relatórios herdados); falta o acervo de documentos processuais
+          - texto: Label Studio no ar para o grupo anotar
+          - texto: Contrato DocumentoLido revisado e aprovado (rascunho em contratos/documento.py)
+      cientista-dados:
+        requisitos: [RNF07]
+        itens:
+          - texto: Taxonomia de rótulos (tipo de documento, fase, campos, resultado por pedido, intenção)
+          - texto: Guia de anotação v1
+          - texto: Definição operacional das 7 métricas (compreensão, precisão, rastreabilidade, classificação, usabilidade, autonomia, segurança)
+          - texto: Roteiro e condução de 3 a 5 entrevistas com trabalhadores e advogados
+          - texto: Lista dos 5 erros graves com exemplos (meta zero)
+      eng-ml:
+        requisitos: [RF03, RNF04]
+        itens:
+          - texto: Baseline escolhido para cada tarefa (tipo/fase, campos, resultado por pedido, intenção, segmentação)
+          - texto: Memória e latência dos modelos candidatos medidas no MacBook M4 (LLM quantizada + BGE-M3 + reranker + NLI + BERTimbau)
+          - texto: Orçamento de memória do worker (todos os modelos carregados juntos)
+          - texto: ML Test Score inicial
+          - texto: MLflow no ar (serviço no Compose) com experimento de teste
+      eng-ia:
+        requisitos: [RF06, RNF03, RNF05]
+        itens:
+          - texto: Lista do corpus (25 normas, 5.284 artigos)
+            feito: corpus/manifesto.yml
+          - texto: Esquema do índice jurídico único, com tipo de fonte, versão e vigência — revisar o rascunho
+            feito: infra/migracoes/versions/0001_esquema_inicial.py (tabela corpus_juridico)
+          - texto: Critérios de benchmark de embeddings (BGE-M3 escolhido no lex_clt.ai)
+            feito: docs/legado/semana2_base_conhecimento_e_rag.md §6
+          - texto: Critérios de benchmark de reranker e LLM
+      eng-software:
+        requisitos: [RNF01, RNF02]
+        itens:
+          - texto: Repositório com layout do manual
+            feito: este repositório
+          - texto: CI (lint, contratos, testes, build do frontend)
+            feito: .github/workflows/ci.yml
+          - texto: Docker Compose (Postgres+pgvector, Redis, MLflow, MinIO)
+            feito: infra/docker-compose.yml
+          - texto: Esqueleto do backend e do app
+            feito: backend/main.py, frontend/src/App.tsx
+          - texto: Pasta de contratos e testes de contrato
+            feito: contratos/, tests/contratos/
+          - texto: Migração inicial do banco
+            feito: infra/migracoes/versions/0001_esquema_inicial.py
+          - texto: Gerar e versionar uv.lock e frontend/package-lock.json
+          - texto: Compose + migração + testes verdes na máquina de cada participante
+      curadoria:
+        requisitos: [RNF06]
+        itens:
+          - texto: Decisão de profundidade por fase (proposta — total em "antes do processo" e "até a sentença"; só explicação em recursos e execução)
+          - texto: Linha entre informação e aconselhamento, escrita
+          - texto: Horas de revisão por semana (vira restrição do projeto)
+
+  - numero: 2
+    titulo: Base de conhecimento e recuperação
+    deck: primeiro mecanismo RAG
+    portao: Recall da busca híbrida com reranker medido por tipo de fonte (lei e jurisprudência) e superior ao da busca só por palavra-chave; conjunto de teste congelado.
+    tarefas:
+      eng-dados:
+        requisitos: [RF01, RF02, RNF01]
+        itens:
+          - texto: Primeiro lote de PDFs lidos e anonimizados
+          - texto: Divisões por processo congeladas (sem vazamento entre treino e teste)
+          - texto: Divisão estrutural de leis por artigo
+            feito: dados/processed (legislacao_artigos_completos.json)
+          - texto: Divisão estrutural de jurisprudência (ementas)
+            feito: worker/ingestao/jurisprudencia/chunking_definitivo.py
+          - texto: Divisão estrutural de súmulas e OJs do TST
+          - texto: Validação de lotes com Pandera (lote fora do esquema interrompe o pipeline)
+      cientista-dados:
+        requisitos: [RF06, RNF04]
+        itens:
+          - texto: Análise exploratória do corpus jurídico
+            feito: avaliacao/notebooks/01_legislacao/02_eda_legislacao.ipynb, avaliacao/notebooks/02_jurisprudencia/02_eda_jurisprudencia.ipynb
+          - texto: Análise exploratória do acervo de documentos processuais (tipos, desbalanceamento, vocabulário, qualidade)
+          - texto: Rótulo-ouro do conjunto de teste (≥20% com dupla anotação e kappa de Cohen)
+          - texto: Cerca de 50 perguntas com a fonte esperada — já há legislação (avaliacao/dados/legislacao) e jurisprudência; completar e unificar
+          - texto: Pares-ouro de relevância para o reranker (pergunta, trecho, 0–2)
+          - texto: Casos armadilha v1 — partir de avaliacao/dados/integracao/casos_guardrails_entrada.jsonl
+      eng-ml:
+        requisitos: [RF03, RF06]
+        itens:
+          - texto: Baseline do classificador de tipo de documento (TF-IDF + regressão logística) rastreado no MLflow
+          - texto: Benchmark dos rerankers candidatos nos pares-ouro (bge-reranker-v2-m3 e outros), nDCG
+      eng-ia:
+        requisitos: [RF06, RNF03, RNF05]
+        itens:
+          - texto: Índice v1 de leis no pgvector
+            feito: worker/evidencia/indices/pgvector_store.py
+          - texto: Índice v1 de jurisprudência no pgvector
+            feito: worker/evidencia/indices/jurisprudencia_pgvector.py
+          - texto: Migrar para o índice único corpus_juridico com tipo_fonte (decisão docs/decisoes/0001)
+          - texto: Busca híbrida com RRF (BGE-M3 + léxico, k=60)
+            feito: worker/evidencia/recuperador.py
+          - texto: Trocar o léxico IDF próprio pelo full-text do Postgres em português
+          - texto: Comparação entre vetor, palavra-chave e híbrido por tipo de fonte
+            feito: dados/relatorios/legislacao/recuperacao, dados/relatorios/integracao/recuperacao
+          - texto: Investigar MRR baixo da jurisprudência (0,13 com reranker × 0,21 sem) — docs/legado/estado_integracao.md
+      eng-software:
+        requisitos: [RNF05]
+        itens:
+          - texto: Fila ingestao_juridica e execução do worker (esqueleto em worker/main.py e worker/pipelines.py)
+          - texto: Pipeline reprodutível do zero com um comando (dvc repro), só refazendo o que mudou
+          - texto: Testes de esquema no CI
+            feito: tests/contratos/
+      curadoria:
+        requisitos: [RF06, RNF05]
+        itens:
+          - texto: Aprovação das perguntas de avaliação de legislação
+            feito: avaliacao/dados/legislacao/eval_dataset_test_aprovado.json
+          - texto: Aprovação do corpus v1
+          - texto: Aprovação das ~50 perguntas unificadas
+          - texto: Aprovação de uma amostra dos pares-ouro
+
+  - numero: 3
+    titulo: Comparação LLM x RAG
+    deck: respostas baseadas em evidências
+    portao: Configuração e LLM escolhidas com base em fidelidade, erros graves e recusa correta, com o relatório publicado e o ganho de cada cross-encoder medido.
+    tarefas:
+      eng-dados:
+        requisitos: [RF02, RF03]
+        itens:
+          - texto: Segundo lote anotado, agora com campos para o extrator
+          - texto: Segmentador por regras (relatório, fundamentação, dispositivo) e divisão em trechos — baseline em worker/leitura/segmentador.py
+          - texto: Medir acerto por parte da decisão do segmentador por regras
+      cientista-dados:
+        requisitos: [RF04, RF06, RNF06]
+        itens:
+          - texto: Pares-ouro de verificação (frase, trecho → sustenta, contradiz, não trata), com contradições sutis
+          - texto: Análise de erros das quatro configurações
+          - texto: Contagem de erros graves
+          - texto: Validação da LLM como juiz contra a revisão humana (avaliacao/juiz.py; calibração com as 9 decisões da revisora)
+      eng-ml:
+        requisitos: [RF03, RF06, RNF04]
+        itens:
+          - texto: BERTimbau + LoRA contra o baseline no tipo de documento
+          - texto: Benchmark do verificador NLI (candidato mDeBERTa-v3 XNLI) nos pares-ouro
+          - texto: Baselines do segmentador por modelo e do resultado por pedido
+          - texto: Portão de regressão de modelo no CI
+      eng-ia:
+        requisitos: [RF04, RF06, RNF03, RNF07]
+        itens:
+          - texto: Quatro configurações — LLM sozinha, +RAG, +RAG+reranker, +RAG+reranker+verificador — em 2 ou 3 LLMs locais (geração com Qwen3 8B em andamento; avaliacao/scripts/)
+          - texto: Registro de prompts versionados
+            feito: prompts/explicador/v1.md, worker/evidencia/prompts.py (PROMPT_ID e sha256)
+          - texto: Saída estruturada frase → trecho (contratos.Explicacao)
+          - texto: Legibilidade (Flesch adaptado) das respostas
+          - texto: Relatório da semana 3
+      eng-software:
+        requisitos: [RF07, RNF01]
+        itens:
+          - texto: Autenticação (OAuth2 senha, Argon2, sessões que expiram, tentativas limitadas)
+          - texto: Fila perguntas com prioridade
+            feito: worker/filas.py, tests/worker/test_filas.py
+          - texto: API mínima para os testes (esqueleto em backend/main.py)
+          - texto: Suíte de avaliação rodando no CI
+      curadoria:
+        requisitos: [RNF06]
+        itens:
+          - texto: Revisão da amostra de respostas das quatro configurações
+
+  - numero: 4
+    titulo: Sistema multiagentes
+    deck: primeiro sistema multiagentes
+    portao: Um PDF entra pela fila e o app recebe, frase a frase, uma explicação com fontes, ponta a ponta, rodando no CI sobre o conjunto de teste.
+    tarefas:
+      eng-dados:
+        requisitos: [RF01, RF02]
+        itens:
+          - texto: Leitor e segmentador integrados ao worker
+          - texto: Contratos DocumentoLido e Segmentos validados no CI (teste dos dois lados)
+          - texto: Remoção de cabeçalho, rodapé e hifenização no leitor
+      cientista-dados:
+        requisitos: [RNF04]
+        itens:
+          - texto: Avaliação ponta a ponta no conjunto de teste
+          - texto: Limiares de abstenção, do reranker e do verificador definidos com o Eng. de ML
+      eng-ml:
+        requisitos: [RF02, RF03, RNF04, RNF06]
+        itens:
+          - texto: Extrator de campos (partes, datas, valores, pedidos)
+          - texto: Classificador de resultado por pedido (foco na troca procedente/improcedente)
+          - texto: Classificador de intenção da guarda de entrada (casos da Cientista de dados)
+          - texto: Calibração de confiança e abstenção
+          - texto: Reranker e verificador registrados no MLflow, carregados pelo worker (worker/modelos/registro.py)
+      eng-ia:
+        requisitos: [RF04, RF05, RF06, RF07, RF08, RNF03, RNF06]
+        itens:
+          - texto: Guardas de entrada e saída por regras
+            feito: worker/evidencia/guardas.py
+          - texto: Pipeline de evidência completo no worker — guarda de entrada, recuperador, reranker, explicador, verificador, guarda de saída
+          - texto: Indexação dos trechos do documento em trechos_usuario (mesmo modelo de embeddings)
+          - texto: Publicação por frase só depois do verificador e da guarda de saída
+          - texto: Rascunho do catálogo de fases (RF05)
+          - texto: Rascunho dos checklists por pedido e por fase (RF08)
+      eng-software:
+        requisitos: [RF01, RF07, RNF01, RNF02]
+        itens:
+          - texto: Fluxo completo por filas (documento e pergunta)
+          - texto: Gravação em resultados + repasse por SSE com reconexão a partir da última frase
+          - texto: Função única de acesso a trechos_usuario que exige o id do usuário + teste de isolamento no CI
+          - texto: Telas de envio, progresso e resumo com o trecho literal ao lado
+          - texto: Logs JSON sem dado pessoal
+      curadoria:
+        requisitos: [RF05, RF08]
+        itens:
+          - texto: Aprovação do catálogo de fases v1
+          - texto: Aprovação dos checklists v1
+
+  - numero: 5
+    titulo: Multimodalidade
+    deck: agentes multimodais
+    portao: Queda entre PDF e foto dentro do limite combinado; foto ruim recusada com pedido de nova foto.
+    tarefas:
+      eng-dados:
+        requisitos: [RF01, RF02]
+        itens:
+          - texto: Leitor de imagem — checagem de nitidez e inclinação, correção de inclinação, PaddleOCR
+          - texto: PDF sem texto nativo tratado como imagem
+          - texto: Conjunto de fotos tiradas pelo grupo em condições variadas
+          - texto: Taxa de erro de caracteres do OCR
+      cientista-dados:
+        requisitos: [RF02, RNF04]
+        itens:
+          - texto: Casos armadilha de foto (ilegível, cortada, duas páginas)
+          - texto: Queda de desempenho medida entre texto nativo e texto de OCR
+      eng-ml:
+        requisitos: [RF03, RNF04]
+        itens:
+          - texto: Ajuste com ruído de OCR, se necessário
+          - texto: Monitoramento de deriva e de confiança com Evidently
+      eng-ia:
+        requisitos: [RF02]
+        itens:
+          - texto: "Comparação opcional: OCR + pipeline contra um VLM local lendo a imagem (primeiro item do plano de corte)"
+      eng-software:
+        requisitos: [RF01, RNF01]
+        itens:
+          - texto: Envio de foto no app (câmera no celular)
+          - texto: Opt-in de guarda com armazenamento criptografado no MinIO e exclusão por prazo
+          - texto: '"Apagar meus dados" (original, trechos, resultados e conta) + teste no CI'
+      curadoria:
+        requisitos: [RF04]
+        itens:
+          - texto: Revisão das explicações geradas a partir de fotos
+
+  - numero: 6
+    titulo: Integração completa
+    deck: aplicação funcional
+    portao: Todos os portões do CI verdes; demo funcionando para as três personas (Ana, Rafael, Mariana).
+    tarefas:
+      eng-dados:
+        requisitos: [RNF01]
+        itens:
+          - texto: Datasheet do acervo (docs/datasheet.md)
+      cientista-dados:
+        requisitos: [RNF07]
+        itens:
+          - texto: Termo de consentimento do teste com pessoas
+          - texto: Roteiro e tarefas do teste com pessoas (compreensão antes/depois, autonomia, SUS)
+      eng-ml:
+        requisitos: [RNF03, RNF04]
+        itens:
+          - texto: Model cards de todos os modelos em uso, inclusive reranker e verificador (docs/model-cards/)
+          - texto: Fila de aprendizado ativo (previsões abaixo do limiar viram lote de anotação)
+      eng-ia:
+        requisitos: [RNF05]
+        itens:
+          - texto: Atualização jurídica completa uma vez, ponta a ponta, pela fila ingestao_juridica (candidata → regressão → Curadoria → em uso)
+      eng-software:
+        requisitos: [RF01, RF02, RF03, RF04, RF05, RF06, RF07, RF08, RNF02]
+        itens:
+          - texto: App com RF01 a RF08
+          - texto: Acessibilidade testada com teclado e leitor de tela (RNF02)
+          - texto: Painel de monitoramento (filas, latência até a primeira frase, memória do worker, falhas)
+          - texto: Teste com algumas pessoas usando ao mesmo tempo
+          - texto: Versão da demo congelada, com nota de mudança
+      curadoria:
+        requisitos: [RNF06]
+        itens:
+          - texto: Validação dos documentos sintéticos do teste
+          - texto: Aprovação da versão da demo
+
+  - numero: 7
+    titulo: Testes e refinamento
+    deck: relatório final e apresentação
+    portao: Relatório final, apresentação e reflexão do CBL entregues.
+    tarefas:
+      eng-dados:
+        requisitos: [RNF01]
+        itens:
+          - texto: "Relatório de dados: acervo, anonimização, lotes"
+      cientista-dados:
+        requisitos: [RNF07]
+        itens:
+          - texto: "Teste com 5 a 10 pessoas: compreensão antes e depois, usabilidade (SUS), autonomia"
+          - texto: Análise de erros final
+      eng-ml:
+        requisitos: [RF03]
+        itens:
+          - texto: Métricas finais no conjunto de teste congelado
+          - texto: ML Test Score final
+          - texto: Relatório de MLOps
+      eng-ia:
+        requisitos: [RF06, RNF03, RNF06]
+        itens:
+          - texto: Métricas finais de recuperação (por tipo de fonte), fidelidade, rastreabilidade e recusa
+      eng-software:
+        requisitos: [RNF02]
+        itens:
+          - texto: Correções da demo
+          - texto: Demonstração ao vivo na apresentação
+      curadoria:
+        requisitos: [RNF06]
+        itens:
+          - texto: Revisão jurídica do relatório final e dos avisos do app

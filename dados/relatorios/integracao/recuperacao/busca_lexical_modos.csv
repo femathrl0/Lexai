@@ -1,0 +1,13 @@
+configuracao,fonte,hit@1,hit@3,hit@10,mrr@10,segundos
+hibrida_reranker | integrada com cotas | idf,jurisprudencia,0.059,0.176,0.294,0.13,18.451
+hibrida_reranker | integrada com cotas | idf,legislacao,0.875,1.0,1.0,0.927,15.097
+hibrida_reranker | integrada com cotas | ts_rank_cd,jurisprudencia,0.059,0.118,0.176,0.086,20.683
+hibrida_reranker | integrada com cotas | ts_rank_cd,legislacao,0.875,1.0,1.0,0.917,20.97
+hibrida_rrf | jurisprudencia sozinha | idf,jurisprudencia,0.176,0.235,0.294,0.211,1.345
+hibrida_rrf | jurisprudencia sozinha | ts_rank_cd,jurisprudencia,0.059,0.059,0.235,0.081,3.118
+hibrida_rrf | legislacao sozinha | idf,legislacao,0.688,1.0,1.0,0.823,0.229
+hibrida_rrf | legislacao sozinha | ts_rank_cd,legislacao,0.312,0.75,1.0,0.567,0.236
+lexical | jurisprudencia sozinha | idf,jurisprudencia,0.176,0.235,0.235,0.196,0.775
+lexical | jurisprudencia sozinha | ts_rank_cd,jurisprudencia,0.0,0.118,0.235,0.054,1.982
+lexical | legislacao sozinha | idf,legislacao,0.438,0.625,0.875,0.553,0.035
+lexical | legislacao sozinha | ts_rank_cd,legislacao,0.0,0.0,0.125,0.016,0.168

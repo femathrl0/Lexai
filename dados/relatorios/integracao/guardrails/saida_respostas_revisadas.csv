@@ -1,0 +1,10 @@
+query_id,acao_entrada,humano,guardrail,concorda,bloqueantes
+q_test_01,responder,aprovada,aprovada,True,
+q_test_02,responder,aprovada,aprovada,True,
+q_test_03,responder,reprovada,reprovada,True,dispositivo_inconsistente
+q_test_04,responder,aprovada,aprovada,True,
+q_test_05,outra_jurisdicao,reprovada,reprovada,True,resposta_alem_do_escopo
+q_test_06,responder,aprovada,aprovada,True,
+q_test_07,responder,aprovada,aprovada,True,
+q_test_08,responder,aprovada,aprovada,True,
+q_test_neg_02,consulta_individual,reprovada,reprovada,True,consulta_individual_sem_ressalva

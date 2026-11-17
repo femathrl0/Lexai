@@ -1,0 +1,22 @@
+# Fontes jurídicas do corpus_juridico. Nenhum trecho entra sem fonte, versão e vigência.
+# Mudanças passam pela fila ingestao_juridica e pela aprovação da Curadoria (RNF05).
+fontes:
+  - id: lawcodex-br
+    tipo_fonte: lei
+    origem: https://github.com/LawCodex/br
+    versao: e2a0e14bfc5cddf9a88b2aa05c66536cdb547aa1
+    obtido_em: 2026-11-04
+    escopo: 25 normas (CLT e correlatas), 5.284 artigos
+    licenca: revisão pendente (ver README_lawcodex.md)
+  - id: jurisprudencia-base-reduzida
+    tipo_fonte: ementa
+    origem: ver docs/legado/origens_huggingface_jurisprudencia.md
+    versao: a registrar
+  - id: sumulas-oj-tst
+    tipo_fonte: [sumula, oj]
+    origem: https://www.tst.jus.br/sumulas
+    versao: a coletar (Eng. de dados, semana 2)
+  - id: trt10-decisoes
+    tipo_fonte: ementa
+    origem: https://www.trt10.jus.br
+    versao: a coletar

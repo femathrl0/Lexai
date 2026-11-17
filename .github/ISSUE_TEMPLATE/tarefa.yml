@@ -1,0 +1,25 @@
+name: Tarefa
+description: Tarefa que nasce de um entregável da semana no roteiro
+labels: []
+body:
+  - type: dropdown
+    id: cargo
+    attributes:
+      label: Cargo dono
+      options: [Eng. de dados, Cientista de dados, Eng. de ML e MLOps, Eng. de IA, Eng. de software, Curadoria jurídica]
+    validations: { required: true }
+  - type: input
+    id: requisito
+    attributes: { label: Requisito (RF/RNF), placeholder: "RF06, RNF03" }
+  - type: input
+    id: semana
+    attributes: { label: Semana do roteiro, placeholder: "3" }
+  - type: textarea
+    id: oque
+    attributes: { label: O que precisa ser entregue }
+    validations: { required: true }
+  - type: textarea
+    id: pronto
+    attributes:
+      label: Definição de pronto
+      value: "- [ ] tem teste\n- [ ] revisado pelo par\n- [ ] CI verde\n- [ ] aparece na demo da semana"

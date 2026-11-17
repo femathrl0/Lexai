@@ -1,0 +1,36 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Segredos
+.env
+.env.*
+!.env.example
+
+# Dados: nunca dados crus no Git — tudo passa pelo DVC (dados/*.dvc)
+/dados/raw/
+/dados/interim/
+/dados/output/
+/data/
+/reports/
+/output/
+
+# Modelos, índices e registros locais
+/models/
+/indexes/
+/mlruns/
+/mlartifacts/
+mlflow.db*
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Sistema
+.DS_Store
+*.log

@@ -1,0 +1,6 @@
+outs:
+- md5: 34d141a7ee5fd5daf0401b7cc20ac223.dir
+  size: 40587345
+  nfiles: 2
+  hash: md5
+  path: chunks

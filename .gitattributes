@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.ipynb linguist-documentation
+*.parquet binary
+*.png binary
+*.pdf binary
+# Dados de avaliação com hashes registrados: bytes preservados
+avaliacao/dados/** -text
+dados/relatorios/** -text

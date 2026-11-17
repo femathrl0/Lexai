@@ -1,0 +1,17 @@
+configuracao,fonte,hit@1,hit@3,hit@5,hit@10,mrr@10,cobertura@3,cobertura@5,segundos,perguntas
+hibrida_reranker | integrada,jurisprudencia,0.059,0.118,0.118,0.176,0.088,0.066,0.066,83.565,17
+hibrida_reranker | integrada,legislacao,0.25,0.5,0.5,0.625,0.377,,,63.755,16
+hibrida_reranker | integrada com cotas,jurisprudencia,0.059,0.118,0.118,0.176,0.088,0.066,0.066,94.086,17
+hibrida_reranker | integrada com cotas,legislacao,0.875,1.0,1.0,1.0,0.917,,,82.575,16
+hibrida_reranker | jurisprudencia sozinha,jurisprudencia,0.059,0.118,0.118,0.176,0.088,0.066,0.066,39.242,17
+hibrida_reranker | legislacao sozinha,legislacao,0.875,1.0,1.0,1.0,0.917,,,36.366,16
+hibrida_rrf | integrada,jurisprudencia,0.059,0.059,0.059,0.059,0.059,0.038,0.038,41.995,17
+hibrida_rrf | integrada,legislacao,0.125,0.562,0.75,0.812,0.339,,,3.791,16
+hibrida_rrf | integrada com cotas,jurisprudencia,0.059,0.059,0.059,0.235,0.081,0.038,0.038,3.603,17
+hibrida_rrf | integrada com cotas,legislacao,0.312,0.75,1.0,1.0,0.567,,,3.096,16
+hibrida_rrf | jurisprudencia sozinha,jurisprudencia,0.059,0.059,0.059,0.235,0.081,0.038,0.038,3.118,17
+hibrida_rrf | legislacao sozinha,legislacao,0.312,0.75,1.0,1.0,0.567,,,0.236,16
+lexical | jurisprudencia sozinha,jurisprudencia,0.0,0.118,0.118,0.235,0.054,0.038,0.038,1.982,17
+lexical | legislacao sozinha,legislacao,0.0,0.0,0.0,0.125,0.016,,,0.168,16
+semantica | jurisprudencia sozinha,jurisprudencia,0.118,0.118,0.118,0.294,0.138,0.038,0.038,1.034,17
+semantica | legislacao sozinha,legislacao,0.688,0.938,1.0,1.0,0.815,,,0.193,16

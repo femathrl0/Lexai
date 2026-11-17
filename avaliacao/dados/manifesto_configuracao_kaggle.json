@@ -1,0 +1,9 @@
+{
+  "notebook": "06_embeddings_gpu_kaggle.ipynb",
+  "sha256": "ca2f7b2d9238a630d2bf2f4cb858a67a4a58719d050ac2edf6139412aadc8cf1",
+  "provas": 3,
+  "modelo": "BAAI/bge-m3",
+  "revisao": "5617a9f61b028005a4858fdac845db406aefb181",
+  "inclui_jurisprudencia": false,
+  "inclui_credenciais": false
+}

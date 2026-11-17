@@ -1,0 +1,19 @@
+name: Revisão jurídica
+description: Item para a Curadoria decidir (aprova, corrige ou veta, com o motivo em uma frase)
+labels: ["revisao-juridica", "curadoria"]
+body:
+  - type: textarea
+    id: pergunta
+    attributes: { label: Pergunta exata que precisa de resposta }
+    validations: { required: true }
+  - type: textarea
+    id: rascunho
+    attributes: { label: Rascunho (preparado por outro cargo) }
+    validations: { required: true }
+  - type: textarea
+    id: fonte
+    attributes: { label: Fonte (lei, súmula, decisão, documento) }
+    validations: { required: true }
+  - type: dropdown
+    id: decisao
+    attributes: { label: Decisão da Curadoria, options: [Pendente, Aprova, Corrige, Veta] }

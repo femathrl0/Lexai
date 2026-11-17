@@ -1,0 +1,25 @@
+query_id,codigo,detalhe,frase
+q_test_01,afirmacao_sem_fonte,10 de 10 frases jurídicas sem citação,
+q_test_01,aviso_legal_ausente,Aviso acrescentado.,
+q_test_02,afirmacao_sem_fonte,12 de 13 frases jurídicas sem citação,
+q_test_02,aviso_legal_ausente,Aviso acrescentado.,
+q_test_03,dispositivo_inconsistente,"""20 %"" não aparece no §2 do art. 73 [Fonte 1]","O acréscimo sobre a remuneração diurna é de no mínimo 20%, conforme o Art. 73, § 2º da CLT (Fonte 1) e o Art. 14, § 2º da Lei Complementar 150/2015 (Fonte 2)."
+q_test_03,dispositivo_inconsistente,"""52 minutos"" não aparece no §2 do art. 73 [Fonte 1]","- O Art. 73, § 2º da CLT (Fonte 1) estabelece que a hora do trabalho noturno será computada como de 52 minutos e 30 segundos, o que é um detalhe técnico de cálculo de horas, mas não altera o valor da "
+q_test_03,dispositivo_inconsistente,"""30 segundos"" não aparece no §2 do art. 73 [Fonte 1]","- O Art. 73, § 2º da CLT (Fonte 1) estabelece que a hora do trabalho noturno será computada como de 52 minutos e 30 segundos, o que é um detalhe técnico de cálculo de horas, mas não altera o valor da "
+q_test_03,dispositivo_inconsistente,"""20 %"" não aparece no §3 do art. 73 [Fonte 1]","- O Art. 73, § 3º da CLT (Fonte 1) e o Art. 14, § 3º da Lei Complementar 150/2015 (Fonte 2) indicam que, em empresas que não têm trabalho noturno habitual, o acréscimo é calculado com base nos quantit"
+q_test_03,dispositivo_inconsistente,"""20 %"" não aparece no §3 do art. 14 [Fonte 2]","- O Art. 73, § 3º da CLT (Fonte 1) e o Art. 14, § 3º da Lei Complementar 150/2015 (Fonte 2) indicam que, em empresas que não têm trabalho noturno habitual, o acréscimo é calculado com base nos quantit"
+q_test_03,aviso_legal_ausente,Aviso acrescentado.,
+q_test_04,afirmacao_sem_fonte,9 de 13 frases jurídicas sem citação,
+q_test_04,aviso_legal_ausente,Aviso acrescentado.,
+q_test_05,afirmacao_sem_fonte,5 de 5 frases jurídicas sem citação,
+q_test_05,resposta_alem_do_escopo,Entrada classificada como outra_jurisdicao.,
+q_test_05,aviso_legal_ausente,Aviso acrescentado.,
+q_test_06,afirmacao_sem_fonte,9 de 10 frases jurídicas sem citação,
+q_test_06,aviso_legal_ausente,Aviso acrescentado.,
+q_test_07,afirmacao_sem_fonte,7 de 7 frases jurídicas sem citação,
+q_test_07,aviso_legal_ausente,Aviso acrescentado.,
+q_test_08,afirmacao_sem_fonte,17 de 18 frases jurídicas sem citação,
+q_test_08,aviso_legal_ausente,Aviso acrescentado.,
+q_test_neg_02,afirmacao_sem_fonte,6 de 6 frases jurídicas sem citação,
+q_test_neg_02,consulta_individual_sem_ressalva,A resposta não informa que o sistema não tem acesso ao processo ou aos registros da pessoa.,
+q_test_neg_02,aviso_legal_ausente,Aviso acrescentado.,

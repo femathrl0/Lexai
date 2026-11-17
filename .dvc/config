@@ -1,0 +1,5 @@
+[core]
+    autostage = true
+    remote = compartilhado
+['remote "compartilhado"']
+    url = ../../lexai-dvc-remote
