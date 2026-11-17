@@ -3,8 +3,11 @@
 Uso:
     python scripts/criar_issues.py --repo <dono>/Lexai            # cria no GitHub (precisa do gh autenticado)
     python scripts/criar_issues.py --dry-run --saida /tmp/issues  # só gera os corpos em Markdown
+    python scripts/criar_issues.py --repo <dono>/Lexai --atualizar  # reescreve o corpo das issues existentes
 
 É idempotente: labels são atualizadas, milestones e issues com o mesmo título não são duplicadas.
+Responsáveis: cada issue é atribuída ao `github` do titular (docs/roteiro_issues.yml) quando essa pessoa
+já tem acesso ao repositório; quem ainda não aceitou o convite é atribuído numa próxima execução.
 """
 from __future__ import annotations
 
@@ -58,6 +61,8 @@ def corpo_issue(s: dict, chave: str, cargo: dict, tarefa: dict) -> str:
     linhas = [
         f"**Missão do cargo:** {cargo['missao']}",
         "",
+        f"**Titular:** {titular(cargo)} · **Par (revisa e cobre):** {cargo['par']}",
+        "",
         f"**Semana {s['numero']} — {s['titulo']}** · entregável do deck: _{s['deck']}_",
         "",
         "### Entregáveis",
@@ -75,7 +80,6 @@ def corpo_issue(s: dict, chave: str, cargo: dict, tarefa: dict) -> str:
         "### Contexto",
         f"- **Requisitos:** {reqs or '—'}",
         f"- **Pastas:** {', '.join(f'`{p}`' for p in cargo['pastas'])}",
-        f"- **Par (revisa e cobre):** {cargo['par']}",
         f"- **Recebe de:** {cargo['recebe']}",
         f"- **Entrega para:** {cargo['entrega']}",
         f"- **Métricas do cargo:** {cargo['metricas']}",
@@ -91,8 +95,14 @@ def corpo_issue(s: dict, chave: str, cargo: dict, tarefa: dict) -> str:
     return "\n".join(linhas)
 
 
-def corpo_portao(s: dict, refs: list[str]) -> str:
+def titular(pessoa: dict) -> str:
+    return f"{pessoa['titular']} (@{pessoa['github']})" if pessoa.get("github") else pessoa["titular"]
+
+
+def corpo_portao(s: dict, refs: list[str], resp: dict) -> str:
     return "\n".join([
+        f"**Responsável:** {titular(resp)} — conduz a reunião de Demo e portão do fim da semana.",
+        "",
         f"**Critério do portão:** {s['portao']}",
         "",
         "A semana seguinte só começa com este portão aprovado ou com o desvio registrado em `docs/decisoes/`.",
@@ -109,12 +119,13 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--atualizar", action="store_true", help="reescreve o corpo das issues que já existem")
     ap.add_argument("--saida", type=Path, default=RAIZ / "dados" / "output" / "issues")
     a = ap.parse_args()
     if not a.dry_run and not a.repo:
         ap.error("--repo é obrigatório fora do --dry-run")
     roteiro = yaml.safe_load(ROTEIRO.read_text(encoding="utf-8"))
-    cargos, semanas = roteiro["cargos"], roteiro["semanas"]
+    cargos, semanas, resp_portao = roteiro["cargos"], roteiro["semanas"], roteiro["portao"]
 
     if a.dry_run:
         a.saida.mkdir(parents=True, exist_ok=True)
@@ -128,7 +139,7 @@ def main() -> None:
                     f"# {t}\n\n{corpo_issue(s, chave, cargos[chave], tarefa)}\n", encoding="utf-8")
                 n += 1
             (a.saida / f"s{s['numero']}_portao.md").write_text(
-                f"# [Semana {s['numero']}] Portão\n\n{corpo_portao(s, refs)}\n", encoding="utf-8")
+                f"# [Semana {s['numero']}] Portão\n\n{corpo_portao(s, refs, resp_portao)}\n", encoding="utf-8")
             n += 1
         print(f"{n} issues geradas em {a.saida}")
         return
@@ -153,12 +164,29 @@ def main() -> None:
     abertas = {i["title"]: i["number"] for i in
                json.loads(gh("issue", "list", *repo, "--state", "all", "--limit", "500", "--json", "title,number"))}
 
-    def criar(titulo: str, corpo: str, labels: list[str], milestone: str) -> int:
+    acesso: dict[str, bool] = {}
+
+    def tem_acesso(usuario: str | None) -> bool:
+        if not usuario:
+            return False
+        if usuario not in acesso:
+            r = subprocess.run(["gh", "api", f"repos/{a.repo}/collaborators/{usuario}"], capture_output=True)
+            acesso[usuario] = r.returncode == 0
+            if not acesso[usuario]:
+                print(f"@{usuario} ainda não tem acesso ao repositório; atribuição fica para a próxima execução")
+        return acesso[usuario]
+
+    def criar(titulo: str, corpo: str, labels: list[str], milestone: str, pessoa: dict) -> int:
+        atrib = ["--add-assignee", pessoa["github"]] if tem_acesso(pessoa.get("github")) else []
         if titulo in abertas:
-            print("já existe:", titulo)
-            return abertas[titulo]
+            num = abertas[titulo]
+            extra = ["--body-file", "-"] if a.atualizar else []
+            if extra or atrib:
+                gh("issue", "edit", str(num), *repo, *extra, *atrib, entrada=corpo if extra else None)
+                print("atualizada:", titulo)
+            return num
         url = gh("issue", "create", *repo, "--title", titulo, "--body-file", "-", "--milestone", milestone,
-                 *sum((["--label", lb] for lb in labels), []), entrada=corpo).strip()
+                 *sum((["--label", lb] for lb in labels), []), *atrib, entrada=corpo).strip()
         print("criada:", url)
         abertas[titulo] = int(url.rsplit("/", 1)[1])
         return abertas[titulo]
@@ -168,10 +196,11 @@ def main() -> None:
         for chave, tarefa in s["tarefas"].items():
             cargo = cargos[chave]
             labels = [cargo["label"], f"semana-{s['numero']}", *tarefa.get("requisitos", [])]
-            num = criar(titulo_issue(s, cargo), corpo_issue(s, chave, cargo, tarefa), labels, titulo_milestone(s))
-            refs.append(f"#{num} {cargo['nome']}")
-        criar(f"[Semana {s['numero']}] Portão — {s['titulo']}", corpo_portao(s, refs),
-              ["portao", f"semana-{s['numero']}"], titulo_milestone(s))
+            num = criar(titulo_issue(s, cargo), corpo_issue(s, chave, cargo, tarefa), labels, titulo_milestone(s),
+                        cargo)
+            refs.append(f"#{num} {cargo['nome']} — {cargo['titular']}")
+        criar(f"[Semana {s['numero']}] Portão — {s['titulo']}", corpo_portao(s, refs, resp_portao),
+              ["portao", f"semana-{s['numero']}"], titulo_milestone(s), resp_portao)
 
 
 if __name__ == "__main__":

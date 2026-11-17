@@ -209,12 +209,12 @@ Cada cargo é dono de uma parte do sistema e de um conjunto de métricas. Cada c
 
 | Cargo | Titular | Par (revisa o trabalho e cobre) |
 | :---- | :---- | :---- |
-| 1\. Engenheiro(a) de dados | a definir | Eng. de ML e MLOps |
-| 2\. Cientista de dados | advogada do grupo | Eng. de IA |
-| 3\. Engenheiro(a) de ML e MLOps | a definir | Cientista de dados |
-| 4\. Engenheiro(a) de IA (LLM e RAG) | a definir | Eng. de software |
-| 5\. Engenheiro(a) de software | a definir | Eng. de dados |
-| Curadoria jurídica (papel transversal) | advogada do grupo | — |
+| 1\. Engenheiro(a) de dados | Davi | Eng. de ML e MLOps |
+| 2\. Cientista de dados | Laisa (advogada do grupo) | Eng. de IA |
+| 3\. Engenheiro(a) de ML e MLOps | Felipe | Cientista de dados |
+| 4\. Engenheiro(a) de IA (LLM e RAG) | Mayara | Eng. de software |
+| 5\. Engenheiro(a) de software | João | Eng. de dados |
+| Curadoria jurídica (papel transversal) | Laisa (advogada do grupo) | — |
 
 ### **1\. Engenheiro(a) de dados**
 

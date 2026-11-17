@@ -7,7 +7,9 @@ cargos:
   eng-dados:
     nome: Eng. de dados
     label: cargo:eng-dados
-    par: Eng. de ML e MLOps
+    titular: Davi
+    github: null
+    par: Felipe (Eng. de ML e MLOps)
     missao: Transformar documentos em dados confiáveis, versionados e sem dado pessoal desnecessário.
     pastas: [worker/leitura/, worker/ingestao/, dados/]
     recebe: Curadoria (validação dos sintéticos) e Cientista de dados (esquema dos rótulos)
@@ -21,7 +23,9 @@ cargos:
   cientista-dados:
     nome: Cientista de dados
     label: cargo:cientista-dados
-    par: Eng. de IA
+    titular: Laisa
+    github: paiva-l
+    par: Mayara (Eng. de IA)
     missao: Definir o que conta como acerto e medir se o sistema acerta.
     pastas: [avaliacao/]
     recebe: Eng. de dados (lotes), Eng. de ML e Eng. de IA (saídas para avaliar)
@@ -35,7 +39,9 @@ cargos:
   eng-ml:
     nome: Eng. de ML e MLOps
     label: cargo:eng-ml
-    par: Cientista de dados
+    titular: Felipe
+    github: femathrl0
+    par: Laisa (Cientista de dados)
     missao: Entregar os modelos que têm resposta certa e o ciclo que os leva com segurança até o app.
     pastas: [treino/, worker/modelos/, .github/workflows/]
     recebe: Eng. de dados (lotes) e Cientista de dados (rótulos, pares-ouro, limiares)
@@ -49,7 +55,9 @@ cargos:
   eng-ia:
     nome: Eng. de IA (LLM e RAG)
     label: cargo:eng-ia
-    par: Eng. de software
+    titular: Mayara
+    github: null
+    par: João (Eng. de software)
     missao: Transformar trechos recuperados em explicações fiéis e rastreáveis; dono do RAG jurídico, da geração e da integração da validação.
     pastas: [worker/evidencia/, worker/ingestao/, prompts/, corpus/]
     recebe: Eng. de dados (corpus dividido e Segmentos), Eng. de ML (modelos) e Curadoria (aprovações)
@@ -64,7 +72,9 @@ cargos:
   eng-software:
     nome: Eng. de software
     label: cargo:eng-software
-    par: Eng. de dados
+    titular: João
+    github: null
+    par: Davi (Eng. de dados)
     missao: Fazer tudo rodar de forma reprodutível, segura e utilizável.
     pastas: [frontend/, backend/, contratos/, infra/, worker/main.py, worker/publicacao.py, .github/]
     recebe: todos os cargos (contratos e módulos para integrar)
@@ -79,6 +89,8 @@ cargos:
   curadoria:
     nome: Curadoria jurídica
     label: curadoria
+    titular: Laisa
+    github: paiva-l
     par: "— (papel transversal: advogada do grupo + Cientista de dados)"
     missao: Decidir sobre o conteúdo jurídico — sem redigir. Cada item chega pela fila "revisao-juridica" com rascunho, fonte e a pergunta exata.
     pastas: [corpus/, avaliacao/, prompts/]
@@ -89,6 +101,11 @@ cargos:
       - Responda no formato curto — aprova, corrige ou veta, com o motivo em uma frase.
       - Todo veto vira um caso armadilha na suíte, para o erro não voltar.
       - Se a fila passar das horas combinadas, avise no mesmo dia; o grupo corta escopo pelo plano de corte.
+
+# Responsável pelas issues de portão (reunião "Demo e portão" de fim de semana)
+portao:
+  titular: Felipe
+  github: femathrl0
 
 semanas:
   - numero: 1
