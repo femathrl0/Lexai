@@ -12,6 +12,7 @@ import argparse
 import json
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import yaml
@@ -34,10 +35,15 @@ OUTRAS = {"portao": ("000000", "Portão de fim de semana do roteiro"),
 
 
 def gh(*args: str, entrada: str | None = None) -> str:
-    r = subprocess.run(["gh", *args], input=entrada, capture_output=True, text=True)
-    if r.returncode != 0:
-        sys.exit(f"gh {' '.join(args[:3])}… falhou:\n{r.stderr}")
-    return r.stdout
+    # Repete só quando a conexão nem chegou a ser estabelecida (o pedido não foi enviado; não duplica nada).
+    for tentativa in range(8):
+        r = subprocess.run(["gh", *args], input=entrada, capture_output=True, text=True)
+        if r.returncode == 0:
+            return r.stdout
+        if not any(e in r.stderr for e in ("TLS handshake timeout", "dial tcp", "connection refused")):
+            break
+        time.sleep(2 * (tentativa + 1))
+    sys.exit(f"gh {' '.join(args[:3])}… falhou:\n{r.stderr}")
 
 
 def titulo_milestone(s: dict) -> str:
