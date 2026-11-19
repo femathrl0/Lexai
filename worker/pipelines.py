@@ -28,10 +28,25 @@ def processar_documento(tarefa_id: str, usuario_id: str, caminho: str, guardar: 
         os.remove(caminho)  # sem opt-in, o original é descartado (RNF01)
 
 
+_ORQUESTRADOR = None
+
+
+def _orquestrador():
+    """Montado uma vez por processo: só o worker carrega modelos (manual)."""
+    global _ORQUESTRADOR
+    if _ORQUESTRADOR is None:
+        from .evidencia.agentes.montagem import montar
+
+        _ORQUESTRADOR = montar(os.getenv("BUSCADOR", "local"))
+    return _ORQUESTRADOR
+
+
 def responder_pergunta(tarefa_id: str, usuario_id: str, pergunta: str, documento_id: str | None) -> None:
+    """Sistema multiagente: Triagem → Pesquisa → Análise → Comunicação → Validação (worker/evidencia/agentes)."""
     r = _redis()
-    publicar(r, tarefa_id, Status(etapa="buscando"))  # guarda de entrada -> recuperador -> reranker
-    publicar(r, tarefa_id, Concluido(versoes=Versoes()))
+    orq = _orquestrador()
+    orq.publicar = lambda evento: publicar(r, tarefa_id, evento)
+    orq.responder(pergunta, tarefa_id=tarefa_id)
 
 
 def ingerir_lote(tarefa_id: str, lote: str) -> None:

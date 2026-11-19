@@ -23,7 +23,7 @@ class Frase(Contrato):
 
 class Aviso(Contrato):
     tipo: Literal["aviso"] = "aviso"
-    categoria: Literal["incerteza", "sem_fonte", "recusa", "nova_foto"]
+    categoria: Literal["incerteza", "sem_fonte", "recusa", "encaminhamento", "nova_foto"]
     texto: str
 
 
