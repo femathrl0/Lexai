@@ -1,6 +1,6 @@
 # **Manual de MLOps e arquitetura — Desafio 2 (direitos trabalhistas)**
 
-Oct 29, 2026 · @felipe
+Oct 29, 2026 · @felipe · atualizado em 19/11/2026 (sistema multiagente da entrega de 20/11)
 
 Este manual define como o grupo vai construir a aplicação de compreensão de processos trabalhistas: a arquitetura, os cinco cargos e o papel transversal de Curadoria jurídica, um guia para os participantes, as práticas de MLOps, as ferramentas e o que cada semana do roteiro do deck precisa entregar. Ele ainda não traz código; é a base de decisões que o código vai seguir.
 
@@ -105,6 +105,17 @@ O worker tem três pipelines, um por fila. Os modelos ficam carregados na memór
 | Verificador | Confere cada frase antes de ela sair | Cross-encoder NLI sobre pares (frase, trecho citado): sustenta, contradiz ou não trata; regras conferem resultado e prazos | Eng. de ML (modelo); Eng. de IA (integração) |
 | Guarda de saída | Barra frases que dão ordens à pessoa | Padrões (“você deve”, “recorra”) e o classificador de intenção aplicado a cada frase; publica só frases aprovadas | Eng. de IA |
 
+**Como sistema multiagente (desde a entrega de 20/11).** Os módulos acima rodam como cinco agentes coordenados por um orquestrador próprio, em `worker/evidencia/agentes/` (decisão 0002). Cada agente escreve só a sua parte do estado da tarefa, e toda troca vira uma mensagem tipada registrada no rastro. A documentação completa, com diagramas, está em `docs/agentes/arquitetura.md`.
+
+| Agente | Módulos que reúne | O que acrescenta |
+| :---- | :---- | :---- |
+| Orquestrador | Encadeamento do pipeline | Estado explícito, roteamento, limites (uma reescrita e uma nova busca; no máximo 12 passos) e rastro |
+| Triagem | Guarda de entrada | Máscara de dados pessoais na pergunta; recusa com encaminhamento sem chamar a LLM |
+| Pesquisa | Recuperador híbrido \+ reranker | Expansão da consulta (palavras da pessoa → termos da lei) antes da 1ª busca; reformulação por LLM só quando a Validação pede nova busca |
+| Análise | Explicador | Frase a frase, cada uma ligada a um trecho; refaz as frases devolvidas usando o motivo |
+| Comunicação | Explicador (linguagem simples, RNF07) | Adapta ao público (leigo ou advogado) sem mudar conteúdo, responsável nem condição; mede a legibilidade |
+| Validação | Verificador \+ guarda de saída | Último portão: NLI por janela do trecho, regra de números e prazos antes do NLI e limiar calibrado nos pares-ouro (0,75 desde 19/11); devolve à Análise ou à Pesquisa uma vez cada; depois remove e avisa |
+
 **Ingestão jurídica** (fila ingestao\_juridica)
 
 | Módulo | O que faz | Como | Quem |
@@ -194,6 +205,9 @@ Os módulos só conversam por contratos tipados, guardados numa pasta compartilh
 | Evidencias | Recuperador \+ reranker | Explicador | Trechos com índice de origem, fonte, versão, vigência e nota do reranker |
 | Explicacao | Explicador | Verificador | Frases, cada uma com o id do trecho citado |
 | RespostaVerificada | Verificador \+ guarda de saída | Backend, app | Frases aprovadas, avisos de incerteza e ids dos modelos, do prompt e dos índices |
+| DecisaoTriagem | Agente de Triagem | Orquestrador, Pesquisa | Ação (responder, orientar sem aconselhar, fora do escopo, consulta individual, institucional, outra jurisdição), pergunta mascarada e resposta fixa |
+| Mensagem e Rastro | Cada agente | Orquestrador, demo, resultado da tarefa | Quem fala com quem, tipo (pedido, resultado, devolução, aviso), resumo, motivo, dados e tempo |
+| EstadoTarefa | Orquestrador | Todos os agentes | Pergunta, público, consulta, triagem, evidências, explicação, resposta, frases a refazer, contadores dos laços e rastro; é gravado sem a pergunta crua (`para_registro`) |
 
 ## **Ciclo de MLOps**
 
@@ -361,11 +375,15 @@ Esta seção é o ponto de partida de quem entra no grupo. Ela diz o que fazer n
 | worker/leitura/ | Leitor e segmentador por regras | Eng. de dados |
 | worker/modelos/ | Carregamento e inferência dos classificadores, do reranker e do verificador | Eng. de ML |
 | worker/evidencia/ | Recuperador, explicador, guardas e encadeamento do pipeline | Eng. de IA |
+| worker/evidencia/agentes/ | Orquestrador e os cinco agentes, buscadores, expansão de consulta, CLI de demo | Eng. de IA |
 | worker/ingestao/ | Pipeline de ingestão jurídica | Eng. de dados \+ Eng. de IA |
 | treino/ | Scripts e notebooks de treino, sempre rastreados no MLflow | Eng. de ML |
 | avaliacao/ | Suíte de avaliação, casos armadilha, pares-ouro e suíte de regressão jurídica | Cientista de dados |
+| avaliacao/agentes/ | Bateria do sistema multiagente, checagem de recuperação sem LLM, calibração do NLI, revisões da Curadoria | Cientista de dados \+ Eng. de IA |
+| avaliacao/pares\_ouro/ | Pares (frase, trecho, rótulo) do verificador; depois, os pares do reranker | Cientista de dados, com a Curadoria |
 | dados/ | Ponteiros do DVC; nunca dados crus no Git | Eng. de dados |
 | corpus/ | Fontes jurídicas versionadas | Eng. de IA \+ Curadoria |
+| corpus/jurisprudencia/ | Recorte anonimizado (súmulas do TST e ementas do TRT-10) para o buscador local, com o relatório de anonimização | Eng. de dados |
 | prompts/ | Prompts versionados | Eng. de IA |
 | infra/ | Docker Compose, CI, migrações do banco | Eng. de software |
 | docs/ | Decisões, model cards, datasheet | Todos |
@@ -476,6 +494,11 @@ Esta seção é o ponto de partida de quem entra no grupo. Ela diz o que fazer n
 | Calibração e abstenção | Ajustar a confiança do modelo para que ela signifique algo e, abaixo de um limiar, não afirmar |
 | Pares-ouro | Pares de textos rotulados por pessoas, usados para medir e escolher o reranker e o verificador |
 | Versão candidata | Versão de modelo ou índice registrada, mas ainda não usada pelo app |
+| Agente | Componente com uma responsabilidade só, que recebe o estado da tarefa, faz a sua parte e devolve uma mensagem |
+| Orquestrador | Quem decide qual agente roda a seguir e aplica os limites; não gera conteúdo jurídico |
+| Devolução | Mensagem em que a Validação manda trabalho de volta (refazer frases ou nova busca), no máximo uma vez cada |
+| Rastro | Lista ordenada de todas as mensagens de uma tarefa; prova da colaboração e registro de auditoria |
+| Expansão de consulta | Acrescentar à pergunta os termos da lei equivalentes às palavras da pessoa (“demissão” → “extinção do contrato”) |
 
 ## **Stack: o que usar e por quê**
 
@@ -549,6 +572,10 @@ A meta é o nível 1 de maturidade de MLOps até a semana 6: pipeline reprodutí
 * **Prompts versionados como código.** Cada resposta registra o identificador do prompt, dos modelos e da versão de cada índice que a geraram.  
 * **Gerar a partir do que já foi extraído.** O explicador recebe os campos do classificador e os trechos do reranker; não lê o documento inteiro e decide sozinho.  
 * **Cada frase com fonte, verificada antes de sair.** O verificador lê cada par (frase, trecho citado); reprovada, a frase é refeita uma vez ou removida. O streaming é por frase aprovada (RNF03).  
+* **Limiar do verificador vem da calibração, não de chute.** O limiar de p(sustenta) é o menor que mantém precisão ≥ 0,90 nos pares-ouro (`avaliacao/agentes/calibrar_nli.py`), medido com as regras de saída ligadas. Na v1 dos pares (19/11), nenhum limiar chegou a 0,90 com o mDeBERTa; vale o de maior precisão, 0,75 (precisão 0,875, recall 0,62), e o benchmark de outros NLI passa a ser prioridade do Eng. de ML.  
+* **Número e prazo conferidos por regra.** O NLI erra troca de número; antes dele, todo número com unidade na frase (dias, meses, %, horas) precisa estar no trecho citado, em algarismo ou por extenso.  
+* **Busca com o vocabulário da lei.** A pessoa pergunta com palavras do dia a dia; antes da busca, a Pesquisa acrescenta os termos técnicos equivalentes por um glossário revisável (`expansao.py`). A checagem de recuperação sem LLM (`checar_recuperacao.py`) roda a cada mudança no buscador.  
+* **Responder a todas as partes da pergunta.** Se a pergunta tem “o quê” e “em quanto tempo”, cada parte precisa de uma frase com fonte ou de um aviso de que faltou fonte; regra de categoria (doméstico, rural) só quando a pergunta fala dela.  
 * **Guarda de escopo nos dois lados.** Antes da LLM, o classificador de intenção desvia pedidos de aconselhamento; depois, a guarda de saída barra frases no imperativo sobre o caso (“você deve”, “recorra”).  
 * **LLM como juiz só se validado.** Antes de usar uma LLM para avaliar, mede-se a concordância dela com a Curadoria numa amostra.
 
@@ -671,6 +698,8 @@ O roteiro segue as semanas do deck. A leitura de fotos fica para a semana 5, com
 
 **Portão:** um PDF entra pela fila e o app recebe, frase a frase, uma explicação com fontes, ponta a ponta, rodando no CI sobre o conjunto de teste.
 
+**Entrega de 20/11 — primeiro sistema multiagente (estado em 19/11).** Feito: orquestrador e cinco agentes (Triagem, Pesquisa, Análise, Comunicação, Validação), contrato `contratos/agentes.py` com testes, CLI de demo, bateria de 15 perguntas, recorte de jurisprudência anonimizado, expansão de consulta, prompts v2, pares-ouro v1 do verificador e limiar do NLI calibrado, diagramas em PNG. Pendente: rodar a bateria com os prompts v2 no MacBook; aceite da Curadoria nos rótulos dos pares-ouro, nos `pontos_esperados` novos e na amostra de respostas; aprovação do contrato pelo Eng. de software. Ainda fora: entrada por PDF ponta a ponta (o protótipo responde perguntas) e o classificador de intenção treinado (a Triagem usa regras).
+
 ### **Semana 5 — Multimodalidade**
 
 **Entregável do deck:** agentes multimodais.
@@ -741,6 +770,8 @@ As sete métricas da documentação ganham aqui uma definição operacional, um 
 | Acerto por campo extraído | Classificador (extração) |
 | Acurácia do resultado por pedido, com foco na troca procedente/improcedente | Classificador (resultado) |
 | Recall nas primeiras posições, medido em cada índice | Recuperador híbrido |
+| Fonte esperada entre as evidências, por pergunta da bateria | Agente de Pesquisa (`checar_recuperacao.py`) |
+| Frases aprovadas na 1ª validação e devoluções por pergunta | Agentes de Análise, Comunicação e Validação |
 | nDCG nos pares-ouro de relevância | Reranker |
 | F1 por classe (sustenta, contradiz, não trata) nos pares-ouro | Verificador |
 | Fidelidade (frases sustentadas pela fonte) | Explicador \+ verificador |
