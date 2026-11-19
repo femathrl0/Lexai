@@ -51,7 +51,8 @@ def test_frase_reprovada_volta_para_a_analise_uma_vez_e_e_corrigida():
     orq, llm, _ = sistema([ruim, BOA])
     estado = orq.responder(PERGUNTA)
     devolucoes = [m for m in estado.rastro.mensagens if m.tipo == "devolucao"]
-    assert len(devolucoes) == 1 and devolucoes[0].para == "analise" and "contradiz" in devolucoes[0].motivo
+    # Desde 19/11 a regra de números barra "vinte dias" (o trecho diz dez) antes do NLI.
+    assert len(devolucoes) == 1 and devolucoes[0].para == "analise" and "vinte dias" in devolucoes[0].motivo
     assert "REPROVADA" in llm.ultimo_usuario["ExplicacaoLLM"]
     assert len(estado.resposta.frases) == 2 and not any("removidas" in a for a in estado.resposta.avisos)
 
@@ -109,3 +110,14 @@ def test_rastro_e_serializavel_e_tem_tempos():
     estado = orq.responder(PERGUNTA)
     assert all(m.ms is not None for m in estado.rastro.mensagens if m.tipo != "pedido")
     assert estado.model_validate_json(estado.model_dump_json()).resposta == estado.resposta
+
+
+def test_regra_de_numeros_compara_algarismo_e_extenso():
+    from worker.evidencia.agentes.validacao import numeros_ausentes
+
+    art473 = "II - até 3 (três) dias consecutivos, em virtude de casamento; IV - por um dia, em cada 12 (doze) meses"
+    assert numeros_ausentes("Pode faltar até 5 dias pelo casamento.", art473) == ["5 dias"]
+    assert numeros_ausentes("Pode faltar 3 dias pelo casamento e 1 dia a cada 12 meses.", art473) == []
+    assert numeros_ausentes("O empregador deposita 40% dos depósitos.", "quarenta por cento do montante") == []
+    assert numeros_ausentes("O total chega a 120 dias.", "até 60 (sessenta) dias, total de até 90 (noventa) dias") == [
+        "120 dias"]

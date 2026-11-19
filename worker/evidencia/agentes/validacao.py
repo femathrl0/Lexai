@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+
 from contratos import FraseAprovada, RespostaVerificada, Versoes
 from contratos.agentes import EstadoTarefa
 from worker.evidencia import guardas
@@ -12,6 +14,10 @@ CONSELHO = guardas._rx(r"\bvoce (deve|precisa|tem que|deveria)\b", r"\brecorra\b
                        r"\bentre com (uma )?(acao|processo|reclamacao)\b", r"\bexija\b", r"\bnao assine\b",
                        r"\baceite o acordo\b", r"\bvale a pena (processar|entrar)\b")
 JANELA = 1200  # caracteres por janela do trecho; artigos longos passam do limite de 512 tokens do NLI
+# Limiar de p(sustenta) do NLI. 0,75 desde 19/11: calibrado nos pares-ouro v1 com as regras de saída ligadas
+# (avaliacao/agentes/resultados/2026-11-19_calibracao_nli.md): precisão 0,875 e recall 0,62, contra 0,83 e 0,65
+# em 0,5. O portão de precisão 0,90 não é atingido com o mDeBERTa: próximo passo é o benchmark de outros NLI.
+LIMIAR_SUSTENTA = 0.75
 
 
 def _janelas(texto: str) -> list[str]:
@@ -21,6 +27,54 @@ def _janelas(texto: str) -> list[str]:
     return [texto[i:i + JANELA] for i in range(0, len(texto) - 200, passo)]
 
 
+# --- regra de números (manual: "regras conferem resultado e prazos") -----------------------------------------
+# O NLI erra troca de número (aprova "5 dias por casamento" contra um trecho que diz 3). Por isso todo número com
+# unidade na frase precisa aparecer no trecho citado, em algarismo ou por extenso.
+_UNIDADES = r"(%|por cento|minutos?|horas?|dias?|semanas?|meses|m[eê]s|anos?|segundos?|sal[aá]rios?(?:-m[ií]nimos?)?|vezes)"
+_EXTENSO = {"um": 1, "uma": 1, "dois": 2, "duas": 2, "tres": 3, "quatro": 4, "cinco": 5, "seis": 6, "sete": 7,
+            "oito": 8, "nove": 9, "dez": 10, "onze": 11, "doze": 12, "treze": 13, "quatorze": 14, "catorze": 14,
+            "quinze": 15, "dezesseis": 16, "dezessete": 17, "dezoito": 18, "dezenove": 19, "vinte": 20, "trinta": 30,
+            "quarenta": 40, "cinquenta": 50, "sessenta": 60, "setenta": 70, "oitenta": 80, "noventa": 90, "cem": 100,
+            "cento": 100, "duzentos": 200, "trezentos": 300}
+_PALAVRA_NUM = "(?:" + "|".join(sorted(_EXTENSO, key=len, reverse=True)) + ")"
+_EXTENSO_RX = re.compile(rf"\b{_PALAVRA_NUM}(?:\s+e\s+{_PALAVRA_NUM})*\b")
+_NUM_FRASE = re.compile(rf"(\d+(?:[.,]\d+)?|{_EXTENSO_RX.pattern})\s*(?:\(\w+\)\s*)?{_UNIDADES}", re.IGNORECASE)
+
+
+def _valor(token: str) -> float:
+    token = token.strip()
+    if token[0].isdigit():
+        return float(token.replace(".", "").replace(",", ".") if token.count(".") and "," in token
+                     else token.replace(",", "."))
+    return float(sum(_EXTENSO[p] for p in re.split(r"\s+e\s+", token)))
+
+
+def _numeros_do_trecho(texto: str) -> set[float]:
+    t = guardas._sem_acento(texto)
+    nums = {_valor(n) for n in re.findall(r"\d+(?:,\d+)?", t)}
+    return nums | {_valor(m.group(0)) for m in _EXTENSO_RX.finditer(t)}
+
+
+def numeros_ausentes(frase: str, trecho: str) -> list[str]:
+    """Números com unidade da frase ("5 dias", "40%", "dez dias") que não aparecem no trecho."""
+    presentes = _numeros_do_trecho(trecho)
+    return [m.group(0) for m in _NUM_FRASE.finditer(guardas._sem_acento(frase)) if _valor(m.group(1)) not in presentes]
+
+
+def motivo_por_regra(texto: str, trecho_texto: str | None) -> str | None:
+    """Regras de saída aplicadas antes do NLI. Devolve o motivo da reprovação ou None."""
+    base = guardas._sem_acento(texto)
+    if trecho_texto is None:
+        return "frase sem trecho de apoio"
+    if CONSELHO.search(base):
+        return "dá ordem à pessoa sobre o caso (aconselhamento)"
+    if guardas.PROMESSA.search(base):
+        return "promete resultado"
+    if ausentes := numeros_ausentes(texto, trecho_texto):
+        return f"número ou prazo que não está no trecho: {', '.join(ausentes)}"
+    return None
+
+
 class AgenteValidacao(Agente):
     nome = "validacao"
     responsabilidade = ("Validation Agent: último portão. Confere cada frase contra o trecho citado (NLI: sustenta, "
@@ -28,18 +82,14 @@ class AgenteValidacao(Agente):
                         "pessoal); devolve frases reprovadas para reescrita (1×), pede nova busca se faltar fonte (1×) "
                         "e, no fim, remove o que segue reprovado e emite avisos de incerteza.")
 
-    def __init__(self, verificador: Verificador | None, limiar_sustenta: float = 0.5, versoes_extra: dict | None = None):
+    def __init__(self, verificador: Verificador | None, limiar_sustenta: float = LIMIAR_SUSTENTA,
+                 versoes_extra: dict | None = None):
         self.verificador, self.limiar = verificador, limiar_sustenta
         self.versoes_extra = versoes_extra or {}
 
     def _julgar(self, texto: str, trecho) -> tuple[bool, str, dict]:
-        base = guardas._sem_acento(texto)
-        if trecho is None:
-            return False, "frase sem trecho de apoio", {}
-        if CONSELHO.search(base):
-            return False, "dá ordem à pessoa sobre o caso (aconselhamento)", {}
-        if guardas.PROMESSA.search(base):
-            return False, "promete resultado", {}
+        if motivo := motivo_por_regra(texto, trecho.texto if trecho is not None else None):
+            return False, motivo, {}
         if self.verificador is None:
             return True, "aprovada só pelas regras (NLI desligado)", {}
         melhor, probs_melhor = None, {}
