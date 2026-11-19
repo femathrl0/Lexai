@@ -22,6 +22,9 @@ RAIZ = Path(__file__).resolve().parents[3]
 ARTIGOS = RAIZ / "dados" / "processed" / "legislacao" / "legislacao_artigos_completos.json"
 CACHE = RAIZ / "dados" / "output" / "cache_buscador_local"
 RRF_K = 60
+JANELA_RERANKER = 500  # caracteres; o reranker lê até 256 tokens (consulta + trecho). 500 > 900 na bateria de 19/11
+CONSOLIDADA = ("sumula", "oj")
+NOTA_SUMULA = 0.5  # nota mínima do reranker para a súmula/OJ tomar a vaga de uma ementa
 
 NORMAS = {  # caminho -> nome curto para a citação
     "consolidacao-das-leis-do-trabalho-clt": "CLT",
@@ -77,6 +80,24 @@ def _limpar(texto: str) -> str:
     return re.sub(r"#+\s*|\*\*", "", texto).strip()
 
 
+def _inicio_adct(artigos: list[dict]) -> int | None:
+    """Posição em que começa o ADCT no arquivo da Constituição: a segunda ocorrência do "Art. 1º"."""
+    inicios = sorted(a.get("posicao_inicio", 0) for a in artigos
+                     if "constituicao" in a["caminho_relativo"] and re.fullmatch(r"Art\. 1º?", a["identificador_artigo"]))
+    return inicios[1] if len(inicios) > 1 else None
+
+
+def _numeros_artigo(consulta: str) -> set[str]:
+    """Números de artigo citados na pergunta: "art. 477", "artigo 60", "arts. 457 e 458", "art. 391-A"."""
+    numeros = set()
+    for m in re.finditer(r"\bartigos?\b|\barts?\.?", consulta, re.IGNORECASE):
+        trecho = consulta[m.end():m.end() + 40]
+        lista = re.match(r"\s*((?:\d+(?:-[A-Za-z])?[ºo°]?\s*(?:,|e)?\s*)+)", trecho)
+        if lista:
+            numeros.update(n.upper() for n in re.findall(r"\d+(?:-[A-Za-z])?", lista.group(1)))
+    return numeros
+
+
 def rrf(rankings: list[list[str]], k: int = RRF_K) -> dict[str, float]:
     esc: dict[str, float] = {}
     for ranking in rankings:
@@ -90,12 +111,17 @@ class BuscadorLocal:
                  usar_vetor: bool = True, usar_reranker: bool = True, device: str | None = None,
                  incluir_subsidiarias: bool = False):
         self.docs: list[dict] = []
-        for a in json.loads(Path(artigos).read_text(encoding="utf-8")):
+        todos = json.loads(Path(artigos).read_text(encoding="utf-8"))
+        inicio_adct = _inicio_adct(todos)
+        for a in todos:
             fora_do_recorte = (normas and not any(n in a["caminho_relativo"] for n in normas)) or (
                 not incluir_subsidiarias and any(s in a["caminho_relativo"] for s in SUBSIDIARIAS))
             if a.get("status_declarado") not in (None, "in_force") or fora_do_recorte:
                 continue
             norma = _nome_norma(a["caminho_relativo"])
+            if inicio_adct is not None and "constituicao" in a["caminho_relativo"] and \
+                    a.get("posicao_inicio", -1) >= inicio_adct:
+                norma = "ADCT"  # o LawCodex põe o ADCT no mesmo arquivo da Constituição, com numeração reiniciada
             self.docs.append(dict(
                 id=f"lei:{a['artigo_id'][:16]}", tipo_fonte="lei", fonte=f"{norma}, {a['identificador_artigo']}",
                 texto=_limpar(a["texto_artigo_completo"]), versao=f"lawcodex:{a['sha256_fonte'][:12]}",
@@ -131,12 +157,13 @@ class BuscadorLocal:
     def _bm25(self, consulta: str, k: int, k1: float = 1.5, b: float = 0.75) -> list[int]:
         q = _tokens(consulta)
         # "art. 477" na pergunta: o número do artigo vira um sinal forte, como no full-text do Postgres.
-        numeros = set(re.findall(r"art(?:igo)?\.?\s*(\d+)", _norm(consulta)))
+        numeros = _numeros_artigo(consulta)
         esc = []
         for i, tf in enumerate(self.tf):
             s = sum(self.idf.get(t, 0) * tf[t] * (k1 + 1) / (tf[t] + k1 * (1 - b + b * self.len[i] / self.media))
                     for t in q if t in tf)
-            if numeros and any(re.search(rf"\bArt\. {n}\b", self.docs[i]["fonte"]) for n in numeros):
+            if numeros and any(re.search(rf"\bArt\. {re.escape(n)}(?:º)?(?![\w-])", self.docs[i]["fonte"])
+                               for n in numeros):
                 s += 10
             if s > 0:
                 esc.append((s, i))
@@ -159,14 +186,15 @@ class BuscadorLocal:
         else:
             print(f"[buscador] gerando embeddings de {len(self.docs)} trechos (uma vez; fica em {arq})")
             self.vetores = self.encoder.encode([d["fonte"] + "\n" + d["texto"] for d in self.docs], batch_size=16,
-                                               normalize_embeddings=True, show_progress_bar=True)
+                                               normalize_embeddings=True, show_progress_bar=True,
+                                               convert_to_numpy=True).astype("float32")
             np.save(arq, self.vetores)
 
     def _vetor(self, consulta: str, k: int) -> list[int]:
         if self.vetores is None:
             return []
         import numpy as np
-        q = self.encoder.encode([consulta], normalize_embeddings=True)[0]
+        q = self.encoder.encode([consulta], normalize_embeddings=True, convert_to_numpy=True)[0].astype("float32")
         return list(np.argsort(-(self.vetores @ q))[:k])
 
     # --- busca ------------------------------------------------------------------------------------------------
@@ -176,22 +204,64 @@ class BuscadorLocal:
         ordem = sorted(fundidos, key=lambda i: -fundidos[i])[:candidatos]
         notas = {i: fundidos[i] for i in ordem}
         if self.reranker is not None and ordem:
-            for i, s in zip(ordem, self.reranker.predict([(consulta, self.docs[int(i)]["texto"][:2000]) for i in ordem],
-                                                         show_progress_bar=False), strict=True):
+            # O reranker lê ~256 tokens: em artigo longo, julga a janela mais parecida com a consulta (ex.: a alínea
+            # da gestante no fim do art. 10 do ADCT), não o começo do artigo.
+            pares = [(consulta, self._janela_relevante(self.docs[int(i)], consulta)) for i in ordem]
+            for i, s in zip(ordem, self.reranker.predict(pares, show_progress_bar=False), strict=True):
                 notas[i] = float(s)
             ordem.sort(key=lambda i: -notas[i])
         # Garante os dois tipos de fonte no topo (manual): cota por tipo antes de entregar.
-        saida, por_tipo = [], Counter()
+        escolhidos, por_tipo = [], Counter()
         for i in ordem:
+            grupo = "lei" if self.docs[int(i)]["tipo_fonte"] == "lei" else "jurisprudencia"
+            if por_tipo[grupo] < por_fonte:
+                por_tipo[grupo] += 1
+                escolhidos.append(i)
+        if self.reranker is not None:
+            escolhidos = self._priorizar_sumula(ordem, escolhidos, notas)
+        saida = []
+        for i in escolhidos:
             d = self.docs[int(i)]
-            grupo = "lei" if d["tipo_fonte"] == "lei" else "jurisprudencia"
-            if por_tipo[grupo] >= por_fonte:
-                continue
-            por_tipo[grupo] += 1
             saida.append(TrechoEvidencia(id=d["id"], indice="corpus_juridico", tipo_fonte=d["tipo_fonte"],
                                          texto=d["texto"][:4000], fonte=d["fonte"], versao=d["versao"],
                                          nota_reranker=round(notas[i], 4)))
         return saida
+
+
+    def _janela_relevante(self, doc: dict, consulta: str, tamanho: int = JANELA_RERANKER) -> str:
+        """Lei: rótulo + a janela de parágrafos seguidos com mais termos da consulta (pesados pelo IDF)."""
+        texto = doc["texto"]
+        cabeca = doc["fonte"] + "\n"
+        if doc["tipo_fonte"] != "lei":  # súmula e ementa: o essencial está no começo (verbetação)
+            return cabeca + texto[:2000]
+        if len(texto) <= tamanho:
+            return cabeca + texto
+        termos = set(_tokens(consulta))
+        paragrafos = [x for x in texto.split("\n") if x.strip()]
+        melhor, nota_melhor = texto[:tamanho], -1.0
+        for ini in range(len(paragrafos)):
+            janela = ""
+            for par in paragrafos[ini:]:
+                if janela and len(janela) + len(par) > tamanho:
+                    break
+                janela = f"{janela}\n{par}" if janela else par
+            nota = sum(self.idf.get(t, 0) for t in termos & set(_tokens(janela)))
+            if nota > nota_melhor:
+                melhor, nota_melhor = janela[:tamanho], nota
+        return cabeca + melhor
+
+    def _priorizar_sumula(self, ordem: list[str], escolhidos: list[str], notas: dict) -> list[str]:
+        """Súmula ou OJ relevante (nota ≥ NOTA_SUMULA) entra no lugar da última ementa de caso concreto: é o
+        entendimento consolidado do tribunal, mais útil para explicar a regra do que um caso isolado."""
+        tipo = {i: self.docs[int(i)]["tipo_fonte"] for i in ordem}
+        if any(tipo[i] in CONSOLIDADA for i in escolhidos):
+            return escolhidos
+        sumula = next((i for i in ordem if tipo[i] in CONSOLIDADA and notas[i] >= NOTA_SUMULA), None)
+        ementas = [i for i in escolhidos if tipo[i] not in ("lei", *CONSOLIDADA)]
+        if sumula is None or not ementas:  # com vaga sobrando a súmula já teria entrado pela ordem
+            return escolhidos
+        trocada = ementas[-1]
+        return [sumula if i == trocada else i for i in escolhidos]
 
 
 class BuscadorPgvector:

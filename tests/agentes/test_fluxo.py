@@ -21,7 +21,7 @@ def test_fluxo_feliz_passa_por_todos_os_agentes_na_ordem():
     assert all(f.texto.startswith("Em palavras simples") for f in estado.resposta.frases)
     assert any("não substitui" in a for a in estado.resposta.avisos)
     assert sum(isinstance(e, Frase) for e in eventos) == 2 and isinstance(eventos[-1], Concluido)
-    assert estado.resposta.versoes.prompt == "analise/v1"
+    assert estado.resposta.versoes.prompt == "analise/v2"
 
 
 def test_pedido_fora_do_escopo_nao_chama_a_llm():

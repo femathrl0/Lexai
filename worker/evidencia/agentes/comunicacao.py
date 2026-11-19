@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import re
 from hashlib import sha256
 from pathlib import Path
@@ -12,7 +13,8 @@ from contratos.agentes import EstadoTarefa
 from .base import Agente, Saida
 from .llm import LLM
 
-PROMPT_ID = "comunicacao/v1"
+# v2 desde 19/11 (bateria de 17/11). Para comparar com a versão anterior: LEXAI_PROMPT_COMUNICACAO=comunicacao/v1
+PROMPT_ID = os.getenv("LEXAI_PROMPT_COMUNICACAO", "comunicacao/v2")
 PROMPT = (Path(__file__).resolve().parents[3] / "prompts" / f"{PROMPT_ID}.md").read_text(encoding="utf-8")
 PROMPT_SHA256 = sha256(PROMPT.encode()).hexdigest()
 

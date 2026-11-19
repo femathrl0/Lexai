@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import re
 from hashlib import sha256
 from pathlib import Path
@@ -13,7 +14,8 @@ from worker.evidencia.explicador import NOTA_CASO_CONCRETO
 from .base import Agente, Saida
 from .llm import LLM
 
-PROMPT_ID = "analise/v1"
+# v2 desde 19/11 (bateria de 17/11). Para comparar com a versão anterior: LEXAI_PROMPT_ANALISE=analise/v1
+PROMPT_ID = os.getenv("LEXAI_PROMPT_ANALISE", "analise/v2")
 PROMPT = (Path(__file__).resolve().parents[3] / "prompts" / f"{PROMPT_ID}.md").read_text(encoding="utf-8")
 PROMPT_SHA256 = sha256(PROMPT.encode()).hexdigest()
 # Rótulos internos ("conforme T1", "[T2]") não podem vazar para o texto mostrado ao usuário.
