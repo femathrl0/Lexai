@@ -33,7 +33,8 @@ def main() -> None:
     ap.add_argument("--persona", choices=["leigo", "advogado"], default="leigo")
     ap.add_argument("--buscador", choices=["local", "pgvector"], default="local")
     ap.add_argument("--modelo", help="modelo do Ollama (padrão: $LLM_MODELO ou qwen3:8b)")
-    ap.add_argument("--jurisprudencia", help="JSONL com recorte de jurisprudência para o buscador local")
+    ap.add_argument("--jurisprudencia", help="JSONL de jurisprudência para o buscador local "
+                    "(padrão: corpus/jurisprudencia/recorte_demo.jsonl; \"\" desliga)")
     ap.add_argument("--sem-nli", action="store_true", help="Validação só por regras (sem o cross-encoder NLI)")
     ap.add_argument("--sem-reranker", action="store_true")
     ap.add_argument("--rastro", type=Path, help="salva o rastro completo em JSON")
@@ -53,7 +54,7 @@ def main() -> None:
         print(f"⚠ {aviso}")
     if a.rastro:
         a.rastro.parent.mkdir(parents=True, exist_ok=True)
-        a.rastro.write_text(json.dumps(estado.model_dump(mode="json"), ensure_ascii=False, indent=2), encoding="utf-8")
+        a.rastro.write_text(json.dumps(estado.para_registro(), ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"\nRastro salvo em {a.rastro}")
 
 

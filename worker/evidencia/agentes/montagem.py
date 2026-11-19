@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 from .analise import AgenteAnalise
 from .comunicacao import AgenteComunicacao
@@ -10,6 +11,9 @@ from .orquestrador import Orquestrador
 from .pesquisa import AgentePesquisa
 from .triagem import AgenteTriagem
 from .validacao import AgenteValidacao
+
+# Recorte de jurisprudência anonimizado (Eng. de dados): entra por padrão no buscador local quando existe.
+JURISPRUDENCIA_PADRAO = Path(__file__).resolve().parents[3] / "corpus" / "jurisprudencia" / "recorte_demo.jsonl"
 
 
 def montar(buscador: str = "local", modelo: str | None = None, nli: bool = True, reranker: bool = True,
@@ -20,7 +24,9 @@ def montar(buscador: str = "local", modelo: str | None = None, nli: bool = True,
         busca = BuscadorPgvector(os.environ["DATABASE_URL_LEGADO"], device=device or "cpu")
     else:
         from .buscadores import BuscadorLocal
-        busca = BuscadorLocal(jurisprudencia=jurisprudencia, usar_reranker=reranker, device=device)
+        if jurisprudencia is None and JURISPRUDENCIA_PADRAO.exists():
+            jurisprudencia = str(JURISPRUDENCIA_PADRAO)
+        busca = BuscadorLocal(jurisprudencia=jurisprudencia or None, usar_reranker=reranker, device=device)
     verificador = None
     if nli:
         from worker.evidencia.verificador import VerificadorNLI
