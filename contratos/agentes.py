@@ -75,3 +75,11 @@ class EstadoTarefa(BaseModel):
     novas_buscas: int = 0
     reescritas: int = 0
     rastro: Rastro = Field(default_factory=Rastro)
+
+    def para_registro(self) -> dict[str, Any]:
+        """Estado pronto para gravar (arquivo de rastro, resultado da tarefa): sem a pergunta crua.
+
+        A pergunta original pode ter CPF, nome ou número de processo; o que fica é `triagem.pergunta_sanitizada`,
+        já mascarada pela Triagem (RNF01: dado pessoal só fica com consentimento).
+        """
+        return self.model_dump(mode="json", exclude={"pergunta"})
