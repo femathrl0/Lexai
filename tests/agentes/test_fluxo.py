@@ -1,3 +1,5 @@
+import pytest
+
 from contratos.eventos import Concluido, Frase
 from worker.evidencia.agentes.comunicacao import flesch_pt
 
@@ -121,3 +123,24 @@ def test_regra_de_numeros_compara_algarismo_e_extenso():
     assert numeros_ausentes("O empregador deposita 40% dos depósitos.", "quarenta por cento do montante") == []
     assert numeros_ausentes("O total chega a 120 dias.", "até 60 (sessenta) dias, total de até 90 (noventa) dias") == [
         "120 dias"]
+
+
+def test_janelas_juntam_rotulo_do_artigo_ao_caput():
+    from worker.evidencia.agentes.validacao import _janelas
+
+    texto = ("Art. 473\n\nO empregado poderá deixar de comparecer ao serviço sem prejuízo do salário:\n\n"
+             "I - até 2 (dois) dias consecutivos, em caso de falecimento;\n\nVII - nos dias de prova de vestibular.")
+    js = _janelas(texto)
+    assert texto in js  # o artigo inteiro continua sendo uma janela
+    vii = [j for j in js if "VII" in j and "I - até" not in j]
+    assert vii and vii[0].startswith("Art. 473 O empregado poderá deixar de comparecer")
+
+
+def test_sobreposicao_e_regra_lexical():
+    from worker.evidencia.agentes.validacao import motivo_por_regra, sobreposicao
+
+    trecho = "Compreendem-se na remuneração do empregado as gorjetas que receber."
+    assert sobreposicao("gorjetas compõem a remuneração", trecho) == pytest.approx(2 / 3)  # "compõem" não está no trecho
+    assert motivo_por_regra("Horas extras nunca existem quando passar da jornada", trecho, 0.2)
+    assert motivo_por_regra("As gorjetas compreendem a remuneração do empregado", trecho, 0.2) is None
+    assert motivo_por_regra("Horas extras nunca existem", trecho, 0.0) is None  # limiar 0 desliga a regra

@@ -193,10 +193,46 @@ Os testes de `tests/agentes/` (24 desde 19/11) usam agentes simulados e rodam no
 | Revisão jurídica | As 29 frases liberadas avaliadas e `pontos_esperados` escritos para demo_* e arm_* | `avaliacao/agentes/revisao_curadoria_2026-11-19.md` (aguarda aceite da Laisa) |
 | Contrato e diagramas | Testes do contrato, `para_registro()` sem a pergunta crua, PNGs | `tests/contratos/test_agentes.py`, `img/*.png` |
 
+### Ajustes de 24/11 — Agente de Validação (Eng. de ML, issue #52)
+
+Medido com `avaliacao/agentes/calibrar_nli.py` nos mesmos 105 pares-ouro v1, com a Validação completa (regras + NLI). Relatórios em `avaliacao/agentes/resultados/2026-11-24_calibracao_nli_*.md`.
+
+| Configuração | Limiar | Precisão | Recall | Portão 0,90 |
+|---|---:|---:|---:|---|
+| 19/11: janelas de 1.200 caracteres + regra de números no artigo | 0,75 | 0,875 | 0,618 | não |
+| B: janela por dispositivo (caput, cada parágrafo e inciso com o começo do caput) | 0,90 | 0,900 | 0,794 | sim |
+| C: B + sobreposição lexical ≥ 0,2 | 0,90 | 0,915 | 0,794 | sim |
+| **E: C + número conferido no dispositivo que sustenta a frase (em uso)** | **0,55** | **0,912** | **0,912** | **sim** |
+
+O que cada mudança corrige:
+
+1. **Janela por dispositivo.** O mDeBERTa foi treinado com premissas curtas. Contra o artigo inteiro, ele não reconhecia nem a cópia literal de um parágrafo (p_sustenta = 0,00 no § 3º do art. 23 da LC 150; 0,95 contra o parágrafo sozinho). Agora cada parágrafo e inciso vira uma janela com o começo do caput, e vale a que mais sustenta a frase. O artigo inteiro continua entre as janelas, porque sem ele as frases que juntam caput e parágrafo perdem apoio. Quando a primeira linha é só "Art. 473", ela se junta ao caput.
+2. **Sobreposição lexical ≥ 0,2.** É um sinal independente do NLI. Barra a frase que o NLI aprova, mas que generaliza o trecho com palavras que ele não usa.
+3. **Número na janela de apoio.** O número trocado quase sempre existe em outro inciso do mesmo artigo ("5 dias" do nascimento numa frase sobre casamento, que é 3). A regra de números de 19/11 continua valendo para o artigo inteiro e, agora, também para o dispositivo que o NLI escolheu.
+4. **NLI em lote e na GPU.** A montagem passa a usar `mps` por padrão. Com o NLI na CPU, as janelas por dispositivo levavam a Validação a 85 s por pergunta. No MPS, em lote ordenado por tamanho, 10 frases contra o art. 473 (20 janelas) levam 8 s.
+
+**Na bateria de 24/11** (prompts v2, recorte de jurisprudência que a branch já carrega por padrão), foram liberadas 34 de 46 frases (74%; eram 69% em 17/11), com 75% de aprovação na 1ª validação (60% em 17/11). A Validação levou 9,4 s por pergunta (17,0 s em 17/11). Das 12 frases removidas, 3 caíram pela sobreposição lexical, todas paráfrases leigas do art. 462 no q_test_02, e ao menos uma está correta. Também seguem reprovadas pelo NLI frases corretas sobre o aviso prévio proporcional (demo_02) e a Súmula 244 (arm_01). As cinco vão para os pares-ouro v2. Resultado completo em `avaliacao/agentes/resultados/2026-11-24_qwen3-8b_analise-v2.md`.
+
+**Ressalvas.** O limiar foi escolhido e medido nos mesmos 105 pares, sem conjunto separado, então a precisão real tende a ser um pouco menor. Nos 38 pares adversariais a precisão é 0,58: negação ("as gorjetas não fazem parte da remuneração") e número trocado quando a janela vencedora é o artigo inteiro ainda passam. Um par segue em discussão para a Curadoria: `bat17-49`, que explica "sem justa causa" como "falta grave" (glossário invertido). Ele está rotulado como *sustenta*, mas a revisão de 19/11 sugeriu *não trata*.
+
+### Memória e latência no MacBook M4
+
+Medido em 24/11 com `python -m treino.medir_memoria_latencia`, com BGE-M3, reranker, NLI e BERTimbau no mesmo processo e a LLM no Ollama na configuração da entrega (`qwen3:8b` Q4_K_M, `num_ctx=16384`). Relatório: [`treino/relatorios/memoria_latencia_m4.md`](../../treino/relatorios/memoria_latencia_m4.md).
+
+| Item | Medida |
+|---|---:|
+| LLM no Ollama | 7,3 GB |
+| Modelos de ML juntos (pico) | 7,4 GB |
+| **Worker total** | **14,7 GB** de 16 disponíveis (24 GB − 8 GB para macOS, Docker e navegador) |
+| 1º token com contexto novo (~2,5 mil tokens) | 16–24 s (prefill ~105 tok/s) |
+| Geração | ~12 tok/s |
+
+Cabe, mas a folga é de 1,3 GB. Com `num_ctx=8192` a LLM ocupa 5,5 GB (medição de 19/11) e os prompts da bateria ficam em ~2,5 mil tokens: é a folga mais barata, se o grupo precisar. Com a `qwen3:8b-q8_0` do `.env.example` (~9 GB), não cabe. Para a demo, use `LLM_MODELO=qwen3:8b`.
+
 ## 7. Limitações e próximos passos
 
 - A Triagem ainda usa regras; o classificador de intenção (BERTimbau) chega na Semana 4 pelo Eng. de ML.
-- O verificador não atinge precisão 0,90 nos pares-ouro v1: o mDeBERTa aprova troca de número quando o número aparece em outro inciso do mesmo artigo e reprova paráfrases leigas corretas. Próximo passo: benchmark de outros cross-encoders NLI e pares-ouro revisados pela Curadoria.
+- O verificador atinge o portão de precisão 0,90 nos pares-ouro v1 desde 24/11 (0,912 / 0,912), mas com limiar escolhido nesses mesmos pares e precisão de 0,58 nos adversariais (negação e número trocado ainda passam). Próximos passos: pares-ouro revisados pela Curadoria com um conjunto separado para medir; benchmark de outros cross-encoders NLI nos mesmos pares.
 - A bateria com os prompts v2 ainda precisa rodar no MacBook (`rodar_bateria --modelo qwen3:8b`).
 - A arm_03 (prazo do FGTS) não traz o art. 477 entre as 3 leis; traz os arts. 18 e 20 da Lei 8.036.
 - O índice local cobre as 25 normas do LawCodex e o recorte de jurisprudência; o livro de súmulas é de 2018.

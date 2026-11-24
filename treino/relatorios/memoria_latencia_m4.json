@@ -1,0 +1,275 @@
+{
+  "quando": "2026-11-24T15:21:34",
+  "commit": "264807194dae9c084c0a3271068f3aa11089e659-sujo",
+  "maquina": {
+    "so": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "python": "3.14.6",
+    "cpu": "arm",
+    "chip": "Apple M4",
+    "ram_gb": "24"
+  },
+  "device": "mps",
+  "isolados": [
+    {
+      "modelo": "embeddings_bge_m3",
+      "repo": "BAAI/bge-m3",
+      "device": "mps",
+      "parametros": 567754752,
+      "carga_s": 4.780984582999736,
+      "memoria_modelo_gb": 3.699737548828125,
+      "memoria_pico_gb": 4.904052734375,
+      "memoria": {
+        "base": {
+          "rss_gb": 0.2045745849609375,
+          "mps_gb": 0.0004425048828125,
+          "total_gb": 0.20501708984375
+        },
+        "apos_carga": {
+          "rss_gb": 0.9277496337890625,
+          "mps_gb": 2.9770050048828125,
+          "total_gb": 3.904754638671875
+        },
+        "pico": {
+          "rss_gb": 1.1318206787109375,
+          "mps_gb": 3.9772491455078125,
+          "total_gb": 5.10906982421875
+        }
+      },
+      "latencia": {
+        "consulta_1": {
+          "p50_ms": 23.595416499119892,
+          "p95_ms": 25.288917000580113,
+          "media_ms": 23.758885449751688
+        },
+        "lote_32_trechos": {
+          "p50_ms": 8236.525540998628,
+          "p95_ms": 8834.198709000702,
+          "media_ms": 8142.743024800438
+        }
+      }
+    },
+    {
+      "modelo": "reranker_bge_v2_m3",
+      "repo": "BAAI/bge-reranker-v2-m3",
+      "device": "mps",
+      "parametros": 567755777,
+      "carga_s": 3.842715875000067,
+      "memoria_modelo_gb": 3.7535858154296875,
+      "memoria_pico_gb": 3.95684814453125,
+      "memoria": {
+        "base": {
+          "rss_gb": 0.2041473388671875,
+          "mps_gb": 0.0004425048828125,
+          "total_gb": 0.20458984375
+        },
+        "apos_carga": {
+          "rss_gb": 0.918670654296875,
+          "mps_gb": 3.0395050048828125,
+          "total_gb": 3.9581756591796875
+        },
+        "pico": {
+          "rss_gb": 1.1216888427734375,
+          "mps_gb": 3.0397491455078125,
+          "total_gb": 4.16143798828125
+        }
+      },
+      "latencia": {
+        "rerank_30_pares": {
+          "p50_ms": 5283.783604500059,
+          "p95_ms": 5391.511249999894,
+          "media_ms": 5241.598291699847
+        }
+      }
+    },
+    {
+      "modelo": "verificador_mdeberta_xnli",
+      "repo": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+      "device": "mps",
+      "parametros": 278811651,
+      "carga_s": 1.9266048339995905,
+      "memoria_modelo_gb": 1.5044708251953125,
+      "memoria_pico_gb": 1.796905517578125,
+      "memoria": {
+        "base": {
+          "rss_gb": 0.2043609619140625,
+          "mps_gb": 0.0004425048828125,
+          "total_gb": 0.204803466796875
+        },
+        "apos_carga": {
+          "rss_gb": 0.7010040283203125,
+          "mps_gb": 1.008270263671875,
+          "total_gb": 1.7092742919921875
+        },
+        "pico": {
+          "rss_gb": 0.9150543212890625,
+          "mps_gb": 1.0866546630859375,
+          "total_gb": 2.001708984375
+        }
+      },
+      "latencia": {
+        "par_1": {
+          "p50_ms": 132.87014549950982,
+          "p95_ms": 147.7706660007243,
+          "media_ms": 132.55555630003073
+        },
+        "resposta_10_frases": {
+          "p50_ms": 2980.8736459999636,
+          "p95_ms": 3003.8680420002493,
+          "media_ms": 2970.5548917998385
+        }
+      }
+    },
+    {
+      "modelo": "classificador_bertimbau_base",
+      "repo": "neuralmind/bert-base-portuguese-cased",
+      "device": "mps",
+      "parametros": 108926981,
+      "carga_s": 1.3677418749994104,
+      "memoria_modelo_gb": 1.4830780029296875,
+      "memoria_pico_gb": 1.352752685546875,
+      "memoria": {
+        "base": {
+          "rss_gb": 0.2046051025390625,
+          "mps_gb": 0.0004425048828125,
+          "total_gb": 0.205047607421875
+        },
+        "apos_carga": {
+          "rss_gb": 0.6798553466796875,
+          "mps_gb": 1.008270263671875,
+          "total_gb": 1.6881256103515625
+        },
+        "pico": {
+          "rss_gb": 0.5493011474609375,
+          "mps_gb": 1.0084991455078125,
+          "total_gb": 1.55780029296875
+        }
+      },
+      "latencia": {
+        "documento_512_tokens": {
+          "p50_ms": 59.860104500330635,
+          "p95_ms": 72.02233399948454,
+          "media_ms": 59.93405424987941
+        }
+      }
+    }
+  ],
+  "llm": {
+    "modelo": "qwen3:8b",
+    "num_ctx": 16384,
+    "quantizacao": "Q4_K_M",
+    "parametros": "8.2B",
+    "memoria_gb": 7.3141015619039536,
+    "memoria_vram_gb": 7.3141015619039536,
+    "ttft_ms_mediana": 22204.937249998693,
+    "geracao_tok_s_mediana": 12.10274346412697,
+    "prefill_tok_s_mediana": 106.00775179356174,
+    "corridas": [
+      {
+        "ttft_ms": 22204.937249998693,
+        "total_s": 29.230974249998326,
+        "tokens_prompt": 2534,
+        "tokens_saida": 85,
+        "prefill_tok_s": 114.72743496077263,
+        "geracao_tok_s": 12.10274346412697
+      },
+      {
+        "ttft_ms": 23758.646333999422,
+        "total_s": 32.53242870900067,
+        "tokens_prompt": 2430,
+        "tokens_saida": 103,
+        "prefill_tok_s": 102.87641177236371,
+        "geracao_tok_s": 11.74459318268555
+      },
+      {
+        "ttft_ms": 16237.9907500017,
+        "total_s": 19.76190312500148,
+        "tokens_prompt": 1707,
+        "tokens_saida": 44,
+        "prefill_tok_s": 106.00775179356174,
+        "geracao_tok_s": 12.498082680497877
+      }
+    ]
+  },
+  "juntos": {
+    "memoria_modelos_gb": 6.490875244140625,
+    "memoria_pico_gb": 7.3605804443359375,
+    "memoria": {
+      "base": {
+        "rss_gb": 0.2039642333984375,
+        "mps_gb": 0.0004425048828125,
+        "total_gb": 0.20440673828125
+      },
+      "apos_carga": {
+        "rss_gb": 1.4682769775390625,
+        "mps_gb": 5.2270050048828125,
+        "total_gb": 6.695281982421875
+      },
+      "pico": {
+        "rss_gb": 0.32110595703125,
+        "mps_gb": 7.2438812255859375,
+        "total_gb": 7.5649871826171875
+      }
+    },
+    "latencia_com_todos_carregados": {
+      "embeddings_bge_m3": {
+        "consulta_1": {
+          "p50_ms": 24.03395800047292,
+          "p95_ms": 24.77516599901719,
+          "media_ms": 24.11507069991785
+        },
+        "lote_32_trechos": {
+          "p50_ms": 10041.075709001234,
+          "p95_ms": 10229.823166999267,
+          "media_ms": 10060.465667000244
+        }
+      },
+      "reranker_bge_v2_m3": {
+        "rerank_30_pares": {
+          "p50_ms": 5482.616457999029,
+          "p95_ms": 6713.039958000081,
+          "media_ms": 5677.290016599727
+        }
+      },
+      "verificador_mdeberta_xnli": {
+        "par_1": {
+          "p50_ms": 145.32027099903644,
+          "p95_ms": 174.0355420006381,
+          "media_ms": 148.5858083999119
+        },
+        "resposta_10_frases": {
+          "p50_ms": 3171.329667000464,
+          "p95_ms": 3439.7439579988713,
+          "media_ms": 3120.1171999997314
+        }
+      },
+      "classificador_bertimbau_base": {
+        "documento_512_tokens": {
+          "p50_ms": 153.6087080003199,
+          "p95_ms": 243.05441699834773,
+          "media_ms": 161.0891709999123
+        }
+      }
+    }
+  },
+  "sistema_com_tudo": {
+    "total_gb": 24.0,
+    "disponivel_gb": 1.424774169921875,
+    "usada_pct": 94.1
+  },
+  "orcamento": {
+    "ram_total_gb": 24.0,
+    "reserva_sistema_gb": 8.0,
+    "orcamento_worker_gb": 16.0,
+    "llm_gb": 7.3141015619039536,
+    "modelos_pico_gb": 7.3605804443359375,
+    "worker_total_gb": 14.674682006239891,
+    "folga_gb": 1.325317993760109,
+    "cabe": true,
+    "por_modelo_isolado_gb": {
+      "embeddings_bge_m3": 4.9,
+      "reranker_bge_v2_m3": 3.96,
+      "verificador_mdeberta_xnli": 1.8,
+      "classificador_bertimbau_base": 1.35
+    }
+  }
+}

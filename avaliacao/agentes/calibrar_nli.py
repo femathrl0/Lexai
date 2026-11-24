@@ -24,20 +24,16 @@ import json
 from datetime import date
 from pathlib import Path
 
-from worker.evidencia.agentes.validacao import _janelas, motivo_por_regra
+from worker.evidencia.agentes.validacao import melhor_janela, motivo_na_janela, motivo_por_regra
 
 AQUI = Path(__file__).resolve().parent
 PARES = AQUI.parent / "pares_ouro" / "verificador_v1.jsonl"
 PRECISAO_MINIMA = 0.90
 
 
-def p_sustenta(verificador, frase: str, trecho: str) -> tuple[float, str]:
-    melhor, veredito = -1.0, "nao_trata"
-    for janela in _janelas(trecho):
-        v, probs = verificador.verificar(frase, janela)
-        if probs["sustenta"] > melhor:
-            melhor, veredito = probs["sustenta"], v
-    return melhor, veredito
+def p_sustenta(verificador, frase: str, trecho: str) -> tuple[float, str, str]:
+    veredito, probs, janela = melhor_janela(verificador, frase, trecho)
+    return probs["sustenta"], veredito, janela
 
 
 def metricas(pares: list[dict], limiar: float) -> dict:
@@ -63,6 +59,11 @@ def main() -> None:
     ap.add_argument("--pares", type=Path, default=PARES)
     ap.add_argument("--modelo", help="cross-encoder NLI (padrão: o do verificador)")
     ap.add_argument("--reusar", type=Path, help="JSON de uma calibração anterior: reaproveita p(sustenta) do NLI")
+    ap.add_argument("--limiar-lexical", type=float, default=None,
+                    help="sobreposição mínima frase × trecho (regra de saída); padrão: validacao.LIMIAR_LEXICAL")
+    ap.add_argument("--device", default=None, help="mps no Mac (o NLI na CPU é ~7× mais lento)")
+    ap.add_argument("--sufixo", default="", help="sufixo do arquivo de saída, para comparar configurações")
+    ap.add_argument("--sem-regra-janela", action="store_true", help="não confere números contra a janela do NLI")
     a = ap.parse_args()
 
     from worker.evidencia.verificador import MODELO_PADRAO
@@ -71,19 +72,22 @@ def main() -> None:
     if a.reusar:
         anterior = json.loads(a.reusar.read_text(encoding="utf-8"))
         nli = {x["id"]: x.get("p_nli", x.get("p")) for x in anterior["probabilidades"]}
+        janelas = {x["id"]: x.get("janela") for x in anterior["probabilidades"]}
         modelo = anterior["modelo"]
         for p in pares:
-            p["p_nli"] = nli[p["id"]]
+            p["p_nli"], p["janela"] = nli[p["id"]], janelas[p["id"]]
     else:
         from worker.evidencia.verificador import VerificadorNLI
 
-        ver = VerificadorNLI(a.modelo or MODELO_PADRAO)
+        ver = VerificadorNLI(a.modelo or MODELO_PADRAO, device=a.device)
         modelo = ver.modelo
         for i, p in enumerate(pares, 1):
-            p["p_nli"], _ = p_sustenta(ver, p["frase"], p["trecho"])
+            p["p_nli"], _, p["janela"] = p_sustenta(ver, p["frase"], p["trecho"])
             print(f"{i:3d}/{len(pares)} {p['rotulo']:>10} p={p['p_nli']:.3f}", flush=True)
     for p in pares:
-        p["regra"] = motivo_por_regra(p["frase"], p["trecho"])
+        p["regra"] = motivo_por_regra(p["frase"], p["trecho"], a.limiar_lexical)
+        if not p["regra"] and not a.sem_regra_janela and p.get("janela"):
+            p["regra"] = motivo_na_janela(p["frase"], p["janela"])
         p["p"] = 0.0 if p["regra"] else p["p_nli"]
 
     so_nli = [dict(p, p=p["p_nli"]) for p in pares]
@@ -97,7 +101,7 @@ def main() -> None:
     erros = [dict(id=p["id"], rotulo=p["rotulo"], p=round(p["p"], 3), frase=p["frase"], fonte=p["fonte"])
              for p in pares if (p["p"] >= escolhido["limiar"]) != (p["rotulo"] == "sustenta")]
 
-    saida = AQUI / "resultados" / f"{date.today():%Y-%m-%d}_calibracao_nli"
+    saida = AQUI / "resultados" / f"{date.today():%Y-%m-%d}_calibracao_nli{a.sufixo}"
     nli_no_escolhido = metricas(so_nli, escolhido["limiar"])
     barradas_por_regra = [dict(id=p["id"], rotulo=p["rotulo"], motivo=p["regra"]) for p in pares if p["regra"]]
     resultado = dict(modelo=modelo, pares=str(a.pares.relative_to(AQUI.parents[1])), n=len(pares),
@@ -107,9 +111,9 @@ def main() -> None:
                      so_nli_em_0_5=metricas(so_nli, 0.5), barradas_por_regra=barradas_por_regra,
                      tabela=tabela, por_origem=por_origem,
                      erros_no_escolhido=erros, probabilidades=[dict(id=p["id"], rotulo=p["rotulo"], p_nli=round(p["p_nli"], 4),
-                                                                    p=round(p["p"], 4))
+                                                                    p=round(p["p"], 4), janela=p.get("janela"))
                                                                for p in pares])
-    saida.with_suffix(".json").write_text(json.dumps(resultado, ensure_ascii=False, indent=2), encoding="utf-8")
+    (saida.parent / (saida.name + ".json")).write_text(json.dumps(resultado, ensure_ascii=False, indent=2), encoding="utf-8")
     linhas = [f"# Calibração do limiar do NLI — {date.today():%d/%m/%Y}\n",
               f"Modelo `{modelo}` · {len(pares)} pares de `{resultado['pares']}` "
               f"({', '.join(f'{v} {k}' for k, v in resultado['rotulos'].items())}) · regra: {resultado['regra']}\n",
@@ -129,7 +133,7 @@ def main() -> None:
                f"{v['em_0_5']['precisao']} / {v['em_0_5']['recall']} |" for o, v in por_origem.items()]
     linhas += ["\n## Erros no limiar escolhido\n", "| id | rótulo | p(sustenta) | frase | fonte |", "|---|---|---|---|---|"]
     linhas += [f"| {e['id']} | {e['rotulo']} | {e['p']} | {e['frase']} | {e['fonte']} |" for e in erros]
-    saida.with_suffix(".md").write_text("\n".join(linhas) + "\n", encoding="utf-8")
+    (saida.parent / (saida.name + ".md")).write_text("\n".join(linhas) + "\n", encoding="utf-8")
     print("\n".join(linhas[:3]), f"\n→ {saida}.md")
 
 
