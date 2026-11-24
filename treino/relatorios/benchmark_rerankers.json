@@ -1,0 +1,230 @@
+{
+  "quando": "2026-11-24T15:14:31",
+  "commit": "264807194dae9c084c0a3271068f3aa11089e659-sujo",
+  "relevancia": "provisória: referências aprovadas de legislação = 2, demais candidatos = 0",
+  "artigos": 5127,
+  "perguntas": {
+    "dev": 11,
+    "test": 9
+  },
+  "k_cada": 20,
+  "k_pool": 30,
+  "escolhido_no_dev": "reranker:BAAI/bge-reranker-v2-m3",
+  "resultados": {
+    "teto_conjunto_candidatos": {
+      "dev": {
+        "recall@pool": 1.0
+      },
+      "test": {
+        "recall@pool": 1.0
+      }
+    },
+    "sem_reranker:palavra_chave": {
+      "metricas": {
+        "dev": {
+          "ndcg@1": 0.1111111111111111,
+          "ndcg@3": 0.43450798016893016,
+          "ndcg@5": 0.46384888267699576,
+          "ndcg@10": 0.5384791119985236,
+          "recall@1": 0.1111111111111111,
+          "recall@3": 0.6111111111111112,
+          "recall@5": 0.6666666666666666,
+          "recall@10": 0.8888888888888888,
+          "mrr@10": 0.4212962962962963,
+          "perguntas": 9
+        },
+        "test": {
+          "ndcg@1": 0.2857142857142857,
+          "ndcg@3": 0.35714285714285715,
+          "ndcg@5": 0.41866807972477044,
+          "ndcg@10": 0.46373449069416023,
+          "recall@1": 0.2857142857142857,
+          "recall@3": 0.42857142857142855,
+          "recall@5": 0.5714285714285714,
+          "recall@10": 0.7142857142857143,
+          "mrr@10": 0.3869047619047619,
+          "perguntas": 7
+        }
+      }
+    },
+    "sem_reranker:denso": {
+      "metricas": {
+        "dev": {
+          "ndcg@1": 0.6666666666666666,
+          "ndcg@3": 0.8769765845238191,
+          "ndcg@5": 0.8769765845238191,
+          "ndcg@10": 0.8769765845238191,
+          "recall@1": 0.6111111111111112,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr@10": 0.8333333333333334,
+          "perguntas": 9
+        },
+        "test": {
+          "ndcg@1": 0.8571428571428571,
+          "ndcg@3": 0.9472756790816368,
+          "ndcg@5": 0.9472756790816368,
+          "ndcg@10": 0.9472756790816368,
+          "recall@1": 0.7857142857142857,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr@10": 0.9285714285714286,
+          "perguntas": 7
+        }
+      }
+    },
+    "sem_reranker:hibrido_rrf": {
+      "metricas": {
+        "dev": {
+          "ndcg@1": 0.7777777777777778,
+          "ndcg@3": 0.7777777777777778,
+          "ndcg@5": 0.8256307286748215,
+          "ndcg@10": 0.8652093050201572,
+          "recall@1": 0.7222222222222222,
+          "recall@3": 0.7777777777777778,
+          "recall@5": 0.8888888888888888,
+          "recall@10": 1.0,
+          "mrr@10": 0.8240740740740741,
+          "perguntas": 9
+        },
+        "test": {
+          "ndcg@1": 0.8571428571428571,
+          "ndcg@3": 0.9124075438906488,
+          "ndcg@5": 0.950131561401019,
+          "ndcg@10": 0.950131561401019,
+          "recall@1": 0.8571428571428571,
+          "recall@3": 0.9285714285714286,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr@10": 0.9285714285714286,
+          "perguntas": 7
+        }
+      }
+    },
+    "reranker:BAAI/bge-reranker-v2-m3": {
+      "metricas": {
+        "dev": {
+          "ndcg@1": 0.8888888888888888,
+          "ndcg@3": 0.9589921948412731,
+          "ndcg@5": 0.9589921948412731,
+          "ndcg@10": 0.9589921948412731,
+          "recall@1": 0.8333333333333334,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr@10": 0.9444444444444444,
+          "perguntas": 9
+        },
+        "test": {
+          "ndcg@1": 0.8571428571428571,
+          "ndcg@3": 0.9562037719453244,
+          "ndcg@5": 0.9562037719453244,
+          "ndcg@10": 0.9562037719453244,
+          "recall@1": 0.8571428571428571,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr@10": 0.9285714285714286,
+          "perguntas": 7
+        }
+      },
+      "separacao_sem_resposta": {
+        "auc_top1": 1.0,
+        "nota_top1_media_com_resposta": 0.9544161707162857,
+        "nota_top1_media_sem_resposta": 0.19592141441535205,
+        "sem_resposta": 4
+      },
+      "carga_s": 2.6367610830002377,
+      "latencia_por_pergunta_s": {
+        "p50": 4.00442497899985,
+        "max": 4.566533708999486
+      },
+      "pares_por_pergunta": 30
+    },
+    "reranker:Alibaba-NLP/gte-multilingual-reranker-base": {
+      "erro": "PermissionError: Alibaba-NLP/gte-multilingual-reranker-base executa código remoto; rode com --permitir-codigo-remoto"
+    },
+    "reranker:cross-encoder/mmarco-mMiniLMv2-L12-H384-v1": {
+      "metricas": {
+        "dev": {
+          "ndcg@1": 0.7777777777777778,
+          "ndcg@3": 0.9034366392857175,
+          "ndcg@5": 0.9034366392857175,
+          "ndcg@10": 0.9034366392857175,
+          "recall@1": 0.7222222222222222,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr@10": 0.8703703703703703,
+          "perguntas": 9
+        },
+        "test": {
+          "ndcg@1": 0.8571428571428571,
+          "ndcg@3": 0.9358072203885207,
+          "ndcg@5": 0.9358072203885207,
+          "ndcg@10": 0.9358072203885207,
+          "recall@1": 0.7857142857142857,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr@10": 0.9285714285714286,
+          "perguntas": 7
+        }
+      },
+      "separacao_sem_resposta": {
+        "auc_top1": 1.0,
+        "nota_top1_media_com_resposta": 4.294290721416473,
+        "nota_top1_media_sem_resposta": -1.4690365195274353,
+        "sem_resposta": 4
+      },
+      "carga_s": 1.3231375409995962,
+      "latencia_por_pergunta_s": {
+        "p50": 0.40136722899933375,
+        "max": 0.446431999998822
+      },
+      "pares_por_pergunta": 30
+    },
+    "reranker:unicamp-dl/mMiniLM-L6-v2-pt-v2": {
+      "metricas": {
+        "dev": {
+          "ndcg@1": 0.4444444444444444,
+          "ndcg@3": 0.6673262726088701,
+          "ndcg@5": 0.6966671751169358,
+          "ndcg@10": 0.7337042121539727,
+          "recall@1": 0.3888888888888889,
+          "recall@3": 0.8333333333333334,
+          "recall@5": 0.8888888888888888,
+          "recall@10": 1.0,
+          "mrr@10": 0.6640211640211641,
+          "perguntas": 9
+        },
+        "test": {
+          "ndcg@1": 0.7142857142857143,
+          "ndcg@3": 0.884775200516753,
+          "ndcg@5": 0.884775200516753,
+          "ndcg@10": 0.884775200516753,
+          "recall@1": 0.7142857142857143,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr@10": 0.8333333333333333,
+          "perguntas": 7
+        }
+      },
+      "separacao_sem_resposta": {
+        "auc_top1": 0.96875,
+        "nota_top1_media_com_resposta": 5.110017776489258,
+        "nota_top1_media_sem_resposta": -0.008106879889965057,
+        "sem_resposta": 4
+      },
+      "carga_s": 1.0586575830002403,
+      "latencia_por_pergunta_s": {
+        "p50": 0.20798979150004016,
+        "max": 0.2683461670003453
+      },
+      "pares_por_pergunta": 30
+    }
+  }
+}

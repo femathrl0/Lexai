@@ -1,0 +1,637 @@
+{
+  "lote": {
+    "id": "repojus-trt10-2024",
+    "url": "https://huggingface.co/datasets/efaraneda/repojus/resolve/91aa953b3c976a8688135dea49cf6644f7732243/data/v3/p_tribunal=TRT10/p_ano=2024/part-00000.parquet",
+    "caminho": "/Users/aluno2/Documents/CBL-02/Lexai/dados/raw/repojus/trt10_2024.parquet",
+    "sha256": "453efb25ce420dbb34b78cccb1fd849d84bc76a40505febc03290e8ff1be6505",
+    "licenca": "CC BY 4.0"
+  },
+  "semente": "lexai-divisao-v1",
+  "distribuicao": {
+    "treino": {
+      "recurso_ordinario": 9096,
+      "embargos_declaracao": 3815,
+      "agravo_peticao": 2864,
+      "agravo_instrumento": 427,
+      "acao_originaria": 276
+    },
+    "validacao": {
+      "recurso_ordinario": 2004,
+      "embargos_declaracao": 857,
+      "agravo_peticao": 602,
+      "agravo_instrumento": 93,
+      "acao_originaria": 71
+    },
+    "teste": {
+      "recurso_ordinario": 1952,
+      "embargos_declaracao": 799,
+      "agravo_peticao": 550,
+      "agravo_instrumento": 84,
+      "acao_originaria": 78
+    }
+  },
+  "rotulos_corrigidos_para_embargos": {
+    "acao_originaria": 55,
+    "agravo_instrumento": 34,
+    "agravo_peticao": 336,
+    "recurso_ordinario": 1740
+  },
+  "resultados": {
+    "majoritaria": {
+      "params": {
+        "classe": "recurso_ordinario"
+      },
+      "validacao": {
+        "acuracia": 0.5525227460711332,
+        "f1_macro": 0.14235482152370807,
+        "por_classe": {
+          "recurso_ordinario": {
+            "precisao": 0.5525227460711332,
+            "recall": 1.0,
+            "f1": 0.7117741076185403,
+            "suporte": 2004
+          },
+          "agravo_peticao": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 602
+          },
+          "embargos_declaracao": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 857
+          },
+          "agravo_instrumento": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 93
+          },
+          "acao_originaria": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 71
+          }
+        },
+        "abstencoes": 0,
+        "matriz_confusao": {
+          "recurso_ordinario": {
+            "recurso_ordinario": 2004
+          },
+          "agravo_peticao": {
+            "recurso_ordinario": 602
+          },
+          "embargos_declaracao": {
+            "recurso_ordinario": 857
+          },
+          "agravo_instrumento": {
+            "recurso_ordinario": 93
+          },
+          "acao_originaria": {
+            "recurso_ordinario": 71
+          }
+        },
+        "fase_acuracia": 0.6429556106975461,
+        "fase_trocada": 1295,
+        "fase_abstencao": 0
+      },
+      "teste": {
+        "acuracia": 0.563673115795553,
+        "f1_macro": 0.14419205909510618,
+        "por_classe": {
+          "recurso_ordinario": {
+            "precisao": 0.563673115795553,
+            "recall": 1.0,
+            "f1": 0.720960295475531,
+            "suporte": 1952
+          },
+          "agravo_peticao": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 550
+          },
+          "embargos_declaracao": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 799
+          },
+          "agravo_instrumento": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 84
+          },
+          "acao_originaria": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 78
+          }
+        },
+        "abstencoes": 0,
+        "matriz_confusao": {
+          "recurso_ordinario": {
+            "recurso_ordinario": 1952
+          },
+          "agravo_peticao": {
+            "recurso_ordinario": 550
+          },
+          "embargos_declaracao": {
+            "recurso_ordinario": 799
+          },
+          "agravo_instrumento": {
+            "recurso_ordinario": 84
+          },
+          "acao_originaria": {
+            "recurso_ordinario": 78
+          }
+        },
+        "fase_acuracia": 0.6508807392434306,
+        "fase_trocada": 1209,
+        "fase_abstencao": 0
+      }
+    },
+    "regras_cabecalho": {
+      "params": {
+        "fonte": "linha PROCESSO nº … - CLASSE"
+      },
+      "validacao": {
+        "acuracia": 0.9853873724841467,
+        "f1_macro": 0.9471313747702179,
+        "por_classe": {
+          "recurso_ordinario": {
+            "precisao": 0.9900891972249752,
+            "recall": 0.9970059880239521,
+            "f1": 0.9935355544505222,
+            "suporte": 2004
+          },
+          "agravo_peticao": {
+            "precisao": 0.9554140127388535,
+            "recall": 0.9966777408637874,
+            "f1": 0.975609756097561,
+            "suporte": 602
+          },
+          "embargos_declaracao": {
+            "precisao": 1.0,
+            "recall": 0.9766627771295215,
+            "f1": 0.9881936245572609,
+            "suporte": 857
+          },
+          "agravo_instrumento": {
+            "precisao": 0.9468085106382979,
+            "recall": 0.956989247311828,
+            "f1": 0.9518716577540107,
+            "suporte": 93
+          },
+          "acao_originaria": {
+            "precisao": 1.0,
+            "recall": 0.704225352112676,
+            "f1": 0.8264462809917354,
+            "suporte": 71
+          }
+        },
+        "abstencoes": 0,
+        "matriz_confusao": {
+          "recurso_ordinario": {
+            "recurso_ordinario": 1998,
+            "agravo_peticao": 6
+          },
+          "agravo_peticao": {
+            "agravo_peticao": 600,
+            "agravo_instrumento": 1,
+            "recurso_ordinario": 1
+          },
+          "embargos_declaracao": {
+            "embargos_declaracao": 837,
+            "recurso_ordinario": 19,
+            "agravo_peticao": 1
+          },
+          "agravo_instrumento": {
+            "agravo_instrumento": 89,
+            "agravo_peticao": 4
+          },
+          "acao_originaria": {
+            "acao_originaria": 50,
+            "agravo_peticao": 17,
+            "agravo_instrumento": 4
+          }
+        },
+        "fase_acuracia": 0.7168458781362007,
+        "fase_trocada": 46,
+        "fase_abstencao": 981
+      },
+      "teste": {
+        "acuracia": 0.9849841178169217,
+        "f1_macro": 0.9422007432294424,
+        "por_classe": {
+          "recurso_ordinario": {
+            "precisao": 0.9943676395289298,
+            "recall": 0.9948770491803278,
+            "f1": 0.9946222791293213,
+            "suporte": 1952
+          },
+          "agravo_peticao": {
+            "precisao": 0.9450171821305842,
+            "recall": 1.0,
+            "f1": 0.9717314487632509,
+            "suporte": 550
+          },
+          "embargos_declaracao": {
+            "precisao": 1.0,
+            "recall": 0.9824780976220275,
+            "f1": 0.9911616161616161,
+            "suporte": 799
+          },
+          "agravo_instrumento": {
+            "precisao": 0.9318181818181818,
+            "recall": 0.9761904761904762,
+            "f1": 0.9534883720930233,
+            "suporte": 84
+          },
+          "acao_originaria": {
+            "precisao": 1.0,
+            "recall": 0.6666666666666666,
+            "f1": 0.8,
+            "suporte": 78
+          }
+        },
+        "abstencoes": 3,
+        "matriz_confusao": {
+          "recurso_ordinario": {
+            "recurso_ordinario": 1942,
+            "agravo_peticao": 9,
+            "agravo_instrumento": 1
+          },
+          "agravo_peticao": {
+            "agravo_peticao": 550
+          },
+          "embargos_declaracao": {
+            "embargos_declaracao": 785,
+            "recurso_ordinario": 9,
+            "agravo_instrumento": 2,
+            "agravo_peticao": 3
+          },
+          "agravo_instrumento": {
+            "agravo_instrumento": 82,
+            "agravo_peticao": 2
+          },
+          "acao_originaria": {
+            "agravo_peticao": 18,
+            "agravo_instrumento": 3,
+            "acao_originaria": 52,
+            "recurso_ordinario": 2,
+            "__abstencao__": 3
+          }
+        },
+        "fase_acuracia": 0.7198960438925787,
+        "fase_trocada": 42,
+        "fase_abstencao": 928
+      }
+    },
+    "tfidf_lr_texto_completo": {
+      "params": {
+        "C": 16.0,
+        "ngram": "1-2",
+        "min_df": 3,
+        "max_df": 0.9,
+        "max_features": 300000,
+        "class_weight": "balanced",
+        "max_caracteres": 30000,
+        "precisao_alvo_abstencao": 0.98,
+        "limiar_abstencao": 0.48618343898158045,
+        "preprocessamento": "tfidf_lr_texto_completo"
+      },
+      "validacao": {
+        "acuracia": 0.9864902122966639,
+        "f1_macro": 0.9775160688102936,
+        "por_classe": {
+          "recurso_ordinario": {
+            "precisao": 0.9919879819729595,
+            "recall": 0.9885229540918163,
+            "f1": 0.9902524368907774,
+            "suporte": 2004
+          },
+          "agravo_peticao": {
+            "precisao": 0.9835255354200988,
+            "recall": 0.9916943521594684,
+            "f1": 0.987593052109181,
+            "suporte": 602
+          },
+          "embargos_declaracao": {
+            "precisao": 0.9802325581395349,
+            "recall": 0.9836639439906651,
+            "f1": 0.9819452533488643,
+            "suporte": 857
+          },
+          "agravo_instrumento": {
+            "precisao": 0.945054945054945,
+            "recall": 0.9247311827956989,
+            "f1": 0.9347826086956522,
+            "suporte": 93
+          },
+          "acao_originaria": {
+            "precisao": 0.9861111111111112,
+            "recall": 1.0,
+            "f1": 0.993006993006993,
+            "suporte": 71
+          }
+        },
+        "abstencoes": 0,
+        "matriz_confusao": {
+          "recurso_ordinario": {
+            "recurso_ordinario": 1981,
+            "embargos_declaracao": 14,
+            "agravo_peticao": 6,
+            "agravo_instrumento": 3
+          },
+          "agravo_peticao": {
+            "agravo_peticao": 597,
+            "agravo_instrumento": 2,
+            "embargos_declaracao": 3
+          },
+          "embargos_declaracao": {
+            "embargos_declaracao": 843,
+            "recurso_ordinario": 11,
+            "agravo_peticao": 2,
+            "acao_originaria": 1
+          },
+          "agravo_instrumento": {
+            "agravo_instrumento": 86,
+            "agravo_peticao": 2,
+            "recurso_ordinario": 5
+          },
+          "acao_originaria": {
+            "acao_originaria": 71
+          }
+        },
+        "fase_acuracia": 0.7143644885580369,
+        "fase_trocada": 13,
+        "fase_abstencao": 1023,
+        "ece": 0.01039983162413223,
+        "com_abstencao": {
+          "limiar": 0.48618343898158045,
+          "cobertura": 1.0,
+          "acuracia_aceitas": 0.9864902122966639
+        }
+      },
+      "teste": {
+        "acuracia": 0.9864279526422177,
+        "f1_macro": 0.9680623998799458,
+        "por_classe": {
+          "recurso_ordinario": {
+            "precisao": 0.9928168291431503,
+            "recall": 0.9912909836065574,
+            "f1": 0.9920533196616251,
+            "suporte": 1952
+          },
+          "agravo_peticao": {
+            "precisao": 0.9836065573770492,
+            "recall": 0.9818181818181818,
+            "f1": 0.9827115559599636,
+            "suporte": 550
+          },
+          "embargos_declaracao": {
+            "precisao": 0.9849812265331664,
+            "recall": 0.9849812265331664,
+            "f1": 0.9849812265331664,
+            "suporte": 799
+          },
+          "agravo_instrumento": {
+            "precisao": 0.8953488372093024,
+            "recall": 0.9166666666666666,
+            "f1": 0.9058823529411765,
+            "suporte": 84
+          },
+          "acao_originaria": {
+            "precisao": 0.9625,
+            "recall": 0.9871794871794872,
+            "f1": 0.9746835443037976,
+            "suporte": 78
+          }
+        },
+        "abstencoes": 0,
+        "matriz_confusao": {
+          "recurso_ordinario": {
+            "recurso_ordinario": 1935,
+            "agravo_instrumento": 4,
+            "embargos_declaracao": 9,
+            "agravo_peticao": 3,
+            "acao_originaria": 1
+          },
+          "agravo_peticao": {
+            "agravo_peticao": 540,
+            "recurso_ordinario": 2,
+            "agravo_instrumento": 4,
+            "embargos_declaracao": 3,
+            "acao_originaria": 1
+          },
+          "embargos_declaracao": {
+            "embargos_declaracao": 787,
+            "recurso_ordinario": 6,
+            "agravo_peticao": 4,
+            "acao_originaria": 1,
+            "agravo_instrumento": 1
+          },
+          "agravo_instrumento": {
+            "agravo_peticao": 2,
+            "agravo_instrumento": 77,
+            "recurso_ordinario": 5
+          },
+          "acao_originaria": {
+            "acao_originaria": 77,
+            "recurso_ordinario": 1
+          }
+        },
+        "fase_acuracia": 0.7184522090672827,
+        "fase_trocada": 10,
+        "fase_abstencao": 965,
+        "ece": 0.011153251896361929,
+        "com_abstencao": {
+          "limiar": 0.48618343898158045,
+          "cobertura": 0.9994224660698816,
+          "acuracia_aceitas": 0.9867090436290089
+        }
+      }
+    },
+    "tfidf_lr_sem_cabecalho": {
+      "params": {
+        "C": 16.0,
+        "ngram": "1-2",
+        "min_df": 3,
+        "max_df": 0.9,
+        "max_features": 300000,
+        "class_weight": "balanced",
+        "max_caracteres": 30000,
+        "precisao_alvo_abstencao": 0.98,
+        "limiar_abstencao": 0.43801722855707015,
+        "preprocessamento": "tfidf_lr_sem_cabecalho"
+      },
+      "validacao": {
+        "acuracia": 0.9801488833746899,
+        "f1_macro": 0.9607599248846741,
+        "por_classe": {
+          "recurso_ordinario": {
+            "precisao": 0.985543369890329,
+            "recall": 0.9865269461077845,
+            "f1": 0.9860349127182044,
+            "suporte": 2004
+          },
+          "agravo_peticao": {
+            "precisao": 0.9753694581280788,
+            "recall": 0.9867109634551495,
+            "f1": 0.9810074318744839,
+            "suporte": 602
+          },
+          "embargos_declaracao": {
+            "precisao": 0.977751756440281,
+            "recall": 0.9743290548424738,
+            "f1": 0.9760374050263004,
+            "suporte": 857
+          },
+          "agravo_instrumento": {
+            "precisao": 0.9195402298850575,
+            "recall": 0.8602150537634409,
+            "f1": 0.888888888888889,
+            "suporte": 93
+          },
+          "acao_originaria": {
+            "precisao": 0.971830985915493,
+            "recall": 0.971830985915493,
+            "f1": 0.971830985915493,
+            "suporte": 71
+          }
+        },
+        "abstencoes": 0,
+        "matriz_confusao": {
+          "recurso_ordinario": {
+            "recurso_ordinario": 1977,
+            "embargos_declaracao": 15,
+            "agravo_peticao": 7,
+            "acao_originaria": 1,
+            "agravo_instrumento": 4
+          },
+          "agravo_peticao": {
+            "agravo_peticao": 594,
+            "agravo_instrumento": 2,
+            "embargos_declaracao": 4,
+            "recurso_ordinario": 2
+          },
+          "embargos_declaracao": {
+            "embargos_declaracao": 835,
+            "recurso_ordinario": 15,
+            "agravo_instrumento": 1,
+            "agravo_peticao": 5,
+            "acao_originaria": 1
+          },
+          "agravo_instrumento": {
+            "agravo_instrumento": 80,
+            "recurso_ordinario": 10,
+            "agravo_peticao": 3
+          },
+          "acao_originaria": {
+            "acao_originaria": 69,
+            "recurso_ordinario": 2
+          }
+        },
+        "fase_acuracia": 0.7149159084642955,
+        "fase_trocada": 22,
+        "fase_abstencao": 1012,
+        "ece": 0.015809502407461012,
+        "com_abstencao": {
+          "limiar": 0.43801722855707015,
+          "cobertura": 1.0,
+          "acuracia_aceitas": 0.9801488833746899
+        }
+      },
+      "teste": {
+        "acuracia": 0.9797863124458562,
+        "f1_macro": 0.9525865123674345,
+        "por_classe": {
+          "recurso_ordinario": {
+            "precisao": 0.9861963190184049,
+            "recall": 0.9882172131147541,
+            "f1": 0.9872057318321391,
+            "suporte": 1952
+          },
+          "agravo_peticao": {
+            "precisao": 0.9709618874773139,
+            "recall": 0.9727272727272728,
+            "f1": 0.971843778383288,
+            "suporte": 550
+          },
+          "embargos_declaracao": {
+            "precisao": 0.9848675914249685,
+            "recall": 0.9774718397997497,
+            "f1": 0.9811557788944724,
+            "suporte": 799
+          },
+          "agravo_instrumento": {
+            "precisao": 0.8888888888888888,
+            "recall": 0.8571428571428571,
+            "f1": 0.8727272727272727,
+            "suporte": 84
+          },
+          "acao_originaria": {
+            "precisao": 0.926829268292683,
+            "recall": 0.9743589743589743,
+            "f1": 0.9500000000000001,
+            "suporte": 78
+          }
+        },
+        "abstencoes": 0,
+        "matriz_confusao": {
+          "recurso_ordinario": {
+            "recurso_ordinario": 1929,
+            "agravo_peticao": 8,
+            "agravo_instrumento": 5,
+            "embargos_declaracao": 9,
+            "acao_originaria": 1
+          },
+          "agravo_peticao": {
+            "agravo_peticao": 535,
+            "recurso_ordinario": 7,
+            "agravo_instrumento": 3,
+            "acao_originaria": 2,
+            "embargos_declaracao": 3
+          },
+          "embargos_declaracao": {
+            "embargos_declaracao": 781,
+            "recurso_ordinario": 11,
+            "agravo_peticao": 3,
+            "acao_originaria": 3,
+            "agravo_instrumento": 1
+          },
+          "agravo_instrumento": {
+            "agravo_peticao": 4,
+            "agravo_instrumento": 72,
+            "recurso_ordinario": 8
+          },
+          "acao_originaria": {
+            "acao_originaria": 76,
+            "agravo_peticao": 1,
+            "recurso_ordinario": 1
+          }
+        },
+        "fase_acuracia": 0.7172971412070459,
+        "fase_trocada": 23,
+        "fase_abstencao": 956,
+        "ece": 0.016135443040285177,
+        "com_abstencao": {
+          "limiar": 0.43801722855707015,
+          "cobertura": 0.9991336991048224,
+          "acuracia_aceitas": 0.9803468208092485
+        }
+      }
+    },
+    "registro": {
+      "modelo": "classificador_tipo_fase",
+      "versao": "1",
+      "alias": "candidato"
+    }
+  }
+}
