@@ -1,4 +1,4 @@
-# 0004 — Portões das semanas 1 e 2 (proposta para a reunião de Demo e portão)
+# 0005 — Portões das semanas 1 e 2 (proposta para a reunião de Demo e portão)
 
 Data: 19/11/2026 · Conduz: Felipe (Eng. de ML e MLOps), issues #7 e #14 · **Status: proposta; a decisão é do grupo na reunião.**
 
@@ -11,10 +11,10 @@ Data: 19/11/2026 · Conduz: Felipe (Eng. de ML e MLOps), issues #7 e #14 · **St
 | Critério | Evidência | Situação |
 |---|---|---|
 | Escopo | `docs/manual.md` (produto, dentro e fora do escopo) | Atende |
-| Métricas | Definições operacionais no manual (métricas e portões de qualidade); baselines e métrica por tarefa de ML em [0003](0003-baselines-por-tarefa.md) | Atende |
+| Métricas | Definições operacionais no manual (métricas e portões de qualidade); baselines e métrica por tarefa de ML em [0004](0004-baselines-por-tarefa.md) | Atende |
 | Guia de anotação | Não está no repositório (#2) | **Pendente** |
 | Entrevistas registradas | Não estão no repositório (#2) | **Pendente** |
-| Entregas de ML (#3) | Baselines (0003), memória e latência no M4 e orçamento ([relatório](../../treino/relatorios/memoria_latencia_m4.md)), ML Test Score ([nota](../../treino/ml_test_score.md)), MLflow no Compose com experimentos | Atende |
+| Entregas de ML (#3) | Baselines (0004), memória e latência no M4 e orçamento ([relatório](../../treino/relatorios/memoria_latencia_m4.md)), ML Test Score ([nota](../../treino/ml_test_score.md)), MLflow no Compose com experimentos | Atende |
 
 Proposta: **aprovado com desvio**. Guia de anotação v1 e registro das entrevistas passam a ser pré-requisito do rótulo-ouro; sem eles o classificador segue em rótulo provisório e não pode ser promovido a `em-uso`.
 

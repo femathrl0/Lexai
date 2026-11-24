@@ -1,7 +1,7 @@
 # Model card — classificador_tipo_fase v1 (baseline)
 
 - **Estágio:** `candidato` no MLflow (`classificador_tipo_fase`, versão 1, experimento `classificador_tipo_fase`, run `tfidf_lr_sem_cabecalho`). Não está `em-uso`: os rótulos são provisórios e a Curadoria não aprovou.
-- **Uso pretendido:** identificar o tipo de acórdão trabalhista (recurso ordinário, agravo de petição, embargos de declaração, agravo de instrumento, ação originária) e, a partir dele, a fase (conhecimento ou execução), com abstenção abaixo do limiar (RNF04). Baseline para o BERTimbau + LoRA ([decisão 0003](../decisoes/0003-baselines-por-tarefa.md)).
+- **Uso pretendido:** identificar o tipo de acórdão trabalhista (recurso ordinário, agravo de petição, embargos de declaração, agravo de instrumento, ação originária) e, a partir dele, a fase (conhecimento ou execução), com abstenção abaixo do limiar (RNF04). Baseline para o BERTimbau + LoRA ([decisão 0004](../decisoes/0004-baselines-por-tarefa.md)).
 - **Fora do escopo:** sentença de 1º grau, ata, petição, foto de documento e decisões de outros tribunais. O lote de treino tem só acórdãos do TRT-10, e esses tipos não foram vistos.
 - **Dados:** RepoJus `efaraneda/repojus`, revisão `91aa953b3c`, TRT-10 2024, sha256 `453efb25ce42…`, CC BY 4.0. 23.568 acórdãos rotulados; divisão 70/15/15 por hash do número do processo (semente `lexai-divisao-v1`). O rótulo é a classe processual do tribunal; 2.165 acórdãos de embargos que o tribunal rotulou com a classe do recurso embargado foram corrigidos pelo cabeçalho.
 - **Pré-processamento:** remove o bloco de identificação até EMENTA e mascara nomes de classe e papéis processuais ("recorrente", "agravante", "embargante"…), para o modelo não ler o rótulo no cabeçalho. Primeiros 30 mil caracteres.

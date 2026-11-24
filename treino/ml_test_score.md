@@ -26,7 +26,7 @@ Avaliado em 19/11/2026 sobre a branch `eng-ml/semanas-1-2` · Responsável: Feli
 | M2 | Métricas offline correlacionam com as online | 0 | Ainda não há uso real |
 | M3 | Hiperparâmetros ajustados | 0,5 | `C` da regressão logística escolhido na validação; manual |
 | M4 | Efeito do envelhecimento do modelo é conhecido | 0 | Mudança de jurisprudência e de formato do PJe não medida |
-| M5 | Um modelo mais simples não é melhor | 0,5 | Comparação com classe majoritária e regras ([0003](../docs/decisoes/0003-baselines-por-tarefa.md)); manual |
+| M5 | Um modelo mais simples não é melhor | 0,5 | Comparação com classe majoritária e regras ([0004](../docs/decisoes/0004-baselines-por-tarefa.md)); manual |
 | M6 | Qualidade suficiente nas fatias importantes | 0,5 | F1 por classe e troca de fase no relatório; sem portão |
 | M7 | Modelo avaliado quanto à inclusão | 0 | — |
 | | **Seção** | **2,0** | |

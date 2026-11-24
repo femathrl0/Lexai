@@ -1,7 +1,7 @@
 # treino/ — Eng. de ML e MLOps
 
 Todo treino é rastreado no MLflow (`MLFLOW_TRACKING_URI`, padrão `http://127.0.0.1:15000`, serviço `mlflow` do Compose) com a versão dos dados (hash do lote) e o commit do código.
-Baseline primeiro (TF-IDF + regressão logística ou regras); BERTimbau + LoRA só entra se vencer na validação ([decisão 0003](../docs/decisoes/0003-baselines-por-tarefa.md)).
+Baseline primeiro (TF-IDF + regressão logística ou regras); BERTimbau + LoRA só entra se vencer na validação ([decisão 0004](../docs/decisoes/0004-baselines-por-tarefa.md)).
 Registro com estágios: candidato → aprovado → em uso (alias `em-uso`, lido por `worker/modelos/registro.py`). Os scripts daqui só registram como `candidato`.
 
 | Script | O que faz | Saída |

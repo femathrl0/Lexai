@@ -1,4 +1,4 @@
-# 0003 — Baseline de cada tarefa de ML
+# 0004 — Baseline de cada tarefa de ML
 
 Data: 19/11/2026 · Responsável: Eng. de ML e MLOps (Felipe) · Par: Cientista de dados (Laisa) · Issue #3
 
