@@ -226,7 +226,7 @@ Cada cargo é dono de uma parte do sistema e de um conjunto de métricas. Cada c
 * Construir a primeira etapa da ingestão jurídica: obter as fontes oficiais e dividir lei por artigo e jurisprudência por súmula, OJ ou ementa.  
 * Anonimizar o acervo (CPF, nomes, endereços, dados de saúde, inclusive de testemunhas e do empregador) e registrar o que foi removido.  
 * Declarar e validar os contratos que produz (DocumentoLido e Segmentos) e o esquema dos rótulos.  
-* Versionar acervo e rótulos com DVC, manter as divisões fixas e sem vazamento e operar o Label Studio e o fluxo de lotes.  
+* Versionar acervo e rótulos com DVC (a base de legislação, texto de lei público, vai direto no Git; decisão 0006), manter as divisões fixas e sem vazamento e operar o Label Studio e o fluxo de lotes.  
 * Escrever o datasheet do acervo.
 
 **Entregáveis:** acervo versionado, divisões congeladas, leitor, segmentador por regras, divisão estrutural do corpus, contratos de dados, datasheet. **Métricas que possui:** cobertura do acervo por tipo de documento, taxa de erro do OCR, acerto do segmentador por regras, lotes reprovados no esquema.
@@ -364,7 +364,7 @@ Esta seção é o ponto de partida de quem entra no grupo. Ela diz o que fazer n
 | worker/ingestao/ | Pipeline de ingestão jurídica | Eng. de dados \+ Eng. de IA |
 | treino/ | Scripts e notebooks de treino, sempre rastreados no MLflow | Eng. de ML |
 | avaliacao/ | Suíte de avaliação, casos armadilha, pares-ouro e suíte de regressão jurídica | Cientista de dados |
-| dados/ | Ponteiros do DVC; nunca dados crus no Git | Eng. de dados |
+| dados/ | Base de legislação (`processed/`, `chunks/` e `relatorios/legislacao/`) direto no Git; acervo e rótulos por ponteiros do DVC; nunca dado cru ou pessoal no Git | Eng. de dados |
 | corpus/ | Fontes jurídicas versionadas | Eng. de IA \+ Curadoria |
 | prompts/ | Prompts versionados | Eng. de IA |
 | infra/ | Docker Compose, CI, migrações do banco | Eng. de software |
@@ -493,7 +493,7 @@ A stack é toda gratuita e roda localmente nos MacBooks Air M4 de 24 GB, sem cr�
 | Banco e vetores | PostgreSQL 16 \+ pgvector | Qdrant | Um banco só para contas, resultados e índices, com filtro em SQL | Eng. de software (banco) \+ Eng. de IA (índices) |
 | Busca por palavra-chave | Full-text do Postgres em português, unido à busca vetorial por RRF | BM25 em biblioteca separada | Acha “Súmula 437” e “art. 477”, que a busca vetorial erra | Eng. de IA |
 | Guarda de originais | MinIO local com criptografia | Pasta criptografada | Exclusão automática por prazo | Eng. de software |
-| Versionamento de dados | DVC, com remoto numa pasta compartilhada | Git LFS | Liga cada modelo à versão exata dos dados | Eng. de dados |
+| Versionamento de dados | DVC para acervo e rótulos, com remoto numa pasta compartilhada; base de legislação (texto de lei público, ~100 MB) direto no Git (decisão 0006) | Git LFS | Liga cada modelo à versão exata dos dados; a base de lei fica acessível a todos sem configurar remoto | Eng. de dados |
 | Anotação | Label Studio local | Doccano | Aberto, roda local, documento não sai da máquina | Eng. de dados \+ Cientista de dados |
 | Contratos e validação | Pydantic para objetos; Pandera para tabelas | Great Expectations | Esquema declarado e checado em cada etapa | Eng. de software \+ Eng. de dados |
 | Leitura de PDF | PyMuPDF | pdfplumber | PDF do PJe já traz texto; OCR só quando não traz | Eng. de dados |
