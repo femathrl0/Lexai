@@ -1,0 +1,296 @@
+[
+  {
+    "id": "q_test_01",
+    "alvos": [
+      "CLT, Art. 60"
+    ],
+    "achados": {
+      "CLT, Art. 60": true
+    },
+    "ok": true,
+    "fontes": [
+      "CLT, Art. 60",
+      "CLT, Art. 611-A",
+      "CLT, Art. 61",
+      "Súmula 60 do TST",
+      "TRT-10, Recurso Ordinário Trabalhista, publicado em 2024-02-23 (ementa 257dce6d0b8d)",
+      "TRT-10, Recurso Ordinário Trabalhista, julgado em 2024-07-17 (ementa 14f8be59b977)"
+    ],
+    "notas": [
+      0.9884,
+      0.7772,
+      0.605,
+      0.4622,
+      0.4396,
+      0.3487
+    ]
+  },
+  {
+    "id": "q_test_02",
+    "alvos": [
+      "CLT, Art. 462"
+    ],
+    "achados": {
+      "CLT, Art. 462": true
+    },
+    "ok": true,
+    "fontes": [
+      "CLT, Art. 462",
+      "Súmula 342 do TST",
+      "TRT-10, Recurso Ordinário Trabalhista, julgado em 2024-05-22 (ementa a83ffaa4df5e)",
+      "TRT-10, Recurso Ordinário Trabalhista, publicado em 2024-02-08 (ementa 784b7b4cd787)",
+      "CLT, Art. 461",
+      "CLT, Art. 611-B"
+    ],
+    "notas": [
+      0.9971,
+      0.9926,
+      0.9712,
+      0.9444,
+      0.1103,
+      0.0624
+    ]
+  },
+  {
+    "id": "q_test_03",
+    "alvos": [
+      "CLT, Art. 73"
+    ],
+    "achados": {
+      "CLT, Art. 73": true
+    },
+    "ok": true,
+    "fontes": [
+      "CLT, Art. 73",
+      "LC 150/2015 (doméstico), Art. 14",
+      "CLT, Art. 381",
+      "TRT-10, Recurso Ordinário Trabalhista, publicado em 2024-05-10 (ementa ff6ddd4afaf8)",
+      "Súmula 60 do TST",
+      "TRT-10, Recurso Ordinário Trabalhista, publicado em 2024-07-08 (ementa 0f8eaf80b236)"
+    ],
+    "notas": [
+      0.9587,
+      0.7237,
+      0.4421,
+      0.2288,
+      0.1936,
+      0.0986
+    ]
+  },
+  {
+    "id": "q_test_04",
+    "alvos": [
+      "CLT, Art. 391-A"
+    ],
+    "achados": {
+      "CLT, Art. 391-A": true
+    },
+    "ok": true,
+    "fontes": [
+      "CLT, Art. 391-A",
+      "CLT, Art. 391",
+      "LC 150/2015 (doméstico), Art. 25",
+      "Súmula 163 do TST",
+      "TRT-10, Recurso Ordinário Trabalhista, publicado em 2024-06-12 (ementa 9756f821b6ad)",
+      "TRT-10, Recurso Ordinário - Rito Sumaríssimo, julgado em 2024-06-05 (ementa 78c9042c47d2)"
+    ],
+    "notas": [
+      0.9997,
+      0.8541,
+      0.8243,
+      0.1037,
+      0.0433,
+      0.0398
+    ]
+  },
+  {
+    "id": "q_test_06",
+    "alvos": [
+      "CLT, Art. 4º"
+    ],
+    "achados": {
+      "CLT, Art. 4º": true
+    },
+    "ok": true,
+    "fontes": [
+      "Súmula 429 do TST",
+      "CLT, Art. 4º",
+      "Lei 6.019/1974 (temporário e terceirização), Art. 4º",
+      "Lei 8.036/1990 (FGTS), Art. 14",
+      "Súmula 449 do TST"
+    ],
+    "notas": [
+      0.9854,
+      0.9518,
+      0.1996,
+      0.1286,
+      0.01
+    ]
+  },
+  {
+    "id": "q_test_07",
+    "alvos": [
+      "CLT, Art. 457",
+      "CLT, Art. 458"
+    ],
+    "achados": {
+      "CLT, Art. 457": true,
+      "CLT, Art. 458": true
+    },
+    "ok": true,
+    "fontes": [
+      "CLT, Art. 457",
+      "Lei 8.036/1990 (FGTS), Art. 15",
+      "CLT, Art. 458",
+      "TRT-10, Recurso Ordinário Trabalhista, publicado em 2024-05-10 (ementa ff6ddd4afaf8)",
+      "Súmula 264 do TST",
+      "Súmula 459 do TST"
+    ],
+    "notas": [
+      0.9569,
+      0.948,
+      0.8554,
+      0.0492,
+      0.0466,
+      0.0346
+    ]
+  },
+  {
+    "id": "q_test_08",
+    "alvos": [
+      "CLT, Art. 473"
+    ],
+    "achados": {
+      "CLT, Art. 473": true
+    },
+    "ok": true,
+    "fontes": [
+      "CLT, Art. 473",
+      "CLT, Art. 169-A",
+      "CLT, Art. 131",
+      "TRT-10, Recurso Ordinário - Rito Sumaríssimo, julgado em 2024-09-18 (ementa 456ae766d868)",
+      "TRT-10, Recurso Ordinário Trabalhista, publicado em 2024-06-12 (ementa 9756f821b6ad)",
+      "TRT-10, Recurso Ordinário - Rito Sumaríssimo, publicado em 2024-06-21 (ementa d465b62a2df7)"
+    ],
+    "notas": [
+      0.9888,
+      0.9514,
+      0.8716,
+      0.236,
+      0.1631,
+      0.1497
+    ]
+  },
+  {
+    "id": "demo_01",
+    "alvos": [
+      "CLT, Art. 477"
+    ],
+    "achados": {
+      "CLT, Art. 477": false
+    },
+    "ok": false,
+    "fontes": [
+      "TRT-10, Recurso Ordinário Trabalhista, publicado em 2024-03-15 (ementa d18580e3718c)",
+      "LC 150/2015 (doméstico), Art. 26",
+      "Lei 7.998/1990 (seguro-desemprego), Art. 3º",
+      "CLT, Art. 147",
+      "Súmula 73 do TST",
+      "Súmula 10 do TST"
+    ],
+    "notas": [
+      0.8343,
+      0.682,
+      0.6801,
+      0.653,
+      0.4795,
+      0.1473
+    ]
+  },
+  {
+    "id": "demo_02",
+    "alvos": [
+      "CLT, Art. 487",
+      "Lei 12.506/2011 (aviso prévio), Art. 1º"
+    ],
+    "achados": {
+      "CLT, Art. 487": true,
+      "Lei 12.506/2011 (aviso prévio), Art. 1º": true
+    },
+    "ok": true,
+    "fontes": [
+      "Lei 12.506/2011 (aviso prévio), Art. 1º",
+      "LC 150/2015 (doméstico), Art. 23",
+      "CLT, Art. 487",
+      "TRT-10, Recurso Ordinário Trabalhista, publicado em 2024-03-15 (ementa d18580e3718c)",
+      "TRT-10, Recurso Ordinário Trabalhista, publicado em 2024-12-18 (ementa 92105ad6feb3)",
+      "Súmula 14 do TST"
+    ],
+    "notas": [
+      0.9966,
+      0.9955,
+      0.9814,
+      0.9621,
+      0.9351,
+      0.7247
+    ]
+  },
+  {
+    "id": "arm_01",
+    "alvos": [
+      "CLT, Art. 391-A",
+      "ADCT, Art. 10",
+      "Súmula 244"
+    ],
+    "achados": {
+      "CLT, Art. 391-A": false,
+      "ADCT, Art. 10": false,
+      "Súmula 244": false
+    },
+    "ok": false,
+    "fontes": [
+      "TRT-10, Recurso Ordinário - Rito Sumaríssimo, julgado em 2024-12-04 (ementa b3559ecf1e1f)",
+      "TRT-10, Recurso Ordinário - Rito Sumaríssimo, julgado em 2024-05-29 (ementa a25635bd425a)",
+      "TRT-10, Recurso Ordinário Trabalhista, publicado em 2024-03-22 (ementa c1de26a80c43)",
+      "CLT, Art. 394",
+      "CLT, Art. 394-A",
+      "CLT, Art. 391"
+    ],
+    "notas": [
+      0.1393,
+      0.1373,
+      0.081,
+      0.0166,
+      0.0094,
+      0.0076
+    ]
+  },
+  {
+    "id": "arm_03",
+    "alvos": [
+      "CLT, Art. 477",
+      "Lei 8.036/1990 (FGTS), Art. 18"
+    ],
+    "achados": {
+      "CLT, Art. 477": false,
+      "Lei 8.036/1990 (FGTS), Art. 18": false
+    },
+    "ok": false,
+    "fontes": [
+      "TRT-10, Recurso Ordinário Trabalhista, publicado em 2024-03-15 (ementa d18580e3718c)",
+      "Lei 8.036/1990 (FGTS), Art. 12",
+      "Súmula 362 do TST",
+      "Lei 8.036/1990 (FGTS), Art. 31",
+      "Lei 8.036/1990 (FGTS), Art. 11",
+      "Súmula 16 do TST"
+    ],
+    "notas": [
+      0.2272,
+      0.1794,
+      0.125,
+      0.1084,
+      0.0748,
+      0.0134
+    ]
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "fontes": {
+    "sumulas_tst": {
+      "url": "https://www.tst.jus.br/documents/10157/63003/Livro-Internet.pdf",
+      "sha256": "46321b2d8d04840eeeb55417937c5a6657c9df5ac40fed1d44a2bf0989c06e8a"
+    },
+    "repojus": {
+      "dataset": "efaraneda/repojus",
+      "revisao": "91aa953b3c976a8688135dea49cf6644f7732243",
+      "particoes": [
+        "p_tribunal=TRT10/p_ano=2024/part-00000.parquet"
+      ],
+      "licenca": "CC BY 4.0"
+    }
+  },
+  "total": 552,
+  "sumulas": 349,
+  "ementas": 203,
+  "ementas_por_tema": {
+    "verbas_rescisorias": 25,
+    "aviso_previo": 25,
+    "gestante": 25,
+    "justa_causa": 25,
+    "horas_extras": 25,
+    "adicional_noturno": 5,
+    "insalubridade": 25,
+    "descontos": 8,
+    "fgts": 25,
+    "ferias": 15
+  },
+  "descartes": {
+    "provavel_nome_proprio": 1299,
+    "sem_ementa": 1485,
+    "iniciais_de_nome": 103,
+    "nome_de_empresa": 167,
+    "duplicada": 24,
+    "dado_de_saude": 1
+  },
+  "mascaras_aplicadas": {
+    "processo": 14
+  },
+  "regra": "ementa com indício de nome de pessoa/empresa ou dado de saúde é descartada; CPF, CNPJ, processo, e-mail e telefone são mascarados; cabeçalho do inteiro teor nunca entra"
+}

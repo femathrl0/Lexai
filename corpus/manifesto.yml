@@ -12,10 +12,17 @@ fontes:
     tipo_fonte: ementa
     origem: ver docs/legado/origens_huggingface_jurisprudencia.md
     versao: a registrar
+  - id: recorte-demo-jurisprudencia
+    tipo_fonte: [sumula, ementa]
+    origem: corpus/jurisprudencia/README.md (Livro de Súmulas do TST + RepoJus TRT-10 2024)
+    versao: "tst-livro-sumulas:46321b2d8d04 + repojus:91aa953b3c97"
+    obtido_em: 2026-11-19
+    escopo: 349 súmulas vigentes do TST e 203 ementas anonimizadas do TRT-10 (buscador local da demo)
+    licenca: texto oficial (súmulas); CC BY 4.0 (RepoJus)
   - id: sumulas-oj-tst
     tipo_fonte: [sumula, oj]
     origem: https://www.tst.jus.br/sumulas
-    versao: a coletar (Eng. de dados, semana 2)
+    versao: a coletar (Eng. de dados, semana 2) — o recorte acima usa o livro de 2018 só para a demo
   - id: trt10-decisoes
     tipo_fonte: ementa
     origem: https://www.trt10.jus.br

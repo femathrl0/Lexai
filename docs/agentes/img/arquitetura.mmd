@@ -1,0 +1,27 @@
+flowchart LR
+    U([Pergunta do usuário]) --> O
+
+    subgraph SMA["Sistema multiagente (worker)"]
+        O{{"Orquestrador<br/>estado + roteamento + rastro"}}
+        T["1 · Triagem<br/>guarda de entrada"]
+        P["2 · Pesquisa<br/>Research Agent"]
+        A["3 · Análise<br/>Analysis Agent"]
+        C["4 · Comunicação<br/>Communication Agent"]
+        V["5 · Validação<br/>Validation Agent"]
+        O <--> T
+        O <--> P
+        O <--> A
+        O <--> C
+        O <--> V
+        V -. "devolução: refazer frases (1×)" .-> A
+        V -. "devolução: nova busca (1×)" .-> P
+    end
+
+    P --- IDX[("Corpus jurídico<br/>leis + súmulas TST + ementas TRT-10<br/>(pgvector ou índice local)")]
+    P --- EMB["expansão leigo → lei<br/>BGE-M3 (vetor) + BM25/full-text<br/>RRF + reranker bge-reranker-v2-m3"]
+    A --- LLM["LLM local (Ollama)<br/>saída JSON frase → trecho"]
+    C --- LLM
+    V --- NLI["Cross-encoder NLI<br/>mDeBERTa-v3 XNLI"]
+    T --- REG["Regras de escopo<br/>+ máscara de dados pessoais"]
+
+    O --> R([Resposta verificada<br/>frases + fonte ao lado + avisos])

@@ -1,0 +1,1148 @@
+{
+  "modelo": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+  "pares": "avaliacao/pares_ouro/verificador_v1.jsonl",
+  "n": 105,
+  "rotulos": {
+    "sustenta": 68,
+    "contradiz": 24,
+    "nao_trata": 13
+  },
+  "regra": "menor limiar com precisão ≥ 0.9",
+  "atingiu_portao": false,
+  "escolhido": {
+    "limiar": 0.75,
+    "precisao": 0.875,
+    "recall": 0.618,
+    "f1": 0.724,
+    "liberadas_falsas": 6,
+    "barradas_boas": 26
+  },
+  "limiar_anterior_0_5": {
+    "limiar": 0.5,
+    "precisao": 0.83,
+    "recall": 0.647,
+    "f1": 0.727,
+    "liberadas_falsas": 9,
+    "barradas_boas": 24
+  },
+  "so_nli_no_escolhido": {
+    "limiar": 0.75,
+    "precisao": 0.84,
+    "recall": 0.618,
+    "f1": 0.712,
+    "liberadas_falsas": 8,
+    "barradas_boas": 26
+  },
+  "so_nli_em_0_5": {
+    "limiar": 0.5,
+    "precisao": 0.772,
+    "recall": 0.647,
+    "f1": 0.704,
+    "liberadas_falsas": 13,
+    "barradas_boas": 24
+  },
+  "barradas_por_regra": [
+    {
+      "id": "adv-00",
+      "rotulo": "contradiz",
+      "motivo": "número ou prazo que não está no trecho: 10%"
+    },
+    {
+      "id": "adv-01",
+      "rotulo": "contradiz",
+      "motivo": "número ou prazo que não está no trecho: 60 minutos"
+    },
+    {
+      "id": "adv-06",
+      "rotulo": "contradiz",
+      "motivo": "número ou prazo que não está no trecho: 120 dias"
+    },
+    {
+      "id": "adv-10",
+      "rotulo": "contradiz",
+      "motivo": "número ou prazo que não está no trecho: 50%"
+    },
+    {
+      "id": "adv-16",
+      "rotulo": "contradiz",
+      "motivo": "número ou prazo que não está no trecho: trinta dias"
+    },
+    {
+      "id": "adv-22",
+      "rotulo": "contradiz",
+      "motivo": "número ou prazo que não está no trecho: 180 dias"
+    },
+    {
+      "id": "adv-23",
+      "rotulo": "nao_trata",
+      "motivo": "número ou prazo que não está no trecho: 30 dias"
+    },
+    {
+      "id": "adv-25",
+      "rotulo": "nao_trata",
+      "motivo": "número ou prazo que não está no trecho: dois salarios"
+    },
+    {
+      "id": "adv-26",
+      "rotulo": "nao_trata",
+      "motivo": "número ou prazo que não está no trecho: 40%"
+    },
+    {
+      "id": "adv-27",
+      "rotulo": "nao_trata",
+      "motivo": "número ou prazo que não está no trecho: 21 horas"
+    }
+  ],
+  "tabela": [
+    {
+      "limiar": 0.05,
+      "precisao": 0.803,
+      "recall": 0.838,
+      "f1": 0.82,
+      "liberadas_falsas": 14,
+      "barradas_boas": 11
+    },
+    {
+      "limiar": 0.1,
+      "precisao": 0.812,
+      "recall": 0.824,
+      "f1": 0.818,
+      "liberadas_falsas": 13,
+      "barradas_boas": 12
+    },
+    {
+      "limiar": 0.15,
+      "precisao": 0.828,
+      "recall": 0.779,
+      "f1": 0.803,
+      "liberadas_falsas": 11,
+      "barradas_boas": 15
+    },
+    {
+      "limiar": 0.2,
+      "precisao": 0.839,
+      "recall": 0.765,
+      "f1": 0.8,
+      "liberadas_falsas": 10,
+      "barradas_boas": 16
+    },
+    {
+      "limiar": 0.25,
+      "precisao": 0.836,
+      "recall": 0.75,
+      "f1": 0.791,
+      "liberadas_falsas": 10,
+      "barradas_boas": 17
+    },
+    {
+      "limiar": 0.3,
+      "precisao": 0.836,
+      "recall": 0.75,
+      "f1": 0.791,
+      "liberadas_falsas": 10,
+      "barradas_boas": 17
+    },
+    {
+      "limiar": 0.35,
+      "precisao": 0.845,
+      "recall": 0.721,
+      "f1": 0.778,
+      "liberadas_falsas": 9,
+      "barradas_boas": 19
+    },
+    {
+      "limiar": 0.4,
+      "precisao": 0.833,
+      "recall": 0.662,
+      "f1": 0.738,
+      "liberadas_falsas": 9,
+      "barradas_boas": 23
+    },
+    {
+      "limiar": 0.45,
+      "precisao": 0.833,
+      "recall": 0.662,
+      "f1": 0.738,
+      "liberadas_falsas": 9,
+      "barradas_boas": 23
+    },
+    {
+      "limiar": 0.5,
+      "precisao": 0.83,
+      "recall": 0.647,
+      "f1": 0.727,
+      "liberadas_falsas": 9,
+      "barradas_boas": 24
+    },
+    {
+      "limiar": 0.55,
+      "precisao": 0.843,
+      "recall": 0.632,
+      "f1": 0.723,
+      "liberadas_falsas": 8,
+      "barradas_boas": 25
+    },
+    {
+      "limiar": 0.6,
+      "precisao": 0.843,
+      "recall": 0.632,
+      "f1": 0.723,
+      "liberadas_falsas": 8,
+      "barradas_boas": 25
+    },
+    {
+      "limiar": 0.65,
+      "precisao": 0.843,
+      "recall": 0.632,
+      "f1": 0.723,
+      "liberadas_falsas": 8,
+      "barradas_boas": 25
+    },
+    {
+      "limiar": 0.7,
+      "precisao": 0.857,
+      "recall": 0.618,
+      "f1": 0.718,
+      "liberadas_falsas": 7,
+      "barradas_boas": 26
+    },
+    {
+      "limiar": 0.75,
+      "precisao": 0.875,
+      "recall": 0.618,
+      "f1": 0.724,
+      "liberadas_falsas": 6,
+      "barradas_boas": 26
+    },
+    {
+      "limiar": 0.8,
+      "precisao": 0.87,
+      "recall": 0.588,
+      "f1": 0.702,
+      "liberadas_falsas": 6,
+      "barradas_boas": 28
+    },
+    {
+      "limiar": 0.85,
+      "precisao": 0.86,
+      "recall": 0.544,
+      "f1": 0.667,
+      "liberadas_falsas": 6,
+      "barradas_boas": 31
+    },
+    {
+      "limiar": 0.9,
+      "precisao": 0.875,
+      "recall": 0.515,
+      "f1": 0.648,
+      "liberadas_falsas": 5,
+      "barradas_boas": 33
+    },
+    {
+      "limiar": 0.95,
+      "precisao": 0.865,
+      "recall": 0.471,
+      "f1": 0.61,
+      "liberadas_falsas": 5,
+      "barradas_boas": 36
+    }
+  ],
+  "por_origem": {
+    "adversarial (escrita a partir do texto da fonte)": {
+      "n": 38,
+      "no_escolhido": {
+        "limiar": 0.75,
+        "precisao": 0.6,
+        "recall": 0.75,
+        "f1": 0.667,
+        "liberadas_falsas": 4,
+        "barradas_boas": 2
+      },
+      "em_0_5": {
+        "limiar": 0.5,
+        "precisao": 0.462,
+        "recall": 0.75,
+        "f1": 0.571,
+        "liberadas_falsas": 7,
+        "barradas_boas": 2
+      }
+    },
+    "bateria 17/11 (frase real do sistema)": {
+      "n": 67,
+      "no_escolhido": {
+        "limiar": 0.75,
+        "precisao": 0.947,
+        "recall": 0.6,
+        "f1": 0.735,
+        "liberadas_falsas": 2,
+        "barradas_boas": 24
+      },
+      "em_0_5": {
+        "limiar": 0.5,
+        "precisao": 0.95,
+        "recall": 0.633,
+        "f1": 0.76,
+        "liberadas_falsas": 2,
+        "barradas_boas": 22
+      }
+    }
+  },
+  "erros_no_escolhido": [
+    {
+      "id": "bat17-00",
+      "rotulo": "sustenta",
+      "p": 0.003,
+      "frase": "O art. 60 da CLT diz que, para aumentar o horário de trabalho em atividades insalubres, é preciso pedir autorização antes das autoridades competentes.",
+      "fonte": "CLT, Art. 60"
+    },
+    {
+      "id": "bat17-01",
+      "rotulo": "sustenta",
+      "p": 0.006,
+      "frase": "A exceção é que, quando a jornada é de 12 horas de trabalho e 36 horas de descanso seguidas, não é preciso pedir autorização antes.",
+      "fonte": "CLT, Art. 60"
+    },
+    {
+      "id": "bat17-02",
+      "rotulo": "sustenta",
+      "p": 0.002,
+      "frase": "O art. 60 da CLT diz que, para aumentar o tempo de trabalho em atividades insalubres, é preciso pedir autorização das autoridades responsáveis por saúde no trabalho.",
+      "fonte": "CLT, Art. 60"
+    },
+    {
+      "id": "bat17-06",
+      "rotulo": "sustenta",
+      "p": 0.003,
+      "frase": "O art. 462 também proíbe que as empresas restringam a liberdade dos funcionários de usar o seu salário como quiserem.",
+      "fonte": "CLT, Art. 462"
+    },
+    {
+      "id": "bat17-09",
+      "rotulo": "sustenta",
+      "p": 0.006,
+      "frase": "O art. 462 também proíbe que as empresas obriguem os funcionários a usar o seu salário de uma forma específica.",
+      "fonte": "CLT, Art. 462"
+    },
+    {
+      "id": "bat17-10",
+      "rotulo": "sustenta",
+      "p": 0.333,
+      "frase": "A remuneração do trabalho noturno urbano é maior em 20% do que a do diurno, conforme o CLT, Art. 73.",
+      "fonte": "CLT, Art. 73"
+    },
+    {
+      "id": "bat17-12",
+      "rotulo": "sustenta",
+      "p": 0.002,
+      "frase": "O acréscimo de 20% é calculado sobre a hora diurna, conforme a LC 150/2015, Art. 14, § 2º.",
+      "fonte": "LC 150/2015 (doméstico), Art. 14"
+    },
+    {
+      "id": "bat17-14",
+      "rotulo": "sustenta",
+      "p": 0.396,
+      "frase": "O trabalho noturno urbano é considerado aquele executado entre as 22 horas de um dia e as 5 horas do dia seguinte, conforme o CLT, Art. 73, § 2º.",
+      "fonte": "CLT, Art. 73"
+    },
+    {
+      "id": "bat17-19",
+      "rotulo": "sustenta",
+      "p": 0.192,
+      "frase": "O tempo de serviço efetivo também conta quando o trabalhador estiver fora do trabalho por motivo de serviço militar ou acidente do trabalho.",
+      "fonte": "CLT, Art. 4º"
+    },
+    {
+      "id": "bat17-20",
+      "rotulo": "contradiz",
+      "p": 0.996,
+      "frase": "O tempo que passa além da jornada normal, mesmo que seja um pouco mais, não é considerado hora extra, a menos que haja uma regra específica.",
+      "fonte": "CLT, Art. 4º"
+    },
+    {
+      "id": "bat17-22",
+      "rotulo": "sustenta",
+      "p": 0.455,
+      "frase": "O tempo de serviço efetivo também conta quando o trabalhador estiver afastado por serviço militar ou acidente do trabalho.",
+      "fonte": "CLT, Art. 4º"
+    },
+    {
+      "id": "bat17-35",
+      "rotulo": "sustenta",
+      "p": 0.007,
+      "frase": "O empregado pode ficar ausente nos dias em que tiver que fazer provas do vestibular para entrar em faculdade.",
+      "fonte": "CLT, Art. 473"
+    },
+    {
+      "id": "bat17-36",
+      "rotulo": "sustenta",
+      "p": 0.355,
+      "frase": "O empregado pode ficar ausente pelo tempo necessário se estiver participando de reunião oficial de órgão internacional em que o Brasil participe, na qualidade de representante de sindicato.",
+      "fonte": "CLT, Art. 473"
+    },
+    {
+      "id": "bat17-37",
+      "rotulo": "sustenta",
+      "p": 0.538,
+      "frase": "O empregado pode ficar ausente pelo tempo necessário para acompanhar a esposa ou companheira em até 6 consultas médicas ou exames durante a gravidez.",
+      "fonte": "CLT, Art. 473"
+    },
+    {
+      "id": "bat17-45",
+      "rotulo": "sustenta",
+      "p": 0.005,
+      "frase": "O empregado pode ficar ausente nos dias em que estiver fazendo provas do vestibular para entrar em faculdade.",
+      "fonte": "CLT, Art. 473"
+    },
+    {
+      "id": "bat17-46",
+      "rotulo": "sustenta",
+      "p": 0.137,
+      "frase": "O empregado pode ficar ausente pelo tempo que precisar, se estiver participando de reunião oficial de organismo internacional em que o Brasil participe, na qualidade de representante de sindicato.",
+      "fonte": "CLT, Art. 473"
+    },
+    {
+      "id": "bat17-47",
+      "rotulo": "sustenta",
+      "p": 0.376,
+      "frase": "O empregado pode ficar ausente para acompanhar sua esposa ou companheira em até 6 consultas médicas ou exames durante a gravidez.",
+      "fonte": "CLT, Art. 473"
+    },
+    {
+      "id": "bat17-48",
+      "rotulo": "sustenta",
+      "p": 0.362,
+      "frase": "O empregado pode ficar ausente pelo tempo necessário para acompanhar sua esposa ou companheira em até 6 consultas médicas ou em exames complementares durante o período de gravidez.",
+      "fonte": "CLT, Art. 473"
+    },
+    {
+      "id": "bat17-51",
+      "rotulo": "sustenta",
+      "p": 0.656,
+      "frase": "O seguro-desemprego para empregados domésticos demitidos sem justa causa tem valor de 1 salário-mínimo, por até 3 meses, conforme o Art. 26 da LC 150/2015.",
+      "fonte": "LC 150/2015 (doméstico), Art. 26"
+    },
+    {
+      "id": "bat17-54",
+      "rotulo": "sustenta",
+      "p": 0.001,
+      "frase": "A falta de aviso prévio por parte do empregador dá ao empregado o direito aos salários correspondentes ao prazo do aviso.",
+      "fonte": "LC 150/2015 (doméstico), Art. 23"
+    },
+    {
+      "id": "bat17-55",
+      "rotulo": "sustenta",
+      "p": 0.002,
+      "frase": "A falta de aviso prévio por parte do empregador dá ao empregado o direito aos salários correspondentes ao prazo do aviso, garantida sempre a integração desse período ao seu tempo de serviço.",
+      "fonte": "LC 150/2015 (doméstico), Art. 23"
+    },
+    {
+      "id": "bat17-56",
+      "rotulo": "nao_trata",
+      "p": 0.984,
+      "frase": "A mulher grávida pode parar de trabalhar se o emprego prejudicar a gravidez, conforme o Art. 394 da CLT.",
+      "fonte": "CLT, Art. 394"
+    },
+    {
+      "id": "bat17-61",
+      "rotulo": "sustenta",
+      "p": 0.004,
+      "frase": "A notificação do empregador relativa aos débitos com o FGTS interrompe o prazo prescricional, conforme o art. 23-A, § 1º, da Lei 8.036/1990.",
+      "fonte": "Lei 8.036/1990 (FGTS), Art. 23-A"
+    },
+    {
+      "id": "bat17-62",
+      "rotulo": "sustenta",
+      "p": 0.132,
+      "frase": "Os resultados financeiros da Caixa Econômica Federal no período entre o repasse dos bancos e o depósito nas contas vinculadas destinar-se-ão à cobertura das despesas de administração do FGTS, conforme o art. 4º da Lei 8.036/1990.",
+      "fonte": "Lei 8.036/1990 (FGTS), Art. 12"
+    },
+    {
+      "id": "bat17-63",
+      "rotulo": "sustenta",
+      "p": 0.246,
+      "frase": "A Caixa Econômica Federal passa a gerenciar as contas do FGTS (Fundo de Garantia do Tempo de Serviço) dentro de um ano, a partir da promulgação da Lei 8.036/1990, conforme o art. 12, caput, da mesma lei.",
+      "fonte": "Lei 8.036/1990 (FGTS), Art. 12"
+    },
+    {
+      "id": "bat17-65",
+      "rotulo": "sustenta",
+      "p": 0.303,
+      "frase": "A conta vinculada será transferida para o banco escolhido pelo novo empregador, até que a centralização prevista no art. 12 seja concluída.",
+      "fonte": "Lei 8.036/1990 (FGTS), Art. 12"
+    },
+    {
+      "id": "adv-03",
+      "rotulo": "contradiz",
+      "p": 0.999,
+      "frase": "O empregado pode faltar até 5 dias consecutivos por causa do casamento sem perder o salário.",
+      "fonte": "CLT, Art. 473"
+    },
+    {
+      "id": "adv-05",
+      "rotulo": "contradiz",
+      "p": 0.997,
+      "frase": "O empregado pode faltar um dia a cada 6 meses para doar sangue.",
+      "fonte": "CLT, Art. 473"
+    },
+    {
+      "id": "adv-07",
+      "rotulo": "contradiz",
+      "p": 0.875,
+      "frase": "São acrescidos 5 dias de aviso prévio por ano de serviço na mesma empresa.",
+      "fonte": "Lei 12.506/2011 (aviso prévio), Art. 1º"
+    },
+    {
+      "id": "adv-17",
+      "rotulo": "contradiz",
+      "p": 0.962,
+      "frase": "Na primeira solicitação do seguro-desemprego, basta ter recebido salários em 6 dos últimos 12 meses.",
+      "fonte": "Lei 7.998/1990 (seguro-desemprego), Art. 3º"
+    },
+    {
+      "id": "adv-30",
+      "rotulo": "sustenta",
+      "p": 0.056,
+      "frase": "Na dispensa sem justa causa, o empregador deposita no FGTS 40% de todos os depósitos feitos durante o contrato.",
+      "fonte": "Lei 8.036/1990 (FGTS), Art. 18"
+    },
+    {
+      "id": "adv-35",
+      "rotulo": "sustenta",
+      "p": 0.111,
+      "frase": "A multa do art. 477 é devida mesmo quando o vínculo de emprego só foi reconhecido na Justiça.",
+      "fonte": "Súmula 462 do TST"
+    }
+  ],
+  "probabilidades": [
+    {
+      "id": "bat17-00",
+      "rotulo": "sustenta",
+      "p_nli": 0.0026,
+      "p": 0.0026
+    },
+    {
+      "id": "bat17-01",
+      "rotulo": "sustenta",
+      "p_nli": 0.0065,
+      "p": 0.0065
+    },
+    {
+      "id": "bat17-02",
+      "rotulo": "sustenta",
+      "p_nli": 0.0016,
+      "p": 0.0016
+    },
+    {
+      "id": "bat17-03",
+      "rotulo": "sustenta",
+      "p_nli": 0.9858,
+      "p": 0.9858
+    },
+    {
+      "id": "bat17-04",
+      "rotulo": "sustenta",
+      "p_nli": 0.835,
+      "p": 0.835
+    },
+    {
+      "id": "bat17-05",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0124,
+      "p": 0.0124
+    },
+    {
+      "id": "bat17-06",
+      "rotulo": "sustenta",
+      "p_nli": 0.0034,
+      "p": 0.0034
+    },
+    {
+      "id": "bat17-07",
+      "rotulo": "sustenta",
+      "p_nli": 0.8652,
+      "p": 0.8652
+    },
+    {
+      "id": "bat17-08",
+      "rotulo": "nao_trata",
+      "p_nli": 0.1185,
+      "p": 0.1185
+    },
+    {
+      "id": "bat17-09",
+      "rotulo": "sustenta",
+      "p_nli": 0.0062,
+      "p": 0.0062
+    },
+    {
+      "id": "bat17-10",
+      "rotulo": "sustenta",
+      "p_nli": 0.3333,
+      "p": 0.3333
+    },
+    {
+      "id": "bat17-11",
+      "rotulo": "sustenta",
+      "p_nli": 0.7554,
+      "p": 0.7554
+    },
+    {
+      "id": "bat17-12",
+      "rotulo": "sustenta",
+      "p_nli": 0.0015,
+      "p": 0.0015
+    },
+    {
+      "id": "bat17-13",
+      "rotulo": "nao_trata",
+      "p_nli": 0.1548,
+      "p": 0.1548
+    },
+    {
+      "id": "bat17-14",
+      "rotulo": "sustenta",
+      "p_nli": 0.3962,
+      "p": 0.3962
+    },
+    {
+      "id": "bat17-15",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985
+    },
+    {
+      "id": "bat17-16",
+      "rotulo": "sustenta",
+      "p_nli": 0.9951,
+      "p": 0.9951
+    },
+    {
+      "id": "bat17-17",
+      "rotulo": "sustenta",
+      "p_nli": 0.9888,
+      "p": 0.9888
+    },
+    {
+      "id": "bat17-18",
+      "rotulo": "sustenta",
+      "p_nli": 0.9849,
+      "p": 0.9849
+    },
+    {
+      "id": "bat17-19",
+      "rotulo": "sustenta",
+      "p_nli": 0.1919,
+      "p": 0.1919
+    },
+    {
+      "id": "bat17-20",
+      "rotulo": "contradiz",
+      "p_nli": 0.9961,
+      "p": 0.9961
+    },
+    {
+      "id": "bat17-21",
+      "rotulo": "sustenta",
+      "p_nli": 0.9961,
+      "p": 0.9961
+    },
+    {
+      "id": "bat17-22",
+      "rotulo": "sustenta",
+      "p_nli": 0.4546,
+      "p": 0.4546
+    },
+    {
+      "id": "bat17-23",
+      "rotulo": "sustenta",
+      "p_nli": 0.9932,
+      "p": 0.9932
+    },
+    {
+      "id": "bat17-24",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0263,
+      "p": 0.0263
+    },
+    {
+      "id": "bat17-25",
+      "rotulo": "sustenta",
+      "p_nli": 0.9277,
+      "p": 0.9277
+    },
+    {
+      "id": "bat17-26",
+      "rotulo": "sustenta",
+      "p_nli": 0.998,
+      "p": 0.998
+    },
+    {
+      "id": "bat17-27",
+      "rotulo": "sustenta",
+      "p_nli": 0.9741,
+      "p": 0.9741
+    },
+    {
+      "id": "bat17-28",
+      "rotulo": "sustenta",
+      "p_nli": 0.9946,
+      "p": 0.9946
+    },
+    {
+      "id": "bat17-29",
+      "rotulo": "sustenta",
+      "p_nli": 0.9741,
+      "p": 0.9741
+    },
+    {
+      "id": "bat17-30",
+      "rotulo": "sustenta",
+      "p_nli": 0.998,
+      "p": 0.998
+    },
+    {
+      "id": "bat17-31",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985
+    },
+    {
+      "id": "bat17-32",
+      "rotulo": "sustenta",
+      "p_nli": 0.9976,
+      "p": 0.9976
+    },
+    {
+      "id": "bat17-33",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985
+    },
+    {
+      "id": "bat17-34",
+      "rotulo": "sustenta",
+      "p_nli": 0.998,
+      "p": 0.998
+    },
+    {
+      "id": "bat17-35",
+      "rotulo": "sustenta",
+      "p_nli": 0.0069,
+      "p": 0.0069
+    },
+    {
+      "id": "bat17-36",
+      "rotulo": "sustenta",
+      "p_nli": 0.3555,
+      "p": 0.3555
+    },
+    {
+      "id": "bat17-37",
+      "rotulo": "sustenta",
+      "p_nli": 0.5376,
+      "p": 0.5376
+    },
+    {
+      "id": "bat17-38",
+      "rotulo": "sustenta",
+      "p_nli": 0.9312,
+      "p": 0.9312
+    },
+    {
+      "id": "bat17-39",
+      "rotulo": "sustenta",
+      "p_nli": 0.9854,
+      "p": 0.9854
+    },
+    {
+      "id": "bat17-40",
+      "rotulo": "sustenta",
+      "p_nli": 0.998,
+      "p": 0.998
+    },
+    {
+      "id": "bat17-41",
+      "rotulo": "sustenta",
+      "p_nli": 0.998,
+      "p": 0.998
+    },
+    {
+      "id": "bat17-42",
+      "rotulo": "sustenta",
+      "p_nli": 0.998,
+      "p": 0.998
+    },
+    {
+      "id": "bat17-43",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985
+    },
+    {
+      "id": "bat17-44",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985
+    },
+    {
+      "id": "bat17-45",
+      "rotulo": "sustenta",
+      "p_nli": 0.0047,
+      "p": 0.0047
+    },
+    {
+      "id": "bat17-46",
+      "rotulo": "sustenta",
+      "p_nli": 0.1368,
+      "p": 0.1368
+    },
+    {
+      "id": "bat17-47",
+      "rotulo": "sustenta",
+      "p_nli": 0.3755,
+      "p": 0.3755
+    },
+    {
+      "id": "bat17-48",
+      "rotulo": "sustenta",
+      "p_nli": 0.3618,
+      "p": 0.3618
+    },
+    {
+      "id": "bat17-49",
+      "rotulo": "sustenta",
+      "p_nli": 0.8027,
+      "p": 0.8027
+    },
+    {
+      "id": "bat17-50",
+      "rotulo": "sustenta",
+      "p_nli": 0.9917,
+      "p": 0.9917
+    },
+    {
+      "id": "bat17-51",
+      "rotulo": "sustenta",
+      "p_nli": 0.6562,
+      "p": 0.6562
+    },
+    {
+      "id": "bat17-52",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985
+    },
+    {
+      "id": "bat17-53",
+      "rotulo": "sustenta",
+      "p_nli": 0.998,
+      "p": 0.998
+    },
+    {
+      "id": "bat17-54",
+      "rotulo": "sustenta",
+      "p_nli": 0.0012,
+      "p": 0.0012
+    },
+    {
+      "id": "bat17-55",
+      "rotulo": "sustenta",
+      "p_nli": 0.0017,
+      "p": 0.0017
+    },
+    {
+      "id": "bat17-56",
+      "rotulo": "nao_trata",
+      "p_nli": 0.9839,
+      "p": 0.9839
+    },
+    {
+      "id": "bat17-57",
+      "rotulo": "sustenta",
+      "p_nli": 0.8677,
+      "p": 0.8677
+    },
+    {
+      "id": "bat17-58",
+      "rotulo": "sustenta",
+      "p_nli": 0.9004,
+      "p": 0.9004
+    },
+    {
+      "id": "bat17-59",
+      "rotulo": "sustenta",
+      "p_nli": 0.9946,
+      "p": 0.9946
+    },
+    {
+      "id": "bat17-60",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0043,
+      "p": 0.0043
+    },
+    {
+      "id": "bat17-61",
+      "rotulo": "sustenta",
+      "p_nli": 0.004,
+      "p": 0.004
+    },
+    {
+      "id": "bat17-62",
+      "rotulo": "sustenta",
+      "p_nli": 0.1315,
+      "p": 0.1315
+    },
+    {
+      "id": "bat17-63",
+      "rotulo": "sustenta",
+      "p_nli": 0.2457,
+      "p": 0.2457
+    },
+    {
+      "id": "bat17-64",
+      "rotulo": "sustenta",
+      "p_nli": 0.9697,
+      "p": 0.9697
+    },
+    {
+      "id": "bat17-65",
+      "rotulo": "sustenta",
+      "p_nli": 0.3035,
+      "p": 0.3035
+    },
+    {
+      "id": "bat17-66",
+      "rotulo": "sustenta",
+      "p_nli": 0.9917,
+      "p": 0.9917
+    },
+    {
+      "id": "adv-00",
+      "rotulo": "contradiz",
+      "p_nli": 0.0044,
+      "p": 0.0
+    },
+    {
+      "id": "adv-01",
+      "rotulo": "contradiz",
+      "p_nli": 0.6289,
+      "p": 0.0
+    },
+    {
+      "id": "adv-02",
+      "rotulo": "contradiz",
+      "p_nli": 0.3247,
+      "p": 0.3247
+    },
+    {
+      "id": "adv-03",
+      "rotulo": "contradiz",
+      "p_nli": 0.9985,
+      "p": 0.9985
+    },
+    {
+      "id": "adv-04",
+      "rotulo": "contradiz",
+      "p_nli": 0.7388,
+      "p": 0.7388
+    },
+    {
+      "id": "adv-05",
+      "rotulo": "contradiz",
+      "p_nli": 0.9966,
+      "p": 0.9966
+    },
+    {
+      "id": "adv-06",
+      "rotulo": "contradiz",
+      "p_nli": 0.9746,
+      "p": 0.0
+    },
+    {
+      "id": "adv-07",
+      "rotulo": "contradiz",
+      "p_nli": 0.8755,
+      "p": 0.8755
+    },
+    {
+      "id": "adv-08",
+      "rotulo": "contradiz",
+      "p_nli": 0.5215,
+      "p": 0.5215
+    },
+    {
+      "id": "adv-09",
+      "rotulo": "contradiz",
+      "p_nli": 0.0006,
+      "p": 0.0006
+    },
+    {
+      "id": "adv-10",
+      "rotulo": "contradiz",
+      "p_nli": 0.001,
+      "p": 0.0
+    },
+    {
+      "id": "adv-11",
+      "rotulo": "contradiz",
+      "p_nli": 0.0012,
+      "p": 0.0012
+    },
+    {
+      "id": "adv-12",
+      "rotulo": "contradiz",
+      "p_nli": 0.0033,
+      "p": 0.0033
+    },
+    {
+      "id": "adv-13",
+      "rotulo": "contradiz",
+      "p_nli": 0.1418,
+      "p": 0.1418
+    },
+    {
+      "id": "adv-14",
+      "rotulo": "contradiz",
+      "p_nli": 0.0005,
+      "p": 0.0005
+    },
+    {
+      "id": "adv-15",
+      "rotulo": "contradiz",
+      "p_nli": 0.6841,
+      "p": 0.6841
+    },
+    {
+      "id": "adv-16",
+      "rotulo": "contradiz",
+      "p_nli": 0.6748,
+      "p": 0.0
+    },
+    {
+      "id": "adv-17",
+      "rotulo": "contradiz",
+      "p_nli": 0.9619,
+      "p": 0.9619
+    },
+    {
+      "id": "adv-18",
+      "rotulo": "contradiz",
+      "p_nli": 0.0002,
+      "p": 0.0002
+    },
+    {
+      "id": "adv-19",
+      "rotulo": "contradiz",
+      "p_nli": 0.0294,
+      "p": 0.0294
+    },
+    {
+      "id": "adv-20",
+      "rotulo": "contradiz",
+      "p_nli": 0.0874,
+      "p": 0.0874
+    },
+    {
+      "id": "adv-21",
+      "rotulo": "contradiz",
+      "p_nli": 0.0336,
+      "p": 0.0336
+    },
+    {
+      "id": "adv-22",
+      "rotulo": "contradiz",
+      "p_nli": 0.8608,
+      "p": 0.0
+    },
+    {
+      "id": "adv-23",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0016,
+      "p": 0.0
+    },
+    {
+      "id": "adv-24",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0009,
+      "p": 0.0009
+    },
+    {
+      "id": "adv-25",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0002,
+      "p": 0.0
+    },
+    {
+      "id": "adv-26",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0003,
+      "p": 0.0
+    },
+    {
+      "id": "adv-27",
+      "rotulo": "nao_trata",
+      "p_nli": 0.007,
+      "p": 0.0
+    },
+    {
+      "id": "adv-28",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0015,
+      "p": 0.0015
+    },
+    {
+      "id": "adv-29",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0014,
+      "p": 0.0014
+    },
+    {
+      "id": "adv-30",
+      "rotulo": "sustenta",
+      "p_nli": 0.0555,
+      "p": 0.0555
+    },
+    {
+      "id": "adv-31",
+      "rotulo": "sustenta",
+      "p_nli": 0.979,
+      "p": 0.979
+    },
+    {
+      "id": "adv-32",
+      "rotulo": "sustenta",
+      "p_nli": 0.999,
+      "p": 0.999
+    },
+    {
+      "id": "adv-33",
+      "rotulo": "sustenta",
+      "p_nli": 0.7524,
+      "p": 0.7524
+    },
+    {
+      "id": "adv-34",
+      "rotulo": "sustenta",
+      "p_nli": 0.8472,
+      "p": 0.8472
+    },
+    {
+      "id": "adv-35",
+      "rotulo": "sustenta",
+      "p_nli": 0.1112,
+      "p": 0.1112
+    },
+    {
+      "id": "adv-36",
+      "rotulo": "sustenta",
+      "p_nli": 0.998,
+      "p": 0.998
+    },
+    {
+      "id": "adv-37",
+      "rotulo": "sustenta",
+      "p_nli": 0.9976,
+      "p": 0.9976
+    }
+  ]
+}
