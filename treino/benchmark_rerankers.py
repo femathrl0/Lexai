@@ -43,6 +43,14 @@ RERANKERS_PADRAO = [
     "unicamp-dl/mMiniLM-L6-v2-pt-v2",
 ]
 PRECISA_REMOTE_CODE = {"Alibaba-NLP/gte-multilingual-reranker-base"}
+# Revisões fixas, para o benchmark ser reproduzível. O gte executa código de Alibaba-NLP/new-impl
+# (trust_remote_code): só roda com --permitir-codigo-remoto, na revisão fixada abaixo.
+REVISOES = {
+    "Alibaba-NLP/gte-multilingual-reranker-base": "8215cf04918ba6f7b6a62bb44238ce2953d8831c",
+    "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1": "1427fd652930e4ba29e8149678df786c240d8825",
+    "unicamp-dl/mMiniLM-L6-v2-pt-v2": "a9c0d68bae51b053e85747605350bb781d945712",
+}
+CODIGO_REMOTO_REVISAO = "40ced75c3017eb27626c9d4ea981bde21a2662f4"  # Alibaba-NLP/new-impl
 KS = (1, 3, 5, 10)
 
 
@@ -150,10 +158,18 @@ def candidatos(perguntas, ids, textos_busca, k_cada: int, k_pool: int, device: s
 
 # ---------------------------------------------------------------- rerankers
 class _Reranker:
-    def __init__(self, repo: str, device: str):
+    def __init__(self, repo: str, device: str, permitir_codigo_remoto: bool = False):
         from sentence_transformers import CrossEncoder
 
-        kw = {"trust_remote_code": True} if repo in PRECISA_REMOTE_CODE else {}
+        kw: dict = {"revision": REVISOES[repo]} if repo in REVISOES else {}
+        if repo in PRECISA_REMOTE_CODE:
+            if not permitir_codigo_remoto:
+                raise PermissionError(f"{repo} executa código remoto; rode com --permitir-codigo-remoto")
+            kw |= {
+                "trust_remote_code": True,
+                "config_kwargs": {"code_revision": CODIGO_REMOTO_REVISAO},
+                "model_kwargs": {"code_revision": CODIGO_REMOTO_REVISAO},
+            }
         self.repo = repo
         self.ce = CrossEncoder(repo, device=device, max_length=512, **kw)
 
@@ -198,6 +214,7 @@ def main() -> None:
     ap.add_argument("--k-pool", type=int, default=30, help="candidatos entregues ao reranker")
     ap.add_argument("--device", default="mps")
     ap.add_argument("--sem-mlflow", action="store_true")
+    ap.add_argument("--permitir-codigo-remoto", action="store_true", help="necessário para o gte (trust_remote_code)")
     a = ap.parse_args()
 
     import datetime as dt
@@ -254,7 +271,7 @@ def main() -> None:
         print(f"reranker {repo}…", flush=True)
         try:
             t0 = time.perf_counter()
-            rr = _Reranker(repo, a.device)
+            rr = _Reranker(repo, a.device, a.permitir_codigo_remoto)
             carga = time.perf_counter() - t0
         except Exception as e:  # noqa: BLE001 — candidato que não carrega fica registrado como falha
             print(f"  falhou ao carregar: {e}")

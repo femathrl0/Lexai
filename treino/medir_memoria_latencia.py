@@ -203,7 +203,7 @@ def _ollama(caminho: str, corpo: dict | None = None, stream: bool = False):
     return json.loads(resp.read())
 
 
-def medir_llm(modelo: str, repeticoes: int = 3, num_ctx: int = 8192) -> dict:
+def medir_llm(modelo: str, repeticoes: int = 3, num_ctx: int = 16384) -> dict:
     textos = _textos_lei(64)
 
     def prompt(i: int) -> str:
@@ -216,7 +216,10 @@ def medir_llm(modelo: str, repeticoes: int = 3, num_ctx: int = 8192) -> dict:
         )
 
     opcoes = {"num_ctx": num_ctx, "num_predict": 200, "temperature": 0}
-    _ollama("/api/generate", {"model": modelo, "keep_alive": -1, "prompt": "", "stream": False})  # só carrega
+    _ollama(
+        "/api/generate",
+        {"model": modelo, "keep_alive": -1, "prompt": "", "stream": False, "options": {"num_ctx": num_ctx}},
+    )  # só carrega
     ps = next((m for m in _ollama("/api/ps")["models"] if m["name"].startswith(modelo)), {})
     corridas = []
     for i in range(repeticoes):
@@ -383,6 +386,7 @@ def main() -> None:
     ap.add_argument("--device", default="mps")
     ap.add_argument("--repeticoes", type=int, default=20)
     ap.add_argument("--llm", default=LLM_PADRAO)
+    ap.add_argument("--num-ctx", type=int, default=16384, help="contexto da LLM (o ClienteOllama da entrega usa 16384)")
     ap.add_argument("--sem-mlflow", action="store_true")
     a = ap.parse_args()
 
@@ -404,7 +408,7 @@ def main() -> None:
         print(f"  {nome}: {r['memoria_pico_gb']:.2f} GB, carga {r['carga_s']:.1f}s", flush=True)
         isolados.append(r)
     print(f"medindo LLM {a.llm}…", flush=True)
-    llm = medir_llm(a.llm)
+    llm = medir_llm(a.llm, num_ctx=a.num_ctx)
     print(f"  {llm['memoria_gb']:.2f} GB, {llm['geracao_tok_s_mediana']:.1f} tok/s", flush=True)
     print("medindo todos juntos com a LLM carregada…", flush=True)
     cmd = [

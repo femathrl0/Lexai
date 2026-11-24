@@ -1,6 +1,6 @@
 # Benchmark dos rerankers — legislação
 
-Gerado por `python -m treino.benchmark_rerankers` em 2026-11-19T10:56:30 · commit `4ae9b1407f41`.
+Gerado por `python -m treino.benchmark_rerankers` em 2026-11-24T15:14:31 · commit `264807194dae`.
 
 - **Relevância:** provisória: referências aprovadas de legislação = 2, demais candidatos = 0.
 - **Corpus:** 5127 artigos (estratégia A) · perguntas (com e sem resposta): dev 11, teste 9.
@@ -15,6 +15,8 @@ Gerado por `python -m treino.benchmark_rerankers` em 2026-11-19T10:56:30 · comm
 | sem_reranker:denso | 0.877 | 0.877 | 0.877 | 0.611 | 1.000 | 1.000 | 0.833 |
 | sem_reranker:hibrido_rrf | 0.778 | 0.826 | 0.865 | 0.722 | 0.778 | 0.889 | 0.824 |
 | reranker:BAAI/bge-reranker-v2-m3 | 0.959 | 0.959 | 0.959 | 0.833 | 1.000 | 1.000 | 0.944 |
+| reranker:cross-encoder/mmarco-mMiniLMv2-L12-H384-v1 | 0.903 | 0.903 | 0.903 | 0.722 | 1.000 | 1.000 | 0.870 |
+| reranker:unicamp-dl/mMiniLM-L6-v2-pt-v2 | 0.667 | 0.697 | 0.734 | 0.389 | 0.833 | 0.889 | 0.664 |
 
 ## Teste congelado (só medida)
 
@@ -24,9 +26,14 @@ Gerado por `python -m treino.benchmark_rerankers` em 2026-11-19T10:56:30 · comm
 | sem_reranker:denso | 0.947 | 0.947 | 0.947 | 0.786 | 1.000 | 1.000 | 0.929 |
 | sem_reranker:hibrido_rrf | 0.912 | 0.950 | 0.950 | 0.857 | 0.929 | 1.000 | 0.929 |
 | reranker:BAAI/bge-reranker-v2-m3 | 0.956 | 0.956 | 0.956 | 0.857 | 1.000 | 1.000 | 0.929 |
+| reranker:cross-encoder/mmarco-mMiniLMv2-L12-H384-v1 | 0.936 | 0.936 | 0.936 | 0.786 | 1.000 | 1.000 | 0.929 |
+| reranker:unicamp-dl/mMiniLM-L6-v2-pt-v2 | 0.885 | 0.885 | 0.885 | 0.714 | 1.000 | 1.000 | 0.833 |
 
 ## Custo e separação de perguntas sem resposta
 
 | Reranker | Carga (s) | Latência p50 por pergunta (s) | AUC nota top-1 (com × sem resposta) |
 |---|---:|---:|---:|
-| reranker:BAAI/bge-reranker-v2-m3 | 3.0 | 5.31 | 1.00 |
+| reranker:BAAI/bge-reranker-v2-m3 | 2.6 | 4.00 | 1.00 |
+| reranker:Alibaba-NLP/gte-multilingual-reranker-base | falhou: PermissionError: Alibaba-NLP/gte-multilingual-reranker-base executa código remot | | |
+| reranker:cross-encoder/mmarco-mMiniLMv2-L12-H384-v1 | 1.3 | 0.40 | 1.00 |
+| reranker:unicamp-dl/mMiniLM-L6-v2-pt-v2 | 1.1 | 0.21 | 0.97 |

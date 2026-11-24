@@ -1,6 +1,6 @@
 {
-  "quando": "2026-11-19T10:56:30",
-  "commit": "4ae9b1407f41d49305bb12a56b4da8f69c065b94-sujo",
+  "quando": "2026-11-24T15:14:31",
+  "commit": "264807194dae9c084c0a3271068f3aa11089e659-sujo",
   "relevancia": "provisória: referências aprovadas de legislação = 2, demais candidatos = 0",
   "artigos": 5127,
   "perguntas": {
@@ -136,10 +136,93 @@
         "nota_top1_media_sem_resposta": 0.19592141441535205,
         "sem_resposta": 4
       },
-      "carga_s": 2.9859554579998075,
+      "carga_s": 2.6367610830002377,
       "latencia_por_pergunta_s": {
-        "p50": 5.305937541500043,
-        "max": 5.883394834000683
+        "p50": 4.00442497899985,
+        "max": 4.566533708999486
+      },
+      "pares_por_pergunta": 30
+    },
+    "reranker:Alibaba-NLP/gte-multilingual-reranker-base": {
+      "erro": "PermissionError: Alibaba-NLP/gte-multilingual-reranker-base executa código remoto; rode com --permitir-codigo-remoto"
+    },
+    "reranker:cross-encoder/mmarco-mMiniLMv2-L12-H384-v1": {
+      "metricas": {
+        "dev": {
+          "ndcg@1": 0.7777777777777778,
+          "ndcg@3": 0.9034366392857175,
+          "ndcg@5": 0.9034366392857175,
+          "ndcg@10": 0.9034366392857175,
+          "recall@1": 0.7222222222222222,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr@10": 0.8703703703703703,
+          "perguntas": 9
+        },
+        "test": {
+          "ndcg@1": 0.8571428571428571,
+          "ndcg@3": 0.9358072203885207,
+          "ndcg@5": 0.9358072203885207,
+          "ndcg@10": 0.9358072203885207,
+          "recall@1": 0.7857142857142857,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr@10": 0.9285714285714286,
+          "perguntas": 7
+        }
+      },
+      "separacao_sem_resposta": {
+        "auc_top1": 1.0,
+        "nota_top1_media_com_resposta": 4.294290721416473,
+        "nota_top1_media_sem_resposta": -1.4690365195274353,
+        "sem_resposta": 4
+      },
+      "carga_s": 1.3231375409995962,
+      "latencia_por_pergunta_s": {
+        "p50": 0.40136722899933375,
+        "max": 0.446431999998822
+      },
+      "pares_por_pergunta": 30
+    },
+    "reranker:unicamp-dl/mMiniLM-L6-v2-pt-v2": {
+      "metricas": {
+        "dev": {
+          "ndcg@1": 0.4444444444444444,
+          "ndcg@3": 0.6673262726088701,
+          "ndcg@5": 0.6966671751169358,
+          "ndcg@10": 0.7337042121539727,
+          "recall@1": 0.3888888888888889,
+          "recall@3": 0.8333333333333334,
+          "recall@5": 0.8888888888888888,
+          "recall@10": 1.0,
+          "mrr@10": 0.6640211640211641,
+          "perguntas": 9
+        },
+        "test": {
+          "ndcg@1": 0.7142857142857143,
+          "ndcg@3": 0.884775200516753,
+          "ndcg@5": 0.884775200516753,
+          "ndcg@10": 0.884775200516753,
+          "recall@1": 0.7142857142857143,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr@10": 0.8333333333333333,
+          "perguntas": 7
+        }
+      },
+      "separacao_sem_resposta": {
+        "auc_top1": 0.96875,
+        "nota_top1_media_com_resposta": 5.110017776489258,
+        "nota_top1_media_sem_resposta": -0.008106879889965057,
+        "sem_resposta": 4
+      },
+      "carga_s": 1.0586575830002403,
+      "latencia_por_pergunta_s": {
+        "p50": 0.20798979150004016,
+        "max": 0.2683461670003453
       },
       "pares_por_pergunta": 30
     }
