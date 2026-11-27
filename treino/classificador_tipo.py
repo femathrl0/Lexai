@@ -40,6 +40,10 @@ LOTE = {
     "sha256": "453efb25ce420dbb34b78cccb1fd849d84bc76a40505febc03290e8ff1be6505",
     "licenca": "CC BY 4.0",
 }
+# O mesmo arquivo baixado pela ingestão de jurisprudência (Eng. de dados), no layout particionado do RepoJus.
+CAMINHOS_ALTERNATIVOS = (
+    RAIZ / "dados" / "raw" / "jurisprudencia" / "repojus" / "p_tribunal=TRT10_p_ano=2024_part-00000.parquet",
+)
 
 SEMENTE = "lexai-divisao-v1"
 CLASSES = ("recurso_ordinario", "agravo_peticao", "embargos_declaracao", "agravo_instrumento", "acao_originaria")
@@ -165,6 +169,8 @@ def baixar() -> Path:
     from treino.comum import sha256_arquivo
 
     destino: Path = LOTE["caminho"]
+    if not destino.exists():
+        destino = next((c for c in CAMINHOS_ALTERNATIVOS if c.exists()), destino)
     if not destino.exists():
         destino.parent.mkdir(parents=True, exist_ok=True)
         print(f"baixando {LOTE['url']}")

@@ -78,6 +78,9 @@ dev = [
 [tool.uv]
 package = false
 default-groups = ["dev", "backend"]
+# Evidently (monitoramento de deriva, semana 5) ainda não roda com pandas 3 (ImportError em
+# pandas.core.dtypes.common.infer_dtype_from_object, evidently 0.7.23). Rever quando o Evidently suportar.
+constraint-dependencies = ["pandas<3"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
