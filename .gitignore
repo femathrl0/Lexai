@@ -34,3 +34,6 @@ frontend/dist/
 # Sistema
 .DS_Store
 *.log
+
+# Pesos treinados localmente (vão para o MLflow, não para o Git)
+/treino/modelos/
