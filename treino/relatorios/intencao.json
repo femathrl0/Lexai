@@ -1,0 +1,197 @@
+{
+  "casos_rascunho": 486,
+  "treino": 346,
+  "teste": 140,
+  "reais": 35,
+  "distribuicao": {
+    "responder": 144,
+    "orientar_sem_aconselhar": 108,
+    "consulta_individual": 90,
+    "fora_escopo": 48,
+    "outra_jurisdicao": 90,
+    "institucional": 6
+  },
+  "resultados": {
+    "rascunho_teste": {
+      "regras": {
+        "acuracia": 0.9071428571428571,
+        "f1_macro": 0.9083053310326037,
+        "por_classe": {
+          "responder": {
+            "precisao": 0.8059701492537313,
+            "recall": 1.0,
+            "f1": 0.8925619834710743,
+            "suporte": 54
+          },
+          "orientar_sem_aconselhar": {
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "suporte": 36
+          },
+          "consulta_individual": {
+            "precisao": 1.0,
+            "recall": 0.9444444444444444,
+            "f1": 0.9714285714285714,
+            "suporte": 18
+          },
+          "fora_escopo": {
+            "precisao": 1.0,
+            "recall": 0.625,
+            "f1": 0.7692307692307693,
+            "suporte": 32
+          },
+          "outra_jurisdicao": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 0
+          },
+          "institucional": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 0
+          }
+        },
+        "erros_graves": 1,
+        "n": 140
+      },
+      "tfidf_char_lr": {
+        "acuracia": 0.44285714285714284,
+        "f1_macro": 0.4147435897435897,
+        "por_classe": {
+          "responder": {
+            "precisao": 0.6666666666666666,
+            "recall": 0.6666666666666666,
+            "f1": 0.6666666666666666,
+            "suporte": 54
+          },
+          "orientar_sem_aconselhar": {
+            "precisao": 0.7916666666666666,
+            "recall": 0.5277777777777778,
+            "f1": 0.6333333333333333,
+            "suporte": 36
+          },
+          "consulta_individual": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 18
+          },
+          "fora_escopo": {
+            "precisao": 1.0,
+            "recall": 0.21875,
+            "f1": 0.358974358974359,
+            "suporte": 32
+          },
+          "outra_jurisdicao": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 0
+          },
+          "institucional": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 0
+          }
+        },
+        "erros_graves": 18,
+        "n": 140
+      }
+    },
+    "casos_reais": {
+      "regras": {
+        "acuracia": 1.0,
+        "f1_macro": 1.0,
+        "por_classe": {
+          "responder": {
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "suporte": 16
+          },
+          "orientar_sem_aconselhar": {
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "suporte": 3
+          },
+          "consulta_individual": {
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "suporte": 5
+          },
+          "fora_escopo": {
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "suporte": 6
+          },
+          "outra_jurisdicao": {
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "suporte": 3
+          },
+          "institucional": {
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "suporte": 2
+          }
+        },
+        "erros_graves": 0,
+        "n": 35
+      },
+      "tfidf_char_lr": {
+        "acuracia": 0.6,
+        "f1_macro": 0.5548941798941799,
+        "por_classe": {
+          "responder": {
+            "precisao": 0.6470588235294118,
+            "recall": 0.6875,
+            "f1": 0.6666666666666667,
+            "suporte": 16
+          },
+          "orientar_sem_aconselhar": {
+            "precisao": 0.5,
+            "recall": 0.6666666666666666,
+            "f1": 0.5714285714285715,
+            "suporte": 3
+          },
+          "consulta_individual": {
+            "precisao": 1.0,
+            "recall": 0.8,
+            "f1": 0.888888888888889,
+            "suporte": 5
+          },
+          "fora_escopo": {
+            "precisao": 1.0,
+            "recall": 0.16666666666666666,
+            "f1": 0.2857142857142857,
+            "suporte": 6
+          },
+          "outra_jurisdicao": {
+            "precisao": 0.2,
+            "recall": 0.3333333333333333,
+            "f1": 0.25,
+            "suporte": 3
+          },
+          "institucional": {
+            "precisao": 0.5,
+            "recall": 1.0,
+            "f1": 0.6666666666666666,
+            "suporte": 2
+          }
+        },
+        "erros_graves": 1,
+        "n": 35
+      }
+    }
+  },
+  "decisao": "regras continuam em uso (o modelo não vence nos casos reais)"
+}
