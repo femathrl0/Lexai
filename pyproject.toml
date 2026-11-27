@@ -33,6 +33,7 @@ worker = [
     "psycopg[binary]>=3.2",
     "pgvector>=0.3",
     "sentence-transformers>=3.0",
+    "torch>=2.4",
     "transformers>=4.44",
     "sentencepiece>=0.2",
     "protobuf>=4.25",
@@ -41,6 +42,7 @@ worker = [
 # Treino e MLOps (Eng. de ML) e dados (Eng. de dados).
 treino = [
     "scikit-learn>=1.5",
+    "torch>=2.4",
     "transformers>=4.44",
     "peft>=0.12",
     "mlflow>=2.14",
@@ -110,3 +112,13 @@ select = ["E", "F", "I", "B", "UP"]
 extend-immutable-calls = ["fastapi.Depends", "fastapi.Form", "fastapi.File"]
 # Depends/Form em defaults é o padrão do FastAPI.
 
+
+# No Linux (CI, contêineres, máquinas sem GPU NVIDIA) o torch vem do índice CPU do PyTorch,
+# que evita baixar ~4 GB de bibliotecas CUDA. No macOS continua o wheel do PyPI (com MPS).
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]
