@@ -3,7 +3,7 @@ COMPOSE = docker compose -f infra/docker-compose.yml --env-file .env
 .PHONY: setup up down migrar backend worker frontend test lint preparar-modelos \
 	teste-congelado medir-memoria baseline-tipo benchmark-rerankers \
 	portao-regressao lora-tipo lora-tipo-amostra benchmark-nli segmentador resultado-pedido configuracoes \
-	extrator-campos intencao registrar-cross-encoders
+	extrator-campos intencao registrar-cross-encoders ruido-ocr deriva
 
 setup:            ## instala dependências (backend + dev)
 	uv sync
@@ -55,3 +55,7 @@ intencao:         ## intenção da guarda: regras × TF-IDF de caracteres
 	uv run --group treino python -m treino.intencao avaliar
 registrar-cross-encoders: ## reranker, NLI e embeddings no registro do MLflow (alias candidato)
 	uv run --group treino python -m treino.registrar_cross_encoders
+ruido-ocr:        ## queda dos componentes em uso com ruído de OCR (sintético) e ajuste com aumento
+	uv run --group treino python -m treino.ruido_ocr
+deriva:           ## relatório Evidently de deriva sobre o log de previsões do worker
+	uv run --group treino python -m treino.deriva relatorio

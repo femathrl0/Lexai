@@ -1,0 +1,29 @@
+name: Monitoramento de deriva
+
+# Semanal e sob demanda (issue #31). No CI roda sobre o log de exemplo versionado (fotos simuladas); no servidor,
+# o mesmo comando roda sobre dados/output/previsoes (ver docs/deploy.md).
+on:
+  schedule:
+    - cron: "0 11 * * 1"  # segunda, 8h em Brasília
+  workflow_dispatch:
+
+jobs:
+  deriva:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with: { enable-cache: true }
+      - run: uv python install 3.12
+      - run: uv sync --frozen --group dev --group treino
+      - name: Relatório Evidently (código 2 = alerta de deriva)
+        run: |
+          set +e
+          uv run python -m treino.deriva relatorio --atual avaliacao/monitoramento/previsoes_exemplo.jsonl
+          code=$?
+          if [ "$code" = 2 ]; then echo "::warning::deriva detectada no log de exemplo (esperado: fotos simuladas)"; exit 0; fi
+          exit $code
+      - uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-deriva
+          path: dados/output/monitoramento/
