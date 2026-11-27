@@ -1,0 +1,37 @@
+sequenceDiagram
+    autonumber
+    actor U as Usuário
+    participant O as Orquestrador
+    participant T as Triagem
+    participant P as Pesquisa
+    participant A as Análise
+    participant C as Comunicação
+    participant V as Validação
+
+    U->>O: pergunta + público
+    O->>T: classificar intenção
+    T-->>O: DecisaoTriagem (ação, pergunta sem dados pessoais)
+    alt fora do escopo / consulta individual
+        O-->>U: resposta fixa com encaminhamento (sem LLM)
+    else responder / orientar sem aconselhar
+        O->>P: buscar trechos
+        P-->>O: Evidencias (lei + jurisprudência, notas do reranker)
+        O->>A: explicar frase a frase
+        A-->>O: Explicacao (frase → trecho)
+        O->>C: adaptar ao público
+        C-->>O: Explicacao simplificada (legibilidade antes → depois)
+        O->>V: conferir cada frase
+        alt frase reprovada (1ª vez)
+            V-->>A: devolução "refazer frase N: motivo"
+            A-->>O: Explicacao corrigida
+            O->>C: adaptar
+            C-->>O: Explicacao simplificada
+            O->>V: conferir de novo
+        else nenhuma frase com fonte (1ª vez)
+            V-->>P: devolução "nova busca"
+            P-->>O: Evidencias com consulta reformulada
+            Note over O,V: segue Análise → Comunicação → Validação
+        end
+        V-->>O: RespostaVerificada (frases aprovadas + avisos)
+        O-->>U: frase a frase, com o trecho literal ao lado + aviso fixo
+    end

@@ -12,6 +12,14 @@ Toda decisão de arquitetura e processo está no [Manual de MLOps e arquitetura]
 4. **Nada vai ao usuário sem passar por um portão de qualidade.** O verificador é o último portão.
 5. **Dado pessoal só fica com consentimento** (RNF01).
 
+## Sistema multiagente (entrega 20/11)
+
+Triagem → Pesquisa → Análise → Comunicação → Validação, coordenados por um Orquestrador. Documentação, diagramas e demo em [`docs/agentes/arquitetura.md`](docs/agentes/arquitetura.md).
+
+```bash
+uv run --group worker python -m worker.evidencia.agentes.demo "Quais verbas recebo na demissão sem justa causa?"
+```
+
 ## Arquitetura em uma linha
 
 `frontend (React)` → `backend (FastAPI)` → `Redis (filas perguntas > documentos > ingestao_juridica)` → `worker (único que carrega modelos)` → `PostgreSQL + pgvector (corpus_juridico, trechos_usuario)`; apoio: `MinIO` (originais com opt-in) e `MLflow` (registro de modelos).
