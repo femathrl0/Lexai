@@ -1,10 +1,26 @@
 {
-  "_doc": "Métricas de referência por modelo (versão em uso ou, se nenhuma está em uso, a última aprovada pelo grupo). O portão de regressão (treino/portao_regressao.py) compara o relatório gravado de cada modelo com estes valores. Só treino/promover.py (ou um PR revisado pelo Eng. de ML) muda este arquivo.",
+  "_doc": "Métricas de referência por modelo (versão em uso ou, se nenhuma está em uso, a última aprovada pelo grupo). O portão de regressão (treino/portao_regressao.py) compara o relatório gravado de cada modelo com estes valores. Só treino/promover.py (ou um PR revisado pelo Eng. de ML) muda este arquivo. 'em_uso': false marca um candidato acompanhado pelo portão (o retreino não pode piorar o que já foi medido).",
   "modelos": {
     "classificador_tipo_fase": {
       "relatorio": "treino/relatorios/classificador_tipo_baseline.json",
+      "caminho": "resultados.regras_cabecalho.teste",
+      "versao_referencia": "regras_cabecalho (em uso)",
+      "em_uso": true,
+      "metricas": {
+        "f1_macro": {
+          "valor": 0.9422,
+          "direcao": "maior",
+          "tolerancia": 0.005
+        }
+      },
+      "erros_graves": {
+        "fase_trocada": 42
+      }
+    },
+    "classificador_tipo_fase.candidato_tfidf": {
+      "relatorio": "treino/relatorios/classificador_tipo_baseline.json",
       "caminho": "resultados.tfidf_lr_sem_cabecalho.teste",
-      "versao_referencia": "v1 (tfidf_lr_sem_cabecalho, candidato)",
+      "versao_referencia": "TF-IDF + LR v1 sem cabeçalho (candidato)",
       "metricas": {
         "f1_macro": {
           "valor": 0.9526,
@@ -19,12 +35,13 @@
       },
       "erros_graves": {
         "fase_trocada": 23
-      }
+      },
+      "em_uso": false
     },
-    "segmentador": {
+    "segmentador.candidato_tfidf": {
       "relatorio": "treino/relatorios/segmentador.json",
       "caminho": "resultados.tfidf_lr_texto_posicao.teste",
-      "versao_referencia": "tfidf_lr_texto_posicao (candidato, amostra de 3.000 acórdãos)",
+      "versao_referencia": "TF-IDF + LR com posição (candidato, 3.000 acórdãos)",
       "metricas": {
         "f1_macro": {
           "valor": 0.924,
@@ -32,7 +49,8 @@
           "tolerancia": 0.01
         }
       },
-      "erros_graves": {}
+      "erros_graves": {},
+      "em_uso": false
     },
     "resultado_pedido": {
       "relatorio": "treino/relatorios/resultado_pedido.json",
@@ -47,7 +65,8 @@
       },
       "erros_graves": {
         "troca_grave": 1
-      }
+      },
+      "em_uso": true
     },
     "reranker": {
       "relatorio": "treino/relatorios/benchmark_rerankers.json",
@@ -60,7 +79,8 @@
           "tolerancia": 0.0
         }
       },
-      "erros_graves": {}
+      "erros_graves": {},
+      "em_uso": true
     },
     "extrator_campos.numero_processo": {
       "relatorio": "treino/relatorios/extrator_campos.json",
@@ -78,7 +98,8 @@
           "tolerancia": 0.005
         }
       },
-      "erros_graves": {}
+      "erros_graves": {},
+      "em_uso": true
     },
     "extrator_campos.relator": {
       "relatorio": "treino/relatorios/extrator_campos.json",
@@ -96,7 +117,8 @@
           "tolerancia": 0.005
         }
       },
-      "erros_graves": {}
+      "erros_graves": {},
+      "em_uso": true
     },
     "extrator_campos.data_julgamento": {
       "relatorio": "treino/relatorios/extrator_campos.json",
@@ -114,7 +136,8 @@
           "tolerancia": 0.005
         }
       },
-      "erros_graves": {}
+      "erros_graves": {},
+      "em_uso": true
     },
     "intencao_guarda": {
       "relatorio": "treino/relatorios/intencao.json",
@@ -129,7 +152,8 @@
       },
       "erros_graves": {
         "erros_graves": 0
-      }
+      },
+      "em_uso": true
     }
   }
 }
