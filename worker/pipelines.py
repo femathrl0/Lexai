@@ -22,7 +22,7 @@ def processar_documento(tarefa_id: str, usuario_id: str, caminho: str, guardar: 
     """PDF → leitura → segmentos → tipo/fase, campos e resultado → frases sobre o documento (com o trecho literal) →
     explicação da lei dos pedidos pelo sistema multiagente → concluído. Cada evento é publicado assim que sai."""
     from .documento import analisar, pergunta_sobre_pedidos
-    from .leitura.leitor import ler_pdf
+    from .leitura.leitor import ler_documento
     from .modelos.registro import em_uso, versoes
 
     r = redis or _redis()
@@ -32,7 +32,7 @@ def processar_documento(tarefa_id: str, usuario_id: str, caminho: str, guardar: 
 
     try:
         pub(Status(etapa="lendo"))
-        doc = ler_pdf(tarefa_id, caminho)
+        doc = ler_documento(tarefa_id, caminho)
         if doc.qualidade_leitura < LIMIAR_QUALIDADE_LEITURA:
             pub(Aviso(categoria="nova_foto", texto="Não consegui ler bem o documento"
                       + (f" ({doc.motivo_baixa_qualidade})" if doc.motivo_baixa_qualidade else "")
@@ -42,6 +42,9 @@ def processar_documento(tarefa_id: str, usuario_id: str, caminho: str, guardar: 
         pub(Status(etapa="classificando"))
         modelos = em_uso()
         analise = analisar(doc, modelos)
+        from .modelos.monitoramento import registrar_analise
+
+        registrar_analise(tarefa_id, doc, analise, modelos)
         if analise.classificacao.abstencao:
             pub(Aviso(categoria="incerteza", texto="Não tenho certeza do tipo deste documento; confira no cabeçalho."))
         for frase in analise.frases:
@@ -86,7 +89,11 @@ def responder_pergunta(tarefa_id: str, usuario_id: str, pergunta: str, documento
     r = _redis()
     orq = _orquestrador()
     orq.publicar = lambda evento: publicar(r, tarefa_id, evento)
-    orq.responder(pergunta, tarefa_id=tarefa_id)
+    estado = orq.responder(pergunta, tarefa_id=tarefa_id)
+    from .modelos.monitoramento import registrar_validacao
+    from .modelos.registro import em_uso
+
+    registrar_validacao(tarefa_id, estado, em_uso()["verificador_nli"].rotulo)
 
 
 def ingerir_lote(tarefa_id: str, lote: str) -> None:
