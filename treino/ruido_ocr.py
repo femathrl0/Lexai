@@ -21,7 +21,7 @@ import argparse
 import random
 import unicodedata
 
-from treino.comum import RELATORIOS, salvar_json
+from treino.comum import RELATORIOS, parametros, salvar_json
 
 PARECIDAS = {"m": "rn", "rn": "m", "l": "1", "1": "l", "O": "0", "0": "O", "e": "c", "c": "e", "i": "í", "S": "5", "5": "S",
              "B": "8", "g": "q", "h": "b", "u": "ii", "ç": "c", "ã": "a", "õ": "o"}
@@ -176,8 +176,9 @@ def markdown(rel: dict) -> str:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--docs", type=int, default=2000)
-    ap.add_argument("--taxas", type=float, nargs="+", default=[0.0, 0.02, 0.05, 0.10])
+    p = parametros("ruido_ocr")
+    ap.add_argument("--docs", type=int, default=p.get("docs", 2000))
+    ap.add_argument("--taxas", type=float, nargs="+", default=p.get("taxas", [0.0, 0.02, 0.05, 0.10]))
     ap.add_argument("--sem-aumento", action="store_true", help="não treina o modelo com aumento de ruído")
     a = ap.parse_args()
     rel = rodar(a.docs, a.taxas)

@@ -1,0 +1,34 @@
+name: Integração (Postgres + Redis)
+
+# Testes marcados `integracao`: fila real do RQ ponta a ponta e migrações no Postgres com pgvector.
+# Toda noite, a cada push na main e sob demanda (ficam fora do CI de PR para ele seguir rápido).
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  integracao:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.0-pg16
+        env: { POSTGRES_PASSWORD: teste, POSTGRES_DB: lexai }
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U postgres" --health-interval 5s --health-retries 20
+      redis:
+        image: redis:7.4-alpine
+        ports: ["6379:6379"]
+        options: --health-cmd "redis-cli ping" --health-interval 5s --health-retries 20
+    env:
+      DATABASE_URL: postgresql+psycopg://postgres:teste@127.0.0.1:5432/lexai
+      REDIS_URL: redis://127.0.0.1:6379/0
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with: { enable-cache: true, cache-dependency-glob: uv.lock }
+      - run: uv python install 3.12
+      - run: uv sync --frozen --group dev --group backend
+      - run: uv run pytest -q -m integracao tests/integracao

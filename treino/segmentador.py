@@ -22,7 +22,7 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 
-from treino.comum import RELATORIOS, salvar_json
+from treino.comum import RELATORIOS, parametros, salvar_json
 
 PARTES = ("outro", "relatorio", "fundamentacao", "dispositivo")
 FAIXAS = 10
@@ -193,7 +193,8 @@ def markdown(rel: dict) -> str:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--docs", type=int, default=3000, help="acórdãos amostrados (0 = todos)")
+    ap.add_argument("--docs", type=int, default=parametros("segmentador").get("docs", 3000),
+                    help="acórdãos amostrados (0 = todos)")
     ap.add_argument("--sem-mlflow", action="store_true")
     a = ap.parse_args()
     rel = rodar(a)

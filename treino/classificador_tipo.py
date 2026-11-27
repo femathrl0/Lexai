@@ -28,7 +28,7 @@ import urllib.request
 from collections import Counter
 from pathlib import Path
 
-from treino.comum import RAIZ, RELATORIOS, salvar_json
+from treino.comum import RAIZ, RELATORIOS, parametros, salvar_json
 from worker.modelos.tipo_documento import (  # noqa: F401 - reexportados: regras e pré-processamento vivem no worker
     CLASSES,
     FASE_DO_TIPO,
@@ -51,7 +51,7 @@ CAMINHOS_ALTERNATIVOS = (
     RAIZ / "dados" / "raw" / "jurisprudencia" / "repojus" / "p_tribunal=TRT10_p_ano=2024_part-00000.parquet",
 )
 
-SEMENTE = "lexai-divisao-v1"
+SEMENTE = parametros("dados").get("divisao_semente", "lexai-divisao-v1")
 
 # classe processual do tribunal -> (tipo, fase). Fora do mapa = descartado (rótulo genérico ou raro demais).
 MAPA_CLASSE: dict[str, tuple[str, str | None]] = {
@@ -117,6 +117,9 @@ def carregar_lote():
     import pandas as pd
 
     df = pd.read_parquet(baixar(), columns=["doc_id", "processo", "tipo", "texto_integral"])
+    from treino.esquemas import validar
+
+    validar("repojus", df)  # lote fora do esquema para o pipeline antes do treino
     rot = df["tipo"].map(rotular)
     df = df[rot.notna()].copy()
     df["classe"] = rot[rot.notna()].map(lambda x: x[0])
@@ -397,9 +400,11 @@ def main() -> None:
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("baixar")
     t = sub.add_parser("treinar")
-    t.add_argument("--C", type=float, nargs="+", default=[1.0, 4.0, 16.0])
-    t.add_argument("--max-features", type=int, default=300_000)
-    t.add_argument("--precisao-alvo", type=float, default=0.98, help="acurácia mínima nas previsões aceitas")
+    p = parametros("classificador_tipo")
+    t.add_argument("--C", type=float, nargs="+", default=p.get("C", [1.0, 4.0, 16.0]))
+    t.add_argument("--max-features", type=int, default=p.get("max_features", 300_000))
+    t.add_argument("--precisao-alvo", type=float, default=p.get("precisao_alvo", 0.98),
+                   help="acurácia mínima nas previsões aceitas")
     t.add_argument("--sem-mlflow", action="store_true")
     a = ap.parse_args()
     if a.cmd == "baixar":

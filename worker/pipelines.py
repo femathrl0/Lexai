@@ -50,7 +50,8 @@ def processar_documento(tarefa_id: str, usuario_id: str, caminho: str, guardar: 
         for frase in analise.frases:
             pub(frase)
         pergunta = pergunta_sobre_pedidos(analise)
-        orq = orquestrador if orquestrador is not None else (_orquestrador() if pergunta else None)
+        sem_llm = os.getenv("LEXAI_SEM_LLM") == "1"  # documento sem a explicação da LLM (teste de integração, LLM fora)
+        orq = orquestrador if orquestrador is not None else (_orquestrador() if pergunta and not sem_llm else None)
         if pergunta and orq is not None:
             base, dos_modelos = len(analise.frases), versoes(modelos)
 

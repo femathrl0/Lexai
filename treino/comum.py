@@ -45,11 +45,31 @@ def maquina() -> dict[str, str]:
     return info
 
 
+def _servidor_no_ar(uri: str) -> bool:
+    if not uri.startswith("http"):
+        return True
+    import urllib.request
+
+    try:
+        urllib.request.urlopen(uri.rstrip("/") + "/health", timeout=3)
+        return True
+    except OSError:
+        return False
+
+
 def iniciar_mlflow(experimento: str):
-    """Configura o MLflow do Compose (ou MLFLOW_TRACKING_URI) e devolve o módulo pronto para uso."""
+    """Configura o MLflow do Compose (ou MLFLOW_TRACKING_URI) e devolve o módulo pronto para uso.
+
+    Se o servidor não responde (pipeline rodando sem `make up`), registra num SQLite local (`mlflow.db`, fora do Git)
+    em vez de falhar: o experimento continua rastreado e pode ser reenviado depois."""
     import mlflow
 
-    mlflow.set_tracking_uri(os.environ.get("MLFLOW_TRACKING_URI", TRACKING_PADRAO))
+    uri = os.environ.get("MLFLOW_TRACKING_URI", TRACKING_PADRAO)
+    if not _servidor_no_ar(uri):
+        local = f"sqlite:///{RAIZ / 'mlflow.db'}"
+        print(f"[mlflow] {uri} fora do ar; registrando em {local}", flush=True)
+        uri = local
+    mlflow.set_tracking_uri(uri)
     mlflow.set_experiment(experimento)
     return mlflow
 
@@ -58,6 +78,16 @@ def tags_padrao(**extra: str) -> dict[str, str]:
     tags = {"git_commit": commit_atual(), "cargo": "eng-ml", **{f"maquina.{k}": v for k, v in maquina().items()}}
     tags.update(extra)
     return tags
+
+
+def parametros(secao: str) -> dict:
+    """Seção de params.yaml (rastreado pelo DVC); {} se o arquivo ou a seção não existem."""
+    import yaml
+
+    arq = RAIZ / "params.yaml"
+    if not arq.exists():
+        return {}
+    return (yaml.safe_load(arq.read_text(encoding="utf-8")) or {}).get(secao, {}) or {}
 
 
 def salvar_json(obj, caminho: str | Path) -> Path:

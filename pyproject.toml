@@ -76,6 +76,11 @@ legado = [
 ]
 dev = [
     "pytest>=8.2",
+    "pytest-cov>=5.0",
+    "mypy>=1.11",
+    "types-PyYAML>=6.0",
+    "pandera>=0.20",
+    "pre-commit>=3.8",
     "pillow>=10.0",
     "pymupdf>=1.24",  # o teste ponta a ponta do documento monta um PDF de verdade no CI
     "ruff>=0.6",
@@ -97,6 +102,19 @@ markers = [
     "integracao: precisa de Postgres, Redis, Ollama ou modelos baixados (não roda no CI padrão)",
     "legado: testes migrados do lex_clt.ai que dependem do grupo 'legado'",
 ]
+
+[tool.coverage.run]
+source = ["contratos", "backend", "worker", "treino"]
+omit = ["worker/ingestao/*", "worker/evidencia/indices/*"]
+
+[tool.mypy]
+python_version = "3.12"
+# contratos/ entra quando o dono revisar (o Rastro.registrar recebe `tipo: str` em vez do Literal)
+files = ["worker/modelos", "treino/portao_regressao.py", "treino/promover.py"]
+ignore_missing_imports = true
+check_untyped_defs = true
+warn_unused_ignores = true
+follow_imports = "silent"
 
 [tool.ruff]
 line-length = 130

@@ -1,6 +1,7 @@
 COMPOSE = docker compose -f infra/docker-compose.yml --env-file .env
 
 .PHONY: setup up down migrar backend worker frontend test lint preparar-modelos \
+	test-integracao cobertura tipos esquemas pipeline pre-commit \
 	teste-congelado medir-memoria baseline-tipo benchmark-rerankers \
 	portao-regressao lora-tipo lora-tipo-amostra benchmark-nli segmentador resultado-pedido configuracoes \
 	extrator-campos intencao registrar-cross-encoders ruido-ocr deriva aprendizado-ativo
@@ -21,6 +22,18 @@ frontend:
 	cd frontend && npm install && npm run dev
 test:
 	uv run pytest -q -m "not integracao"
+test-integracao:  ## com os serviços do Compose no ar (make up)
+	uv run pytest -q -m integracao tests/integracao
+cobertura:
+	uv run pytest -q -m "not integracao" --cov --cov-report=term --cov-report=html
+tipos:
+	uv run mypy
+esquemas:         ## valida os dados versionados (e o lote RepoJus, se baixado) com Pandera
+	uv run --group treino python -m treino.esquemas
+pipeline:         ## refaz só os estágios do dvc.yaml cujo código, dados ou parâmetros mudaram
+	uv run --group treino dvc repro
+pre-commit:
+	uv run pre-commit install
 lint:
 	uv run ruff check .
 preparar-modelos: ## baixa LLM quantizada, embeddings e cross-encoders

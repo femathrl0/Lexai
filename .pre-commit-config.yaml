@@ -1,0 +1,41 @@
+# `uv run pre-commit install` uma vez; depois roda a cada commit (o CI repete as mesmas checagens).
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+        exclude: ^infra/.*compose.*\.yml$
+      - id: check-json
+      - id: check-added-large-files
+        args: [--maxkb=30000]  # a base de legislação tem arquivos de até 25 MB (dados/README.md)
+      - id: check-merge-conflict
+      - id: detect-private-key
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.21.2
+    hooks:
+      - id: gitleaks
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff
+        entry: uv run ruff check --fix
+        language: system
+        types: [python]
+      - id: mypy
+        name: mypy (módulos de modelo)
+        entry: uv run mypy
+        language: system
+        pass_filenames: false
+        files: ^worker/modelos/
+      - id: uv-lock
+        name: uv.lock em dia
+        entry: uv lock --check
+        language: system
+        pass_filenames: false
+        files: ^(pyproject\.toml|uv\.lock)$
+      - id: portao-regressao
+        name: portão de regressão de modelo
+        entry: uv run python -m treino.portao_regressao
+        language: system
+        pass_filenames: false
+        files: ^treino/(relatorios|portoes)/

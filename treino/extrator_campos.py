@@ -16,7 +16,7 @@ import argparse
 import re
 import unicodedata
 
-from treino.comum import RELATORIOS, salvar_json
+from treino.comum import RELATORIOS, parametros, salvar_json
 
 CAMPOS_REFERENCIA = {"numero_processo": "processo", "relator": "relator", "data_julgamento": "data_julgamento"}
 
@@ -102,7 +102,8 @@ def markdown(rel: dict) -> str:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--docs", type=int, default=0, help="amostra do teste (0 = todo o teste)")
+    ap.add_argument("--docs", type=int, default=parametros("extrator_campos").get("docs", 0),
+                    help="amostra do teste (0 = todo o teste)")
     a = ap.parse_args()
     rel = rodar(a.docs)
     salvar_json(rel, RELATORIOS / "extrator_campos.json")
