@@ -1,0 +1,250 @@
+{
+  "docs_amostrados": 3000,
+  "docs_com_rotulo": 2465,
+  "paragrafos": {
+    "treino": 113299,
+    "validacao": 23086,
+    "teste": 24643
+  },
+  "distribuicao_treino": {
+    "outro": 23768,
+    "relatorio": 7609,
+    "fundamentacao": 67145,
+    "dispositivo": 14777
+  },
+  "resultados": {
+    "majoritaria": {
+      "validacao": {
+        "acuracia": 0.5642813826561552,
+        "f1_macro": 0.1803644117076953,
+        "acerto_por_parte": {
+          "outro": 0.0,
+          "relatorio": 0.0,
+          "fundamentacao": 1.0,
+          "dispositivo": 0.0
+        },
+        "por_classe": {
+          "outro": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 5254
+          },
+          "relatorio": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 1603
+          },
+          "fundamentacao": {
+            "precisao": 0.5642813826561552,
+            "recall": 1.0,
+            "f1": 0.7214576468307812,
+            "suporte": 13027
+          },
+          "dispositivo": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 3202
+          }
+        },
+        "dispositivo_trocado": 3202
+      },
+      "teste": {
+        "acuracia": 0.5816256137645579,
+        "f1_macro": 0.18386956075533661,
+        "acerto_por_parte": {
+          "outro": 0.0,
+          "relatorio": 0.0,
+          "fundamentacao": 1.0,
+          "dispositivo": 0.0
+        },
+        "por_classe": {
+          "outro": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 5349
+          },
+          "relatorio": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 1647
+          },
+          "fundamentacao": {
+            "precisao": 0.5816256137645579,
+            "recall": 1.0,
+            "f1": 0.7354782430213465,
+            "suporte": 14333
+          },
+          "dispositivo": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 3314
+          }
+        },
+        "dispositivo_trocado": 3314
+      }
+    },
+    "regra_posicao": {
+      "validacao": {
+        "acuracia": 0.7964567270207051,
+        "f1_macro": 0.5909173854825227,
+        "acerto_por_parte": {
+          "outro": 0.7459078797106966,
+          "relatorio": 0.0,
+          "fundamentacao": 0.9546326859599293,
+          "dispositivo": 0.6346033728919426
+        },
+        "por_classe": {
+          "outro": {
+            "precisao": 0.8359641638225256,
+            "recall": 0.7459078797106966,
+            "f1": 0.7883725608529472,
+            "suporte": 5254
+          },
+          "relatorio": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 1603
+          },
+          "fundamentacao": {
+            "precisao": 0.780861484365189,
+            "recall": 0.9546326859599293,
+            "f1": 0.859047421683418,
+            "suporte": 13027
+          },
+          "dispositivo": {
+            "precisao": 0.8220064724919094,
+            "recall": 0.6346033728919426,
+            "f1": 0.7162495593937257,
+            "suporte": 3202
+          }
+        },
+        "dispositivo_trocado": 1610
+      },
+      "teste": {
+        "acuracia": 0.805624315221361,
+        "f1_macro": 0.5964292990599361,
+        "acerto_por_parte": {
+          "outro": 0.7629463451112357,
+          "relatorio": 0.0,
+          "fundamentacao": 0.9489290448615084,
+          "dispositivo": 0.6550995775497888
+        },
+        "por_classe": {
+          "outro": {
+            "precisao": 0.8152217339192969,
+            "recall": 0.7629463451112357,
+            "f1": 0.7882182520521487,
+            "suporte": 5349
+          },
+          "relatorio": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 1647
+          },
+          "fundamentacao": {
+            "precisao": 0.8002000353003471,
+            "recall": 0.9489290448615084,
+            "f1": 0.8682413022661986,
+            "suporte": 14333
+          },
+          "dispositivo": {
+            "precisao": 0.8223484848484849,
+            "recall": 0.6550995775497888,
+            "f1": 0.7292576419213974,
+            "suporte": 3314
+          }
+        },
+        "dispositivo_trocado": 1612
+      },
+      "cortes": [
+        0.2,
+        0.2,
+        0.9
+      ]
+    },
+    "tfidf_lr_texto_posicao": {
+      "validacao": {
+        "acuracia": 0.9321233648098415,
+        "f1_macro": 0.9265138289893935,
+        "acerto_por_parte": {
+          "outro": 0.8951275218880853,
+          "relatorio": 0.9769182782283219,
+          "fundamentacao": 0.9580870499731328,
+          "dispositivo": 0.8647720174890693
+        },
+        "por_classe": {
+          "outro": {
+            "precisao": 0.9607763023493361,
+            "recall": 0.8951275218880853,
+            "f1": 0.9267908168292442,
+            "suporte": 5254
+          },
+          "relatorio": {
+            "precisao": 0.9228049499116088,
+            "recall": 0.9769182782283219,
+            "f1": 0.949090909090909,
+            "suporte": 1603
+          },
+          "fundamentacao": {
+            "precisao": 0.9274726907928958,
+            "recall": 0.9580870499731328,
+            "f1": 0.9425313396767859,
+            "suporte": 13027
+          },
+          "dispositivo": {
+            "precisao": 0.9117550214027,
+            "recall": 0.8647720174890693,
+            "f1": 0.8876422503606347,
+            "suporte": 3202
+          }
+        },
+        "dispositivo_trocado": 701
+      },
+      "teste": {
+        "acuracia": 0.9335713995860894,
+        "f1_macro": 0.924288237627155,
+        "acerto_por_parte": {
+          "outro": 0.9040942232192933,
+          "relatorio": 0.9411050394656952,
+          "fundamentacao": 0.9554175678504151,
+          "dispositivo": 0.8829209414604707
+        },
+        "por_classe": {
+          "outro": {
+            "precisao": 0.9504716981132075,
+            "recall": 0.9040942232192933,
+            "f1": 0.9267030755964356,
+            "suporte": 5349
+          },
+          "relatorio": {
+            "precisao": 0.9270334928229665,
+            "recall": 0.9411050394656952,
+            "f1": 0.9340162699608316,
+            "suporte": 1647
+          },
+          "fundamentacao": {
+            "precisao": 0.9362138510972858,
+            "recall": 0.9554175678504151,
+            "f1": 0.9457182320441989,
+            "suporte": 14333
+          },
+          "dispositivo": {
+            "precisao": 0.8986486486486487,
+            "recall": 0.8829209414604707,
+            "f1": 0.8907153729071537,
+            "suporte": 3314
+          }
+        },
+        "dispositivo_trocado": 718
+      }
+    }
+  }
+}
