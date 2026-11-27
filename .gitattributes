@@ -6,3 +6,5 @@
 # Dados de avaliação com hashes registrados: bytes preservados
 avaliacao/dados/** -text
 dados/relatorios/** -text
+dados/processed/** -text
+dados/chunks/** -text
