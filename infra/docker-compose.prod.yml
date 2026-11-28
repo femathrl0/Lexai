@@ -1,0 +1,143 @@
+# Produção portátil (host ainda indefinido, decisão 0012): tudo em contêiner, menos a LLM, que roda no Ollama de um
+# host com GPU (OLLAMA_HOST) ou no profile "ollama" abaixo. Uso:
+#   cp .env.example .env.prod   # preencher; LEXAI_AMBIENTE=producao, DOMINIO=lexai.seu-dominio
+#   docker compose -f infra/docker-compose.prod.yml --env-file .env.prod up -d
+# Imagens: ghcr.io/femathrl0/lexai-<serviço>:<tag> (workflow imagens.yml) ou build local com --build.
+name: lexai
+
+x-ambiente: &ambiente
+  LEXAI_AMBIENTE: ${LEXAI_AMBIENTE:-producao}
+  LOG_NIVEL: ${LOG_NIVEL:-INFO}
+  DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-lexai}:${POSTGRES_PASSWORD:?}@postgres:5432/${POSTGRES_DB:-lexai}
+  REDIS_URL: redis://:${REDIS_PASSWORD:?Configure REDIS_PASSWORD}@redis:6379/0
+  MINIO_ENDPOINT: minio:9000
+  MINIO_ROOT_USER: ${MINIO_ROOT_USER:-lexai}
+  MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?}
+  MINIO_BUCKET_ENTRADA: ${MINIO_BUCKET_ENTRADA:-entrada}
+  MLFLOW_TRACKING_URI: http://mlflow:5000
+  RQ_TIMEOUT: ${RQ_TIMEOUT:-900}
+  SEGREDO_SESSAO: ${SEGREDO_SESSAO:?}
+  UPLOAD_MAX_MB: ${UPLOAD_MAX_MB:-20}
+
+
+services:
+  caddy:
+    image: ghcr.io/femathrl0/lexai-frontend:${LEXAI_TAG:-latest}
+    build: { context: .., dockerfile: infra/docker/frontend.Dockerfile }
+    restart: unless-stopped
+    environment: { DOMINIO: "${DOMINIO:-:80}" }
+    ports: ["${PORTA_HTTP:-80}:80", "${PORTA_HTTPS:-443}:443"]
+    volumes: [caddy_data:/data, caddy_config:/config]
+    depends_on: { backend: { condition: service_healthy } }
+    deploy: { resources: { limits: { memory: 256m } } }
+
+  backend:
+    image: ghcr.io/femathrl0/lexai-backend:${LEXAI_TAG:-latest}
+    build: { context: .., dockerfile: infra/docker/backend.Dockerfile }
+    restart: unless-stopped
+    environment: *ambiente
+    depends_on:
+      migrar: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+      minio: { condition: service_healthy }
+    deploy: { resources: { limits: { memory: 512m } } }
+
+  migrar:  # roda uma vez a cada deploy, antes do backend
+    image: ghcr.io/femathrl0/lexai-backend:${LEXAI_TAG:-latest}
+    build: { context: .., dockerfile: infra/docker/backend.Dockerfile }
+    command: ["alembic", "upgrade", "head"]
+    environment: *ambiente
+    depends_on: { postgres: { condition: service_healthy } }
+    restart: "no"
+
+  worker:
+    image: ghcr.io/femathrl0/lexai-worker:${LEXAI_TAG:-latest}
+    build: { context: .., dockerfile: infra/docker/worker.Dockerfile }
+    restart: unless-stopped
+    environment:
+      <<: *ambiente
+      OLLAMA_HOST: ${OLLAMA_HOST:-http://ollama:11434}
+      LLM_MODELO: ${LLM_MODELO:-qwen3:8b}
+      BUSCADOR: ${BUSCADOR:-local}
+      DISPOSITIVO: ${DISPOSITIVO:-cpu}
+      HF_HUB_OFFLINE: ${HF_HUB_OFFLINE:-1}
+      LEXAI_PREVISOES_DIR: /app/dados/output/previsoes
+      LEXAI_SEM_LLM: ${LEXAI_SEM_LLM:-0}  # 1 = documento sem a explicação da LLM (teste de fumaça, LLM fora do ar)
+    volumes: [modelos:/modelos, previsoes:/app/dados/output]
+    depends_on:
+      redis: { condition: service_healthy }
+      minio: { condition: service_healthy }
+    stop_grace_period: 15m  # o RQ termina a tarefa em andamento antes de sair (SIGTERM = parada morna)
+    # encoders (BGE-M3, reranker, NLI) ~7,4 GB no pico; a LLM fica fora deste contêiner
+    deploy: { resources: { limits: { memory: 10g } } }
+
+  ollama:  # opcional: `--profile ollama` quando a LLM roda no mesmo host (com GPU, ver docs/deploy.md)
+    image: ollama/ollama:0.12.6
+    profiles: [ollama]
+    restart: unless-stopped
+    volumes: [ollama:/root/.ollama]
+    healthcheck: { test: ["CMD", "ollama", "list"], interval: 15s, retries: 20 }
+
+  postgres:
+    image: pgvector/pgvector:0.8.0-pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-lexai}
+      POSTGRES_USER: ${POSTGRES_USER:-lexai}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-lexai}"], interval: 5s, retries: 20 }
+    deploy: { resources: { limits: { memory: 1g } } }
+
+  redis:
+    image: redis:7.4-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD:?}", "--appendonly", "yes"]
+    volumes: [redis_data:/data]
+    healthcheck: { test: ["CMD-SHELL", "redis-cli -a \"$REDIS_PASSWORD\" ping | grep PONG"], interval: 5s, retries: 20 }
+    environment: { REDIS_PASSWORD: "${REDIS_PASSWORD:?}" }
+
+  minio:
+    image: chrislusf/seaweedfs:3.97
+    restart: unless-stopped
+    # Armazenamento S3 (entrada dos uploads, originais com opt-in, artefatos do MLflow). A MinIO deixou de publicar
+    # imagens públicas em 2025; o SeaweedFS fala a mesma API S3 que o cliente minio e o boto3 usam.
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >
+        printf '{"identities":[{"name":"lexai","credentials":[{"accessKey":"%s","secretKey":"%s"}],
+        "actions":["Admin","Read","Write","List","Tagging"]}]}' "$$S3_USUARIO" "$$S3_SENHA" > /tmp/s3.json &&
+        exec weed server -dir=/data -s3 -s3.port=9000 -s3.config=/tmp/s3.json -master.volumeSizeLimitMB=1024
+    environment:
+      S3_USUARIO: ${MINIO_ROOT_USER:-lexai}
+      S3_SENHA: ${MINIO_ROOT_PASSWORD:?Configure MINIO_ROOT_PASSWORD}
+    volumes: [minio_data:/data]
+    healthcheck: { test: ["CMD", "nc", "-z", "127.0.0.1", "9000"], interval: 5s, retries: 30 }
+
+  mlflow:
+    image: ghcr.io/femathrl0/lexai-mlflow:${LEXAI_TAG:-latest}
+    build: { context: .., dockerfile: infra/docker/mlflow.Dockerfile }
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-lexai}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+      POSTGRES_DB: ${POSTGRES_DB:-lexai}
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      AWS_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-lexai}
+      AWS_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:?}
+    ports: ["127.0.0.1:15000:5000"]  # só pelo túnel SSH: o registro não fica exposto na internet
+    depends_on: { postgres: { condition: service_healthy }, minio: { condition: service_healthy } }
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 15s
+      retries: 20
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
+  modelos:
+  previsoes:
+  ollama:
+  caddy_data:
+  caddy_config:

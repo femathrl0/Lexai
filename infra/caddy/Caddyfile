@@ -1,0 +1,28 @@
+# DOMINIO=lexai.exemplo.org → certificado automático (Let's Encrypt). DOMINIO=:80 → HTTP local, sem TLS.
+{$DOMINIO::80} {
+	encode zstd gzip
+	# A API fica em /api, como no proxy de desenvolvimento do Vite (o prefixo sai antes de chegar ao backend).
+	handle_path /api/* {
+		reverse_proxy backend:8000 {
+			# SSE: sem buffer e com leitura longa (uma resposta leva ~100 s no M4)
+			flush_interval -1
+			transport http {
+				read_timeout 15m
+			}
+		}
+	}
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+	}
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		-Server
+	}
+	request_body {
+		max_size 25MB
+	}
+}
