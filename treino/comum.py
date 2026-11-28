@@ -32,7 +32,7 @@ def commit_atual() -> str:
         sujo = subprocess.run(["git", "diff", "--quiet"], cwd=RAIZ).returncode != 0
         return sha + ("-sujo" if sujo else "")
     except (OSError, subprocess.CalledProcessError):
-        return "desconhecido"
+        return os.environ.get("LEXAI_GIT_COMMIT", "desconhecido")  # contêiner sem .git (Airflow): commit do build
 
 
 def maquina() -> dict[str, str]:

@@ -1,7 +1,7 @@
 COMPOSE = docker compose -f infra/docker-compose.yml --env-file .env
 
 .PHONY: setup up down migrar backend worker frontend test lint preparar-modelos \
-	test-integracao cobertura tipos esquemas pipeline pre-commit \
+	test-integracao cobertura tipos esquemas pipeline pre-commit airflow checar-dags \
 	teste-congelado medir-memoria baseline-tipo benchmark-rerankers \
 	portao-regressao lora-tipo lora-tipo-amostra benchmark-nli segmentador resultado-pedido configuracoes \
 	extrator-campos intencao registrar-cross-encoders ruido-ocr deriva aprendizado-ativo
@@ -74,3 +74,7 @@ deriva:           ## relatório Evidently de deriva sobre o log de previsões do
 	uv run --group treino python -m treino.deriva relatorio
 aprendizado-ativo: ## lote de anotação (Label Studio) com as previsões abaixo do limiar
 	uv run --group treino python -m treino.aprendizado_ativo
+airflow:          ## sobe o Airflow por cima do Compose de desenvolvimento (UI em 127.0.0.1:18080)
+	docker compose -f infra/docker-compose.yml -f infra/docker-compose.airflow.yml --env-file .env up -d --build airflow
+checar-dags:      ## carrega as DAGs com a imagem oficial do Airflow
+	docker run --rm -v "$$PWD:/opt/lexai/app:ro" -w /opt/lexai/app -e PYTHONPATH=/opt/lexai/app apache/airflow:3.1.3-python3.12 python -m orquestracao.checar_dags
