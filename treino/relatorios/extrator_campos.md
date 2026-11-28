@@ -12,4 +12,4 @@
 | papeis_partes | 99.0% | — | — | — |
 | recorrentes | 52.9% | — | — | — |
 | valores_citados | 47.3% | — | — | — |
-| pedidos | 66.2% | — | — | — |
+| pedidos | 65.3% | — | — | — |
