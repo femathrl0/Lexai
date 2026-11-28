@@ -93,3 +93,10 @@ Depois: ler o [guia de anotação](avaliacao/README.md) e anotar dez documentos;
 Este repositório reorganiza, no layout do manual, o trabalho das semanas 1–3 feito em [`paiva-l/lex_clt.ai`](https://github.com/paiva-l/lex_clt.ai) (commit `9c3f43f`): RAG de legislação (25 normas, 5.284 artigos, BGE-M3 + léxico + RRF + bge-reranker-v2-m3, Recall@3 = 1,00 no dev), pipeline de jurisprudência, guardrails, geração com Qwen3 8B e juiz. Os documentos originais estão em [`docs/legado/`](docs/legado/); o mapa de migração está em [`docs/legado/MIGRACAO.md`](docs/legado/MIGRACAO.md).
 
 > O app explica o que o documento diz; não substitui advogado, Defensoria Pública ou o setor de atermação.
+
+## MLOps e deploy
+
+- **Pipeline de ML:** `make pipeline` (DVC: só refaz o que mudou), `make portao-regressao`, `make esquemas`; parâmetros em `params.yaml`; relatórios em `treino/relatorios/`; consolidado em `treino/relatorios/final.md`.
+- **Modelos em uso:** `worker/modelos/em_uso.yml` (ou o alias `em-uso` no MLflow); promoção e rollback com `treino/promover.py`; cards em `docs/model-cards/`.
+- **Relatório de MLOps:** [`docs/relatorio_mlops.md`](docs/relatorio_mlops.md) · ML Test Score: [`treino/ml_test_score.md`](treino/ml_test_score.md).
+- **Deploy:** [`docs/deploy.md`](docs/deploy.md) (`infra/docker-compose.prod.yml`, imagens no GHCR); hospedagem em aberto na [decisão 0012](docs/decisoes/0012-hospedagem.md).
