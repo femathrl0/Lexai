@@ -21,7 +21,7 @@ import json
 import sys
 from pathlib import Path
 
-from treino.comum import RAIZ, salvar_json
+from treino.comum import RAIZ, parametros, salvar_json
 
 REFERENCIA = RAIZ / "avaliacao" / "monitoramento" / "referencia.csv"
 SAIDA = RAIZ / "dados" / "output" / "monitoramento"
@@ -161,7 +161,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("referencia")
-    r.add_argument("--docs", type=int, default=2000)
+    r.add_argument("--docs", type=int, default=parametros("deriva").get("docs_referencia", 2000))
     ex = sub.add_parser("exemplo")
     ex.add_argument("--docs", type=int, default=500)
     rel = sub.add_parser("relatorio")

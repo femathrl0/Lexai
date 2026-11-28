@@ -1,0 +1,80 @@
+# Pipeline reprodutível do Eng. de ML (manual: "o pipeline só refaz o que mudou"). `dvc repro` (ou `make pipeline`)
+# roda só os estágios cujo código, dados ou parâmetros mudaram desde o dvc.lock. Os relatórios ficam no Git
+# (cache: false) para o portão de regressão do CI ler sem DVC. O lote bruto do RepoJus fica fora do Git (dados/raw).
+vars:
+  - lote: dados/raw/jurisprudencia/repojus/p_tribunal=TRT10_p_ano=2024_part-00000.parquet
+
+stages:
+  esquemas:
+    cmd: python -m treino.esquemas
+    deps: [treino/esquemas.py, "${lote}", avaliacao/pares_ouro/verificador_v1.jsonl, avaliacao/agentes/perguntas_demo.jsonl,
+           avaliacao/dados/intencao/casos_v1.jsonl]
+    outs: [{treino/relatorios/esquemas.json: {cache: false}}]
+
+  teste_congelado:
+    cmd: python -m treino.teste_congelado
+    deps: [treino/teste_congelado.py, avaliacao/dados/legislacao/teste_congelado.json,
+           avaliacao/dados/legislacao/eval_dataset_test_aprovado.json, avaliacao/dados/legislacao/referencias_aprovadas.json]
+
+  classificador_tipo:
+    cmd: python -m treino.classificador_tipo treinar
+    deps: [treino/classificador_tipo.py, worker/modelos/tipo_documento.py, treino/metricas.py, "${lote}"]
+    params: [dados.divisao_semente, classificador_tipo]
+    metrics: [{treino/relatorios/classificador_tipo_baseline.json: {cache: false}}]
+    outs: [{treino/relatorios/classificador_tipo_baseline.md: {cache: false}}]
+
+  segmentador:
+    cmd: python -m treino.segmentador
+    deps: [treino/segmentador.py, worker/leitura/segmentador.py, "${lote}"]
+    params: [dados.divisao_semente, segmentador]
+    metrics: [{treino/relatorios/segmentador.json: {cache: false}}]
+    outs: [{treino/relatorios/segmentador.md: {cache: false}}]
+
+  resultado_pedido:
+    cmd: python -m treino.resultado_pedido
+    deps: [treino/resultado_pedido.py, worker/modelos/resultado_pedido.py, "${lote}"]
+    params: [dados.divisao_semente]
+    metrics: [{treino/relatorios/resultado_pedido.json: {cache: false}}]
+    outs: [{treino/relatorios/resultado_pedido.md: {cache: false}}]
+
+  extrator_campos:
+    cmd: python -m treino.extrator_campos
+    deps: [treino/extrator_campos.py, worker/modelos/extrator_campos.py, "${lote}"]
+    params: [dados.divisao_semente, extrator_campos]
+    metrics: [{treino/relatorios/extrator_campos.json: {cache: false}}]
+    outs: [{treino/relatorios/extrator_campos.md: {cache: false}}]
+
+  intencao:
+    cmd: python -m treino.intencao avaliar
+    deps: [treino/intencao.py, worker/evidencia/guardas.py, avaliacao/dados/intencao/casos_v1.jsonl,
+           avaliacao/dados/integracao/casos_guardrails_entrada.jsonl, avaliacao/agentes/perguntas_demo.jsonl]
+    metrics: [{treino/relatorios/intencao.json: {cache: false}}]
+    outs: [{treino/relatorios/intencao.md: {cache: false}}]
+
+  ruido_ocr:
+    cmd: python -m treino.ruido_ocr
+    deps: [treino/ruido_ocr.py, worker/modelos/extrator_campos.py, worker/modelos/resultado_pedido.py,
+           worker/modelos/tipo_documento.py, "${lote}"]
+    params: [dados.divisao_semente, ruido_ocr]
+    metrics: [{treino/relatorios/ruido_ocr.json: {cache: false}}]
+    outs: [{treino/relatorios/ruido_ocr.md: {cache: false}}]
+
+  referencia_deriva:
+    cmd: python -m treino.deriva referencia
+    deps: [treino/deriva.py, worker/documento.py, worker/modelos, "${lote}"]
+    params: [dados.divisao_semente, deriva]
+    outs: [{avaliacao/monitoramento/referencia.csv: {cache: false}}]
+
+  portao_regressao:
+    cmd: python -m treino.portao_regressao
+    deps: [treino/portao_regressao.py, treino/portoes/linha_base.json, treino/relatorios/classificador_tipo_baseline.json,
+           treino/relatorios/segmentador.json, treino/relatorios/resultado_pedido.json, treino/relatorios/extrator_campos.json,
+           treino/relatorios/intencao.json, treino/relatorios/benchmark_rerankers.json]
+
+  final:
+    cmd: python -m treino.avaliar_final
+    deps: [treino/avaliar_final.py, treino/portoes/linha_base.json, worker/modelos/em_uso.yml,
+           treino/relatorios/classificador_tipo_baseline.json, treino/relatorios/segmentador.json,
+           treino/relatorios/resultado_pedido.json, treino/relatorios/extrator_campos.json, treino/relatorios/intencao.json]
+    metrics: [{treino/relatorios/final.json: {cache: false}}]
+    outs: [{treino/relatorios/final.md: {cache: false}}]

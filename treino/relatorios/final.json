@@ -1,5 +1,5 @@
 {
-  "commit": "622e39361f2b7cd331a103fdd519a03d631d04bf-sujo",
+  "commit": "e270f3a28384774294ddc35a51cd002061e95bdf-sujo",
   "modelos": [
     {
       "modelo": "classificador_tipo_fase",
@@ -11,7 +11,7 @@
         "f1_macro": 0.9422007432294424
       },
       "erros_graves": {
-        "fase_trocada": 42
+        "fase_trocada": 10
       }
     },
     {
@@ -21,11 +21,11 @@
       "referencia": "TF-IDF + LR v1 sem cabeçalho (candidato)",
       "relatorio": "treino/relatorios/classificador_tipo_baseline.json",
       "metricas": {
-        "f1_macro": 0.9525865123674345,
-        "ece": 0.016135443040285177
+        "f1_macro": 0.9510754902069067,
+        "ece": 0.015436722766355016
       },
       "erros_graves": {
-        "fase_trocada": 23
+        "fase_trocada": 14
       }
     },
     {

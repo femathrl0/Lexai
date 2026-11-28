@@ -15,6 +15,7 @@ import re
 import unicodedata
 
 from contratos import ResultadoPedido
+from contratos.classificacao import Resultado
 
 
 def _norm(s: str) -> str:
@@ -70,7 +71,7 @@ _PROCEDE = re.compile(r"\b(devid[oa]s?|deferid[oa]s?|procedente|reconhecid[oa]s?
                       r"condenacao mantida|cabimento|mantida a condenacao|majorad[oa]s?)\b")
 
 
-def resultado_do_topico(texto: str) -> tuple[str, float]:
+def resultado_do_topico(texto: str) -> tuple[Resultado, float]:
     t = _norm(texto)
     if _PARCIAL_PEDIDO.search(t):
         return "parcialmente_procedente", 0.6

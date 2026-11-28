@@ -90,6 +90,7 @@ def regra_cabecalho(texto: str) -> str | None:
 
 def classificar(texto: str, modelo=None, limiar_abstencao: float = 0.44) -> dict:
     """{tipo, confianca_tipo, fase, confianca_fase, abstencao, metodo}. `modelo` = pipeline sklearn em uso (opcional)."""
+    tipo: str | None
     if modelo is not None:
         proba = modelo.predict_proba([sem_cabecalho(texto)])[0]
         i = int(proba.argmax())
@@ -99,6 +100,6 @@ def classificar(texto: str, modelo=None, limiar_abstencao: float = 0.44) -> dict
         tipo = regra_cabecalho(texto)
         conf, metodo = (0.9 if tipo else 0.0), "regras"
     abstem = tipo is None or conf < limiar_abstencao
-    fase = FASE_DO_TIPO.get(tipo) if not abstem else None
+    fase = FASE_DO_TIPO.get(tipo) if tipo and not abstem else None
     return {"tipo": None if abstem else tipo, "confianca_tipo": conf, "fase": fase,
             "confianca_fase": conf if fase else 0.0, "abstencao": abstem, "metodo": metodo}

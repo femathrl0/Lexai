@@ -14,7 +14,7 @@
         }
       },
       "erros_graves": {
-        "fase_trocada": 42
+        "fase_trocada": 10
       }
     },
     "classificador_tipo_fase.candidato_tfidf": {
@@ -23,18 +23,18 @@
       "versao_referencia": "TF-IDF + LR v1 sem cabeçalho (candidato)",
       "metricas": {
         "f1_macro": {
-          "valor": 0.9526,
+          "valor": 0.9511,
           "direcao": "maior",
           "tolerancia": 0.005
         },
         "ece": {
-          "valor": 0.0161,
+          "valor": 0.0154,
           "direcao": "menor",
           "tolerancia": 0.01
         }
       },
       "erros_graves": {
-        "fase_trocada": 23
+        "fase_trocada": 14
       },
       "em_uso": false
     },

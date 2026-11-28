@@ -1,11 +1,11 @@
 # Métricas finais — conjuntos de teste congelados
 
-Commit `622e39361f2b` · conjunto de teste de legislação: **inalterado** · portão de regressão: **aprovado**.
+Commit `e270f3a28384` · conjunto de teste de legislação: **inalterado** · portão de regressão: **aprovado**.
 
 | Modelo | Estágio | Versão | Métrica principal | Erro grave | Relatório |
 |---|---|---|---|---|---|
-| classificador_tipo_fase | em uso | `classificador_tipo_fase@regras_cabecalho@0004` | f1_macro 0.942 | fase_trocada 42 | [classificador_tipo_baseline.md](classificador_tipo_baseline.md) |
-| classificador_tipo_fase.candidato_tfidf | candidato | `TF-IDF + LR v1 sem cabeçalho (candidato)` | f1_macro 0.953, ece 0.016 | fase_trocada 23 | [classificador_tipo_baseline.md](classificador_tipo_baseline.md) |
+| classificador_tipo_fase | em uso | `classificador_tipo_fase@regras_cabecalho@0004` | f1_macro 0.942 | fase_trocada 10 | [classificador_tipo_baseline.md](classificador_tipo_baseline.md) |
+| classificador_tipo_fase.candidato_tfidf | candidato | `TF-IDF + LR v1 sem cabeçalho (candidato)` | f1_macro 0.951, ece 0.015 | fase_trocada 14 | [classificador_tipo_baseline.md](classificador_tipo_baseline.md) |
 | segmentador.candidato_tfidf | candidato | `TF-IDF + LR com posição (candidato, 3.000 acórdãos)` | f1_macro 0.924 | — | [segmentador.md](segmentador.md) |
 | resultado_pedido | em uso | `resultado_pedido@formula-dispositivo@2026-11-27` | f1_macro 0.982 | troca_grave 1 | [resultado_pedido.md](resultado_pedido.md) |
 | reranker | em uso | `BAAI/bge-reranker-v2-m3@953dc6f6` | ndcg@5 0.956 | — | [benchmark_rerankers.md](benchmark_rerankers.md) |

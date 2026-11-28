@@ -1,0 +1,26 @@
+{
+  "pares_ouro_verificador": {
+    "linhas": 105,
+    "ok": true
+  },
+  "perguntas_demo": {
+    "linhas": 15,
+    "ok": true
+  },
+  "intencao": {
+    "linhas": 486,
+    "ok": true
+  },
+  "previsoes": {
+    "linhas": 1967,
+    "ok": true
+  },
+  "referencia_deriva": {
+    "linhas": 2000,
+    "ok": true
+  },
+  "repojus": {
+    "linhas": 23770,
+    "ok": true
+  }
+}

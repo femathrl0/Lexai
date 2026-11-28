@@ -1,0 +1,25 @@
+# Parâmetros dos pipelines de treino e avaliação (Eng. de ML e MLOps). Lidos por treino/comum.py::parametros e
+# rastreados pelo DVC (dvc.yaml): mudar um valor aqui faz `dvc repro` refazer só os estágios que dependem dele.
+dados:
+  divisao_semente: lexai-divisao-v1     # divisão por hash do processo (70/15/15) — mudar invalida o teste congelado
+classificador_tipo:
+  C: [1.0, 4.0, 16.0]
+  max_features: 300000
+  precisao_alvo: 0.98
+lora_tipo:
+  modelo: neuralmind/bert-base-portuguese-cased
+  epocas: 3
+  lote: 16
+  lr: 0.0003
+  r: 8
+  max_tokens: 512
+  semente: 42
+segmentador:
+  docs: 3000
+extrator_campos:
+  docs: 0                                # 0 = toda a divisão de teste
+ruido_ocr:
+  docs: 2000
+  taxas: [0.0, 0.02, 0.05, 0.10]
+deriva:
+  docs_referencia: 2000

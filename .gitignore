@@ -37,3 +37,8 @@ frontend/dist/
 
 # Pesos treinados localmente (vão para o MLflow, não para o Git)
 /treino/modelos/
+
+# Cobertura local
+.coverage
+htmlcov/
+coverage.xml

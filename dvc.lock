@@ -1,0 +1,362 @@
+schema: '2.0'
+stages:
+  esquemas:
+    cmd: python -m treino.esquemas
+    deps:
+    - path: avaliacao/agentes/perguntas_demo.jsonl
+      hash: md5
+      md5: af74d1a399cb0972419d01c9b15056a5
+      size: 9176
+    - path: avaliacao/dados/intencao/casos_v1.jsonl
+      hash: md5
+      md5: df62d05a1059654772a9a16764ba239e
+      size: 112572
+    - path: avaliacao/pares_ouro/verificador_v1.jsonl
+      hash: md5
+      md5: f8033a0578d110c0fa5d875393b1a4b9
+      size: 234727
+    - path: 
+        dados/raw/jurisprudencia/repojus/p_tribunal=TRT10_p_ano=2024_part-00000.parquet
+      hash: md5
+      md5: a44851a8087b92c6efd3c439ffa5ad56
+      size: 112111965
+    - path: treino/esquemas.py
+      hash: md5
+      md5: dc0ac38a6bc15cacb1bb370f947700ca
+      size: 5087
+    outs:
+    - path: treino/relatorios/esquemas.json
+      hash: md5
+      md5: 929be4a01a108320e956bbe657950693
+      size: 365
+  teste_congelado:
+    cmd: python -m treino.teste_congelado
+    deps:
+    - path: avaliacao/dados/legislacao/eval_dataset_test_aprovado.json
+      hash: md5
+      md5: fdbcfcb4e5c783e0d09ab78c1469672f
+      size: 17768
+    - path: avaliacao/dados/legislacao/referencias_aprovadas.json
+      hash: md5
+      md5: bdc4fceba87084c28177a328767dacf1
+      size: 69951
+    - path: avaliacao/dados/legislacao/teste_congelado.json
+      hash: md5
+      md5: 87e8fae9f9f14727d5fe201b3af53d84
+      size: 139
+    - path: treino/teste_congelado.py
+      hash: md5
+      md5: a2a198d227a2cb56307faa9d7282b04d
+      size: 1895
+  classificador_tipo:
+    cmd: python -m treino.classificador_tipo treinar
+    deps:
+    - path: 
+        dados/raw/jurisprudencia/repojus/p_tribunal=TRT10_p_ano=2024_part-00000.parquet
+      hash: md5
+      md5: a44851a8087b92c6efd3c439ffa5ad56
+      size: 112111965
+    - path: treino/classificador_tipo.py
+      hash: md5
+      md5: c1bbd014316a3f861d381214741ab3f7
+      size: 19301
+    - path: treino/metricas.py
+      hash: md5
+      md5: 18baa8734b3c183800a34a155dc36664
+      size: 3942
+    - path: worker/modelos/tipo_documento.py
+      hash: md5
+      md5: bcc19db0688adc839285a6aafe5952c0
+      size: 4656
+    params:
+      params.yaml:
+        classificador_tipo:
+          C:
+          - 1.0
+          - 4.0
+          - 16.0
+          max_features: 300000
+          precisao_alvo: 0.98
+        dados.divisao_semente: lexai-divisao-v1
+    outs:
+    - path: treino/relatorios/classificador_tipo_baseline.json
+      hash: md5
+      md5: 75a294b1700cf316aefab2c70cfe0071
+      size: 18790
+    - path: treino/relatorios/classificador_tipo_baseline.md
+      hash: md5
+      md5: 6372e8b785d47d439aab7a27ebdab73b
+      size: 2189
+  segmentador:
+    cmd: python -m treino.segmentador
+    deps:
+    - path: 
+        dados/raw/jurisprudencia/repojus/p_tribunal=TRT10_p_ano=2024_part-00000.parquet
+      hash: md5
+      md5: a44851a8087b92c6efd3c439ffa5ad56
+      size: 112111965
+    - path: treino/segmentador.py
+      hash: md5
+      md5: b1c0d9b062aaafc5c7efb0f89522e782
+      size: 9919
+    - path: worker/leitura/segmentador.py
+      hash: md5
+      md5: 5afa77fc88c4a5b39de9a289af9cc5cc
+      size: 3339
+    params:
+      params.yaml:
+        dados.divisao_semente: lexai-divisao-v1
+        segmentador:
+          docs: 3000
+    outs:
+    - path: treino/relatorios/segmentador.json
+      hash: md5
+      md5: 73fc40346fc464209d19098994d6b8c0
+      size: 6835
+    - path: treino/relatorios/segmentador.md
+      hash: md5
+      md5: 9427855d5aa54361ca16f0effc6b21b2
+      size: 994
+  resultado_pedido:
+    cmd: python -m treino.resultado_pedido
+    deps:
+    - path: 
+        dados/raw/jurisprudencia/repojus/p_tribunal=TRT10_p_ano=2024_part-00000.parquet
+      hash: md5
+      md5: a44851a8087b92c6efd3c439ffa5ad56
+      size: 112111965
+    - path: treino/resultado_pedido.py
+      hash: md5
+      md5: a84486a3b08b200c2650aa86766ea158
+      size: 7632
+    - path: worker/modelos/resultado_pedido.py
+      hash: md5
+      md5: 8cc9aabb0394f68ca29670b6361b3e11
+      size: 5091
+    params:
+      params.yaml:
+        dados.divisao_semente: lexai-divisao-v1
+    outs:
+    - path: treino/relatorios/resultado_pedido.json
+      hash: md5
+      md5: d1e12c383ebc6eb7886dcfb3ebfdb8ee
+      size: 9363
+    - path: treino/relatorios/resultado_pedido.md
+      hash: md5
+      md5: 184cba57173cd9778e2ef12ee4967a6e
+      size: 897
+  extrator_campos:
+    cmd: python -m treino.extrator_campos
+    deps:
+    - path: 
+        dados/raw/jurisprudencia/repojus/p_tribunal=TRT10_p_ano=2024_part-00000.parquet
+      hash: md5
+      md5: a44851a8087b92c6efd3c439ffa5ad56
+      size: 112111965
+    - path: treino/extrator_campos.py
+      hash: md5
+      md5: 5bb6b7138243ea3f015880fdb1a555d4
+      size: 5264
+    - path: worker/modelos/extrator_campos.py
+      hash: md5
+      md5: 2822e4b18b46032349c8bf23b7beb786
+      size: 6809
+    params:
+      params.yaml:
+        dados.divisao_semente: lexai-divisao-v1
+        extrator_campos:
+          docs: 0
+    outs:
+    - path: treino/relatorios/extrator_campos.json
+      hash: md5
+      md5: b3431a53f7146ec16c2d876150057f5e
+      size: 2113
+    - path: treino/relatorios/extrator_campos.md
+      hash: md5
+      md5: fddb9714743529d8528b26b94c4d1419
+      size: 747
+  intencao:
+    cmd: python -m treino.intencao avaliar
+    deps:
+    - path: avaliacao/agentes/perguntas_demo.jsonl
+      hash: md5
+      md5: af74d1a399cb0972419d01c9b15056a5
+      size: 9176
+    - path: avaliacao/dados/integracao/casos_guardrails_entrada.jsonl
+      hash: md5
+      md5: ac9193a90d5c00ab18675e34338c8ce4
+      size: 4484
+    - path: avaliacao/dados/intencao/casos_v1.jsonl
+      hash: md5
+      md5: df62d05a1059654772a9a16764ba239e
+      size: 112572
+    - path: treino/intencao.py
+      hash: md5
+      md5: 142bfdb57c01a40a18d51f82473a46b5
+      size: 11327
+    - path: worker/evidencia/guardas.py
+      hash: md5
+      md5: 16eeaacfba3d863e8695f2b9d6326fed
+      size: 19174
+    outs:
+    - path: treino/relatorios/intencao.json
+      hash: md5
+      md5: 6ae481b15de9e170afcc4f09b68bf5e0
+      size: 5020
+    - path: treino/relatorios/intencao.md
+      hash: md5
+      md5: 0da3d7a69c2c1a23d1fb99faf4e121cf
+      size: 683
+  ruido_ocr:
+    cmd: python -m treino.ruido_ocr
+    deps:
+    - path: 
+        dados/raw/jurisprudencia/repojus/p_tribunal=TRT10_p_ano=2024_part-00000.parquet
+      hash: md5
+      md5: a44851a8087b92c6efd3c439ffa5ad56
+      size: 112111965
+    - path: treino/ruido_ocr.py
+      hash: md5
+      md5: 33ab0796c3cf1def1818913a70a5538a
+      size: 10278
+    - path: worker/modelos/extrator_campos.py
+      hash: md5
+      md5: 2822e4b18b46032349c8bf23b7beb786
+      size: 6809
+    - path: worker/modelos/resultado_pedido.py
+      hash: md5
+      md5: 8cc9aabb0394f68ca29670b6361b3e11
+      size: 5091
+    - path: worker/modelos/tipo_documento.py
+      hash: md5
+      md5: bcc19db0688adc839285a6aafe5952c0
+      size: 4656
+    params:
+      params.yaml:
+        dados.divisao_semente: lexai-divisao-v1
+        ruido_ocr:
+          docs: 2000
+          taxas:
+          - 0.0
+          - 0.02
+          - 0.05
+          - 0.1
+    outs:
+    - path: treino/relatorios/ruido_ocr.json
+      hash: md5
+      md5: 93cebe2f26136b564459f1b9af451fcd
+      size: 2669
+    - path: treino/relatorios/ruido_ocr.md
+      hash: md5
+      md5: bf98b58d91bdf35affe06c918ca2daf3
+      size: 1065
+  referencia_deriva:
+    cmd: python -m treino.deriva referencia
+    deps:
+    - path: 
+        dados/raw/jurisprudencia/repojus/p_tribunal=TRT10_p_ano=2024_part-00000.parquet
+      hash: md5
+      md5: a44851a8087b92c6efd3c439ffa5ad56
+      size: 112111965
+    - path: treino/deriva.py
+      hash: md5
+      md5: f7d9e3f4e30260d04bcc13ac05e5276c
+      size: 9487
+    - path: worker/documento.py
+      hash: md5
+      md5: ab21c1ef653c874af1b912bb2ce7e22c
+      size: 5337
+    - path: worker/modelos
+      hash: md5
+      md5: d187766695da9b730a12bf8d4b186ebb.dir
+      size: 66845
+      nfiles: 13
+    params:
+      params.yaml:
+        dados.divisao_semente: lexai-divisao-v1
+        deriva:
+          docs_referencia: 2000
+    outs:
+    - path: avaliacao/monitoramento/referencia.csv
+      hash: md5
+      md5: 188c681966bd80cb89ea9478f01566c5
+      size: 50565
+  portao_regressao:
+    cmd: python -m treino.portao_regressao
+    deps:
+    - path: treino/portao_regressao.py
+      hash: md5
+      md5: 6c0e5335b4d49f3aab6cc1591d099446
+      size: 4317
+    - path: treino/portoes/linha_base.json
+      hash: md5
+      md5: c5a1ba3ce5990b5d34908661d05a1229
+      size: 4765
+    - path: treino/relatorios/benchmark_rerankers.json
+      hash: md5
+      md5: 37cda203a5bd1d2932356d5876747b26
+      size: 7079
+    - path: treino/relatorios/classificador_tipo_baseline.json
+      hash: md5
+      md5: 75a294b1700cf316aefab2c70cfe0071
+      size: 18790
+    - path: treino/relatorios/extrator_campos.json
+      hash: md5
+      md5: b3431a53f7146ec16c2d876150057f5e
+      size: 2113
+    - path: treino/relatorios/intencao.json
+      hash: md5
+      md5: 6ae481b15de9e170afcc4f09b68bf5e0
+      size: 5020
+    - path: treino/relatorios/resultado_pedido.json
+      hash: md5
+      md5: d1e12c383ebc6eb7886dcfb3ebfdb8ee
+      size: 9363
+    - path: treino/relatorios/segmentador.json
+      hash: md5
+      md5: 73fc40346fc464209d19098994d6b8c0
+      size: 6835
+  final:
+    cmd: python -m treino.avaliar_final
+    deps:
+    - path: treino/avaliar_final.py
+      hash: md5
+      md5: 07073b12746add7de3750fd3291879c2
+      size: 4247
+    - path: treino/portoes/linha_base.json
+      hash: md5
+      md5: c5a1ba3ce5990b5d34908661d05a1229
+      size: 4765
+    - path: treino/relatorios/classificador_tipo_baseline.json
+      hash: md5
+      md5: 75a294b1700cf316aefab2c70cfe0071
+      size: 18790
+    - path: treino/relatorios/extrator_campos.json
+      hash: md5
+      md5: b3431a53f7146ec16c2d876150057f5e
+      size: 2113
+    - path: treino/relatorios/intencao.json
+      hash: md5
+      md5: 6ae481b15de9e170afcc4f09b68bf5e0
+      size: 5020
+    - path: treino/relatorios/resultado_pedido.json
+      hash: md5
+      md5: d1e12c383ebc6eb7886dcfb3ebfdb8ee
+      size: 9363
+    - path: treino/relatorios/segmentador.json
+      hash: md5
+      md5: 73fc40346fc464209d19098994d6b8c0
+      size: 6835
+    - path: worker/modelos/em_uso.yml
+      hash: md5
+      md5: 6742ad1f898036c3149b9f82e37c38d9
+      size: 1607
+    outs:
+    - path: treino/relatorios/final.json
+      hash: md5
+      md5: afee723a33e5b85865e571092fb24ec7
+      size: 3589
+    - path: treino/relatorios/final.md
+      hash: md5
+      md5: 9193198a691b6feb29fc296059da82da
+      size: 1976

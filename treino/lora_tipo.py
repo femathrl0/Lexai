@@ -21,7 +21,7 @@ import argparse
 import json
 import time
 
-from treino.comum import RELATORIOS, salvar_json
+from treino.comum import RELATORIOS, parametros, salvar_json
 
 MODELO_BASE = "neuralmind/bert-base-portuguese-cased"
 GANHO_MINIMO = 0.02  # decisão 0004
@@ -209,14 +209,15 @@ def markdown(rel: dict) -> str:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--modelo", default=MODELO_BASE)
+    p = parametros("lora_tipo")
+    ap.add_argument("--modelo", default=p.get("modelo", MODELO_BASE))
     ap.add_argument("--amostra", type=int, default=None, help="exemplos por divisão (fumaça na CPU)")
-    ap.add_argument("--epocas", type=int, default=3)
-    ap.add_argument("--lote", type=int, default=16)
-    ap.add_argument("--lr", type=float, default=3e-4)
-    ap.add_argument("--r", type=int, default=8)
-    ap.add_argument("--max-tokens", type=int, default=512)
-    ap.add_argument("--semente", type=int, default=42)
+    ap.add_argument("--epocas", type=int, default=p.get("epocas", 3))
+    ap.add_argument("--lote", type=int, default=p.get("lote", 16))
+    ap.add_argument("--lr", type=float, default=p.get("lr", 3e-4))
+    ap.add_argument("--r", type=int, default=p.get("r", 8))
+    ap.add_argument("--max-tokens", type=int, default=p.get("max_tokens", 512))
+    ap.add_argument("--semente", type=int, default=p.get("semente", 42))
     ap.add_argument("--precisao-alvo", type=float, default=0.98)
     ap.add_argument("--device", default=None)
     ap.add_argument("--sem-mlflow", action="store_true")

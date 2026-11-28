@@ -75,8 +75,8 @@
       "com_referencia": 0
     },
     "pedidos": {
-      "cobertura": 0.6615296803652968,
-      "preenchido": 2318,
+      "cobertura": 0.6529680365296804,
+      "preenchido": 2288,
       "acerto": null,
       "inventado": null,
       "omitido": 0,

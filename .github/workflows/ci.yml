@@ -5,26 +5,39 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   python:
     name: Lint, contratos, isolamento e testes
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v3
+      - uses: astral-sh/setup-uv@v5
+        with: { enable-cache: true, cache-dependency-glob: uv.lock }
       - run: uv python install 3.12
-      - run: uv sync --group dev --group backend --group legado
+      - name: Ambiente travado — uv.lock em dia com o pyproject
+        run: uv lock --check
+      - run: uv sync --frozen --group dev --group backend --group legado
       - run: uv run ruff check .
+      - name: Tipos (mypy) nos módulos de modelo
+        run: uv run mypy
       - name: Portão — esquema e contratos
         run: uv run pytest tests/contratos -q
+      - name: Portão — esquema dos dados versionados (Pandera)
+        run: uv run python -m treino.esquemas
       - name: Portão — conjunto de teste congelado (Eng. de ML)
         run: uv run python -m treino.teste_congelado
       - name: Portão — regressão de modelo e erros graves (Eng. de ML)
         run: uv run python -m treino.portao_regressao
-      - name: Testes (sem serviços externos)
-        run: uv run pytest -q -m "not integracao"
+      - name: Testes (sem serviços externos) com cobertura
+        run: uv run pytest -q -m "not integracao" --cov --cov-report=term --cov-report=xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: cobertura, path: coverage.xml }
       # TODO (Eng. de ML + Cientista de dados): portão de fidelidade quando a revisão humana do juiz existir (#16).
-      # TODO (Eng. de software): portão de isolamento contra Postgres (services: postgres) e teste de "apagar meus dados".
 
   frontend:
     name: Build do frontend
