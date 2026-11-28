@@ -40,11 +40,16 @@ def _texto(doc: DocumentoLido) -> str:
     return "\n\n".join(b.texto for p in doc.paginas for b in p.blocos)
 
 
-def _trecho(segmentos: Segmentos, parte: str, contem: str | None = None):
-    for t in segmentos.trechos:
-        if t.parte == parte and (contem is None or contem.lower() in t.texto.lower()):
-            return t
-    return None
+def _trecho(segmentos: Segmentos, parte: str, contem: str | None = None, minimo: int = 40):
+    """Primeiro trecho da parte (a partir do marcador `contem`, se dado) com texto de verdade: o bloco do título
+    sozinho ("CONCLUSÃO", "EMENTA") não serve de citação."""
+    candidatos = [t for t in segmentos.trechos if t.parte == parte]
+    if contem is not None:
+        inicio = next((i for i, t in enumerate(candidatos) if contem.lower() in t.texto.lower()), None)
+        if inicio is None:
+            return None
+        candidatos = candidatos[inicio:]
+    return next((t for t in candidatos if len(t.texto.strip()) >= minimo), candidatos[0] if candidatos else None)
 
 
 def analisar(doc: DocumentoLido, modelos: dict[str, ModeloEmUso] | None = None) -> Analise:

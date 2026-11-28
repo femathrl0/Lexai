@@ -88,11 +88,18 @@ def _de_mlflow(cliente, nome: str, base: ModeloEmUso | None) -> ModeloEmUso | No
 def _cliente_mlflow(uri: str | None):
     if not uri:
         return None
+    if uri.startswith("http"):
+        import urllib.request
+
+        try:  # o cliente do MLflow tenta de novo por minutos; aqui a resposta é sim ou não em 3 s
+            urllib.request.urlopen(uri.rstrip("/") + "/health", timeout=3)
+        except OSError:
+            return None
     try:
         from mlflow import MlflowClient
 
         cliente = MlflowClient(tracking_uri=uri)
-        cliente.search_registered_models(max_results=1)  # falha rápido se o servidor não responde
+        cliente.search_registered_models(max_results=1)
         return cliente
     except Exception:  # noqa: BLE001 - sem MLflow o worker segue com os fixados
         return None

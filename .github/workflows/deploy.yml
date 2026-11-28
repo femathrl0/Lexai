@@ -1,0 +1,34 @@
+name: Deploy
+
+# Modelo para quando o host for escolhido (decisão 0012). Manual de propósito: escolhe a tag das imagens e
+# atualiza o servidor por SSH. Segredos do repositório: DEPLOY_HOST, DEPLOY_USUARIO, DEPLOY_CHAVE_SSH (e o
+# .env.prod já no servidor, nunca no Git).
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag das imagens (commit curto ou v*)"
+        required: true
+        default: latest
+
+jobs:
+  deploy:
+    if: ${{ vars.DEPLOY_HABILITADO == 'true' }}
+    runs-on: ubuntu-latest
+    environment: producao
+    steps:
+      - name: Atualizar o servidor
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USUARIO }}
+          key: ${{ secrets.DEPLOY_CHAVE_SSH }}
+          script: |
+            set -e
+            cd /opt/lexai
+            git fetch origin main && git checkout --detach origin/main   # compose e scripts da main
+            export LEXAI_TAG=${{ inputs.tag }}
+            ./infra/scripts/backup.sh
+            docker compose -f infra/docker-compose.prod.yml --env-file .env.prod pull
+            docker compose -f infra/docker-compose.prod.yml --env-file .env.prod up -d --remove-orphans
+            sleep 20 && curl -fsS http://127.0.0.1/api/ready

@@ -6,9 +6,12 @@ import os
 
 from redis import Redis
 
-from contratos import Aviso, Concluido, Status, Versoes
+from comum.log import registrador
+from contratos import Aviso, Concluido, Erro, Status, Versoes
 
 from .publicacao import publicar
+
+log = registrador("worker.pipelines")
 
 LIMIAR_QUALIDADE_LEITURA = 0.5
 
@@ -30,9 +33,23 @@ def processar_documento(tarefa_id: str, usuario_id: str, caminho: str, guardar: 
     def pub(evento):
         publicar(r, tarefa_id, evento)
 
+    from .armazenamento import arquivo_local
+
     try:
+        _processar(tarefa_id, caminho, guardar, orquestrador, pub, arquivo_local, ler_documento, analisar,
+                   pergunta_sobre_pedidos, em_uso, versoes)
+    except Exception:
+        log.exception("falha no documento", extra={"tarefa": tarefa_id})
+        pub(Erro(mensagem="Não consegui terminar a análise do documento.",
+                 o_que_fazer="Tente enviar de novo daqui a alguns minutos."))
+        raise  # o RQ refaz uma vez (MAX_TENTATIVAS)
+
+
+def _processar(tarefa_id, caminho, guardar, orquestrador, pub, arquivo_local, ler_documento, analisar,
+               pergunta_sobre_pedidos, em_uso, versoes) -> None:
+    with arquivo_local(caminho, guardar) as local:
         pub(Status(etapa="lendo"))
-        doc = ler_documento(tarefa_id, caminho)
+        doc = ler_documento(tarefa_id, local)
         if doc.qualidade_leitura < LIMIAR_QUALIDADE_LEITURA:
             pub(Aviso(categoria="nova_foto", texto="Não consegui ler bem o documento"
                       + (f" ({doc.motivo_baixa_qualidade})" if doc.motivo_baixa_qualidade else "")
@@ -67,9 +84,6 @@ def processar_documento(tarefa_id: str, usuario_id: str, caminho: str, guardar: 
             orq.responder(pergunta, tarefa_id=tarefa_id)  # publica as frases verificadas e o próprio Concluido
         else:
             pub(Concluido(versoes=Versoes(modelos=versoes(modelos))))
-    finally:
-        if not guardar and os.path.exists(caminho):
-            os.remove(caminho)  # sem opt-in, o original é descartado (RNF01)
 
 
 _ORQUESTRADOR = None

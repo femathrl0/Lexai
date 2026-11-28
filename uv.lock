@@ -3103,6 +3103,7 @@ backend = [
     { name = "fastapi" },
     { name = "minio" },
     { name = "psycopg", extra = ["binary"] },
+    { name = "pydantic-settings" },
     { name = "python-multipart" },
     { name = "redis" },
     { name = "rq" },
@@ -3155,6 +3156,7 @@ treino = [
     { name = "transformers" },
 ]
 worker = [
+    { name = "minio" },
     { name = "mlflow-skinny" },
     { name = "numpy" },
     { name = "pandas" },
@@ -3184,6 +3186,7 @@ backend = [
     { name = "fastapi", specifier = ">=0.115" },
     { name = "minio", specifier = ">=7.2" },
     { name = "psycopg", extras = ["binary"], specifier = ">=3.2" },
+    { name = "pydantic-settings", specifier = ">=2.4" },
     { name = "python-multipart", specifier = ">=0.0.9" },
     { name = "redis", specifier = ">=5.0" },
     { name = "rq", specifier = ">=1.16" },
@@ -3236,6 +3239,7 @@ treino = [
     { name = "transformers", specifier = ">=4.44" },
 ]
 worker = [
+    { name = "minio", specifier = ">=7.2" },
     { name = "mlflow-skinny", specifier = ">=3.18,<4" },
     { name = "numpy", specifier = ">=1.26" },
     { name = "pandas", specifier = ">=2.2" },

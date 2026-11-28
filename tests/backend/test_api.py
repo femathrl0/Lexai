@@ -25,3 +25,35 @@ def test_documento_vai_para_fila_documentos():
     job = Queue(DOCUMENTOS, connection=redis).fetch_job(r.json()["tarefa_id"])
     assert job is not None and job.kwargs["guardar"] is False
     assert job.retries_left == 1  # no máximo duas tentativas
+
+
+def test_documento_que_nao_e_pdf_nem_foto_e_recusado():
+    r = cliente.post("/tarefas/documentos", files={"arquivo": ("x.pdf", b"MZ\x90\x00 executavel", "application/pdf")})
+    assert r.status_code == 415
+
+
+def test_documento_grande_demais_e_recusado(monkeypatch):
+    from backend import armazenamento
+
+    monkeypatch.setattr(armazenamento.config, "upload_max_mb", 0)
+    r = cliente.post("/tarefas/documentos", files={"arquivo": ("s.pdf", b"%PDF-1.4 " + b"x" * 2048, "application/pdf")})
+    assert r.status_code == 413
+
+
+def test_ready_com_redis_no_ar():
+    r = cliente.get("/ready")
+    assert r.status_code == 200 and r.json()["redis"] == "ok"
+
+
+def test_job_timeout_maior_que_uma_pergunta():
+    r = cliente.post("/tarefas/perguntas", json={"pergunta": "O que é FGTS?"})
+    assert Queue(PERGUNTAS, connection=redis).fetch_job(r.json()["tarefa_id"]).timeout >= 300
+
+
+def test_producao_recusa_segredo_de_exemplo():
+    import pytest
+
+    from backend.config import Config
+
+    with pytest.raises(ValueError):
+        Config(lexai_ambiente="producao", segredo_sessao="troque-este-segredo", minio_root_password="x")

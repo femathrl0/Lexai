@@ -21,6 +21,7 @@ backend = [
     "psycopg[binary]>=3.2",
     "argon2-cffi>=23.1",
     "minio>=7.2",
+    "pydantic-settings>=2.4",
 ]
 # Worker: único processo que carrega modelos (roda nativo no macOS, fora do Docker, para usar a GPU do M4).
 worker = [
@@ -40,6 +41,7 @@ worker = [
     "mlflow-skinny>=3.18,<4",  # mesmo major do servidor do Compose (infra/docker-compose.yml)
     "PyYAML>=6.0",
     "pillow>=10.0",
+    "minio>=7.2",
 ]
 # OCR (semana 5): só no worker que lê fotos. `uv sync --group worker --group ocr`.
 ocr = [

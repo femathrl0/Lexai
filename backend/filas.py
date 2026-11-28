@@ -1,4 +1,5 @@
 """Enfileiramento. O backend nunca processa documento: cria a tarefa e a põe na fila certa."""
+import os
 import uuid
 
 from redis import Redis
@@ -15,7 +16,9 @@ def enfileirar(redis: Redis, fila: str, funcao: str, **kwargs) -> str:
     tarefa_id = uuid.uuid4().hex
     # job_id = tarefa_id torna a reentrega idempotente; no máximo duas tentativas (manual).
     Queue(fila, connection=redis).enqueue(
-        funcao, tarefa_id=tarefa_id, job_id=tarefa_id, retry=Retry(max=MAX_TENTATIVAS - 1), **kwargs
+        funcao, tarefa_id=tarefa_id, job_id=tarefa_id, retry=Retry(max=MAX_TENTATIVAS - 1),
+        # uma pergunta leva ~100 s no M4 e mais sob carga; o padrão do RQ (180 s) mataria a tarefa no meio
+        job_timeout=int(os.getenv("RQ_TIMEOUT", "900")), **kwargs
     )
     return tarefa_id
 
