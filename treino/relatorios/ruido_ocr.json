@@ -1,0 +1,112 @@
+{
+  "docs": 2000,
+  "taxas": [
+    0.0,
+    0.02,
+    0.05,
+    0.1
+  ],
+  "limite_queda": 0.05,
+  "resultados": {
+    "0.0": {
+      "tipo_acerto": 0.985,
+      "tipo_abstencao": 0.001,
+      "resultado_acerto": 0.9229756418696511,
+      "resultado_troca_grave": 0,
+      "processo_acerto": 0.985,
+      "relator_acerto": 0.9635
+    },
+    "0.02": {
+      "tipo_acerto": 0.965,
+      "tipo_abstencao": 0.009,
+      "resultado_acerto": 0.6971691902567478,
+      "resultado_troca_grave": 1,
+      "processo_acerto": 0.7305,
+      "relator_acerto": 0.745,
+      "queda": {
+        "tipo_acerto": 0.02,
+        "resultado_acerto": 0.2258,
+        "processo_acerto": 0.2545,
+        "relator_acerto": 0.2185
+      },
+      "dentro_do_limite": false
+    },
+    "0.05": {
+      "tipo_acerto": 0.913,
+      "tipo_abstencao": 0.0465,
+      "resultado_acerto": 0.48847926267281105,
+      "resultado_troca_grave": 1,
+      "processo_acerto": 0.452,
+      "relator_acerto": 0.4905,
+      "queda": {
+        "tipo_acerto": 0.072,
+        "resultado_acerto": 0.4345,
+        "processo_acerto": 0.533,
+        "relator_acerto": 0.473
+      },
+      "dentro_do_limite": false
+    },
+    "0.1": {
+      "tipo_acerto": 0.8335,
+      "tipo_abstencao": 0.11,
+      "resultado_acerto": 0.2218564845292956,
+      "resultado_troca_grave": 0,
+      "processo_acerto": 0.208,
+      "relator_acerto": 0.2205,
+      "queda": {
+        "tipo_acerto": 0.1515,
+        "resultado_acerto": 0.7011,
+        "processo_acerto": 0.777,
+        "relator_acerto": 0.743
+      },
+      "dentro_do_limite": false
+    }
+  },
+  "ruido": "sintético (aguarda o conjunto de fotos do grupo, #29)",
+  "aumento_resultado": {
+    "treino": 6000,
+    "teste": 1500,
+    "resultados": {
+      "0.0": {
+        "regras": {
+          "acerto": 0.7206666666666667,
+          "troca_grave": 8
+        },
+        "char_tfidf_lr_aumento": {
+          "acerto": 0.938,
+          "troca_grave": 15
+        }
+      },
+      "0.02": {
+        "regras": {
+          "acerto": 0.732,
+          "troca_grave": 10
+        },
+        "char_tfidf_lr_aumento": {
+          "acerto": 0.9406666666666667,
+          "troca_grave": 14
+        }
+      },
+      "0.05": {
+        "regras": {
+          "acerto": 0.7153333333333334,
+          "troca_grave": 14
+        },
+        "char_tfidf_lr_aumento": {
+          "acerto": 0.9386666666666666,
+          "troca_grave": 15
+        }
+      },
+      "0.1": {
+        "regras": {
+          "acerto": 0.6373333333333333,
+          "troca_grave": 25
+        },
+        "char_tfidf_lr_aumento": {
+          "acerto": 0.9346666666666666,
+          "troca_grave": 17
+        }
+      }
+    }
+  }
+}

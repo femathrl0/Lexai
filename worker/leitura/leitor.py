@@ -5,7 +5,8 @@ Limpeza (bloqueio da #22, feita aqui para o fluxo do documento da semana 4):
   páginas, e número de página solto, saem do texto;
 - **hifenização**: "presta-\\nção" vira "prestação" (só quando a quebra é no fim da linha e a palavra segue em
   minúscula, para não juntar "art. 7º-\\nA");
-- PDF sem texto nativo volta com qualidade 0 (o OCR entra na semana 5).
+- PDF sem texto nativo é tratado como imagem (`worker/leitura/imagem.py`); sem o grupo `ocr` instalado, volta com
+  qualidade 0 e o pipeline pede outro arquivo.
 """
 from __future__ import annotations
 
@@ -55,7 +56,7 @@ def limpar_paginas(paginas: list[list[tuple[str, float, float]]]) -> list[list[b
     return mascara
 
 
-def ler_pdf(tarefa_id: str, caminho: str) -> DocumentoLido:
+def ler_pdf(tarefa_id: str, caminho: str, motor=None) -> DocumentoLido:
     import pymupdf  # import tardio: só o worker tem a dependência
 
     brutos: list[list[tuple]] = []
@@ -71,5 +72,26 @@ def ler_pdf(tarefa_id: str, caminho: str) -> DocumentoLido:
                   posicao=Posicao(pagina=n, x0=b[0], y0=b[1], x1=b[2], y1=b[3]))
             for i, ((t, _, _, b), ok) in enumerate(zip(blocos, manter, strict=True)) if ok]))
     tem_texto = any(p.blocos for p in paginas)
+    if not tem_texto:
+        try:
+            from .imagem import ler_pdf_como_imagem
+
+            return ler_pdf_como_imagem(tarefa_id, caminho, motor=motor)
+        except ImportError:  # PaddleOCR ausente: segue sem OCR
+            pass
     return DocumentoLido(tarefa_id=tarefa_id, origem="nativo", qualidade_leitura=1.0 if tem_texto else 0.0,
                          motivo_baixa_qualidade=None if tem_texto else "PDF sem texto nativo", paginas=paginas)
+
+
+EXTENSOES_IMAGEM = (".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff", ".bmp")
+
+
+def ler_documento(tarefa_id: str, caminho: str, motor=None) -> DocumentoLido:
+    """PDF (nativo ou escaneado) ou foto, pelo conteúdo do arquivo."""
+    with open(caminho, "rb") as f:
+        inicio = f.read(5)
+    if inicio.startswith(b"%PDF"):
+        return ler_pdf(tarefa_id, caminho, motor=motor)
+    from .imagem import ler_imagem
+
+    return ler_imagem(tarefa_id, caminho, motor=motor)
