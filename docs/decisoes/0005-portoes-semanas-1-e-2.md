@@ -1,6 +1,6 @@
 # 0005 — Portões das semanas 1 e 2 (proposta para a reunião de Demo e portão)
 
-Data: 19/11/2026 · Conduz: Felipe (Eng. de ML e MLOps), issues #7 e #14 · **Status: proposta; a decisão é do grupo na reunião.**
+Data: 19/11/2026 · Conduz: Felipe (Eng. de ML e MLOps), issues #7 e #14 · **Status: decidido em 27/11/2026 (sem reunião).**
 
 **Contexto.** O roteiro diz que a semana seguinte só começa com o portão aprovado ou com o desvio registrado aqui. Os portões das semanas 1 e 2 não foram decididos formalmente, e o grupo já está na entrega multiagente (20/11). Este registro junta a evidência de cada critério para a decisão não depender de memória. Números de recuperação de jurisprudência vêm do relatório herdado do lex_clt.ai (`dados/relatorios/integracao/recuperacao/resumo_metricas.csv`, 17 perguntas); os de legislação, desse relatório e do benchmark novo ([`treino/relatorios/benchmark_rerankers.md`](../../treino/relatorios/benchmark_rerankers.md)).
 
@@ -36,8 +36,9 @@ Proposta: **aprovado com desvio** para legislação; **reprovado** para jurispru
 
 **Alternativa descartada.** Dar os dois portões como aprovados porque a entrega multiagente já avançou: esconderia que a recuperação de jurisprudência não supera a palavra-chave, e esse é o tipo de fonte em que uma citação errada parece mais confiável para quem lê.
 
-### Registro da reunião (preencher)
+### Registro da decisão
 
-- Data: ___ · Presentes: ___
-- Semana 1: [ ] Aprovado · [ ] Aprovado com desvio · [ ] Reprovado — observações: ___
-- Semana 2: [ ] Aprovado · [ ] Aprovado com desvio · [ ] Reprovado — observações: ___
+**Sem reunião de portão (orientação do grupo, 27/11/2026):** a decisão abaixo foi registrada pelo responsável pelos portões, Felipe (Eng. de ML e MLOps), com base na evidência desta página.
+
+- Semana 1 (#7): **aprovado com desvio** — guia de anotação e registro das entrevistas viram pré-requisito do rótulo-ouro (#2); sem eles nenhum modelo treinado vai a `em-uso`.
+- Semana 2 (#14): **aprovado com desvio** — legislação atende; jurisprudência não supera a palavra-chave em hit@10. Desvio: a resposta não usa jurisprudência como fundamento principal até existir teste congelado de jurisprudência e a híbrida superar a palavra-chave (Eng. de IA + Cientista de dados).

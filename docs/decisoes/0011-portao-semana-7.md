@@ -1,6 +1,6 @@
 # 0011 — Portão da semana 7: testes e refinamento (proposta para a reunião)
 
-Data: 27/11/2026 · Conduz: Felipe, issue #49 · **Status: proposta; a decisão é do grupo.**
+Data: 27/11/2026 · Conduz: Felipe, issue #49 · **Status: decidido em 27/11/2026 (sem reunião).**
 
 **Contexto.** Critério: *relatório final, apresentação e reflexão do CBL entregues.*
 
@@ -13,5 +13,8 @@ Data: 27/11/2026 · Conduz: Felipe, issue #49 · **Status: proposta; a decisão 
 
 **Decisão proposta.** Fechar a parte de ML e MLOps do portão; o portão só é aprovado quando o grupo entregar o relatório final, a apresentação e a reflexão do CBL.
 
-### Registro da reunião (preencher)
-- Data: ___ · Presentes: ___ · [ ] Aprovado · [ ] Aprovado com desvio · [ ] Reprovado — observações: ___
+### Registro da decisão
+
+**Sem reunião de portão (orientação do grupo, 27/11/2026):** a decisão abaixo foi registrada pelo responsável pelos portões, Felipe (Eng. de ML e MLOps), com base na evidência desta página.
+
+- Semana 7 (#49): **não aprovado ainda** — entregas de ML e MLOps prontas; faltam o relatório final do grupo, a apresentação e a reflexão do CBL.

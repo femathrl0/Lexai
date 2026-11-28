@@ -1,6 +1,6 @@
 # 0008 — Portão da semana 4: sistema multiagentes (proposta para a reunião)
 
-Data: 27/11/2026 · Conduz: Felipe, issue #28 · **Status: proposta; a decisão é do grupo.**
+Data: 27/11/2026 · Conduz: Felipe, issue #28 · **Status: decidido em 27/11/2026 (sem reunião).**
 
 **Contexto.** Critério: *um PDF entra pela fila e o app recebe, frase a frase, uma explicação com fontes, ponta a ponta, rodando no CI sobre o conjunto de teste.*
 
@@ -16,5 +16,8 @@ Data: 27/11/2026 · Conduz: Felipe, issue #28 · **Status: proposta; a decisão 
 
 **Alternativa descartada.** Esperar a tela do app para aprovar: o critério é sobre o fluxo pela fila, e a tela não muda o que o worker publica.
 
-### Registro da reunião (preencher)
-- Data: ___ · Presentes: ___ · [ ] Aprovado · [ ] Aprovado com desvio · [ ] Reprovado — observações: ___
+### Registro da decisão
+
+**Sem reunião de portão (orientação do grupo, 27/11/2026):** a decisão abaixo foi registrada pelo responsável pelos portões, Felipe (Eng. de ML e MLOps), com base na evidência desta página.
+
+- Semana 4 (#28): **aprovado com desvio** — o PDF passa pela fila e vira frases com fonte no CI. Desvio: tela do app e retomada do SSE pelo banco ficam com a #26.
