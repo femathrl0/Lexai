@@ -3,7 +3,7 @@ COMPOSE = docker compose -f infra/docker-compose.yml --env-file .env
 .PHONY: setup up down migrar backend worker frontend test lint preparar-modelos \
 	teste-congelado medir-memoria baseline-tipo benchmark-rerankers \
 	portao-regressao lora-tipo lora-tipo-amostra benchmark-nli segmentador resultado-pedido configuracoes \
-	extrator-campos intencao registrar-cross-encoders ruido-ocr deriva
+	extrator-campos intencao registrar-cross-encoders ruido-ocr deriva aprendizado-ativo
 
 setup:            ## instala dependências (backend + dev)
 	uv sync
@@ -59,3 +59,5 @@ ruido-ocr:        ## queda dos componentes em uso com ruído de OCR (sintético)
 	uv run --group treino python -m treino.ruido_ocr
 deriva:           ## relatório Evidently de deriva sobre o log de previsões do worker
 	uv run --group treino python -m treino.deriva relatorio
+aprendizado-ativo: ## lote de anotação (Label Studio) com as previsões abaixo do limiar
+	uv run --group treino python -m treino.aprendizado_ativo
