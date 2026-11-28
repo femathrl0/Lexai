@@ -1,6 +1,6 @@
 # 0009 — Portão da semana 5: multimodalidade (proposta para a reunião)
 
-Data: 27/11/2026 · Conduz: Felipe, issue #35 · **Status: proposta; a decisão é do grupo.**
+Data: 27/11/2026 · Conduz: Felipe, issue #35 · **Status: decidido em 27/11/2026 (sem reunião).**
 
 **Contexto.** Critério: *queda entre PDF e foto dentro do limite combinado; foto ruim recusada com pedido de nova foto.* O conjunto de fotos do grupo (#29) e os casos armadilha de foto (#30) não existem; a medição usou ruído de OCR sintético.
 
@@ -15,5 +15,8 @@ Data: 27/11/2026 · Conduz: Felipe, issue #35 · **Status: proposta; a decisão 
 
 **Alternativa descartada.** Aprovar porque a recusa da foto ruim funciona: a queda medida mostra que uma foto *aceita* com ruído leve já troca o resultado, e esse é o erro grave do cargo.
 
-### Registro da reunião (preencher)
-- Data: ___ · Presentes: ___ · [ ] Aprovado · [ ] Aprovado com desvio · [ ] Reprovado — observações: ___
+### Registro da decisão
+
+**Sem reunião de portão (orientação do grupo, 27/11/2026):** a decisão abaixo foi registrada pelo responsável pelos portões, Felipe (Eng. de ML e MLOps), com base na evidência desta página.
+
+- Semana 5 (#35): **reprovado para foto** — a queda com ruído de OCR passa do limite de 5 pontos. Fica aberto até as fotos do grupo (#29) e a nova medição; PDF nativo segue liberado. Documento de origem OCR mostra aviso de incerteza.

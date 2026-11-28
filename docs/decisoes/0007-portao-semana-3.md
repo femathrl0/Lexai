@@ -1,6 +1,6 @@
 # 0007 — Portão da semana 3: comparação LLM × RAG (proposta para a reunião)
 
-Data: 27/11/2026 · Conduz: Felipe (Eng. de ML e MLOps), issue #21 · **Status: proposta; a decisão é do grupo.**
+Data: 27/11/2026 · Conduz: Felipe (Eng. de ML e MLOps), issue #21 · **Status: decidido em 27/11/2026 (sem reunião).**
 
 **Contexto.** Critério: *configuração e LLM escolhidas com base em fidelidade, erros graves e recusa correta, com o relatório publicado e o ganho de cada cross-encoder medido.* A medição das quatro configurações (#18) depende do Ollama no M4; o runner ficou pronto (`avaliacao/configuracoes/rodar.py`, `make configuracoes MODELOS="qwen3:8b gemma3:4b"`), mas não rodou nesta máquina (sem GPU e sem Ollama).
 
@@ -18,5 +18,8 @@ Data: 27/11/2026 · Conduz: Felipe (Eng. de ML e MLOps), issue #21 · **Status: 
 
 **Alternativa descartada.** Reprovar e segurar a semana 4 até o M4 rodar as quatro configurações: a semana 4 (fluxo do documento) não depende da escolha da LLM, e a configuração em uso já passa no portão do verificador.
 
-### Registro da reunião (preencher)
-- Data: ___ · Presentes: ___ · [ ] Aprovado · [ ] Aprovado com desvio · [ ] Reprovado — observações: ___
+### Registro da decisão
+
+**Sem reunião de portão (orientação do grupo, 27/11/2026):** a decisão abaixo foi registrada pelo responsável pelos portões, Felipe (Eng. de ML e MLOps), com base na evidência desta página.
+
+- Semana 3 (#21): **aprovado com desvio** — configuração em uso RAG + reranker + verificador com `qwen3:8b` Q4. Desvio: as quatro configurações, o benchmark de NLI e o BERTimbau + LoRA rodam no M4 (`make configuracoes`, `make benchmark-nli DEVICE=mps`, `make lora-tipo`); se o resultado mudar a escolha, esta decisão é revista.

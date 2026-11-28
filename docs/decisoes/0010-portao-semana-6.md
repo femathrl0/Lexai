@@ -1,6 +1,6 @@
 # 0010 — Portão da semana 6: integração completa (proposta para a reunião)
 
-Data: 27/11/2026 · Conduz: Felipe, issue #42 · **Status: proposta; a decisão é do grupo.**
+Data: 27/11/2026 · Conduz: Felipe, issue #42 · **Status: decidido em 27/11/2026 (sem reunião).**
 
 **Contexto.** Critério: *todos os portões do CI verdes; demo funcionando para as três personas (Ana, Rafael, Mariana).*
 
@@ -13,5 +13,8 @@ Data: 27/11/2026 · Conduz: Felipe, issue #42 · **Status: proposta; a decisão 
 
 **Decisão proposta.** **Aprovado com desvio** para a parte de ML e MLOps; **pendente** a demo das personas no app (#40). A versão da demo congela quando a #40 fechar, com nota de mudança e o `docs/changelog_modelos.md`.
 
-### Registro da reunião (preencher)
-- Data: ___ · Presentes: ___ · [ ] Aprovado · [ ] Aprovado com desvio · [ ] Reprovado — observações: ___
+### Registro da decisão
+
+**Sem reunião de portão (orientação do grupo, 27/11/2026):** a decisão abaixo foi registrada pelo responsável pelos portões, Felipe (Eng. de ML e MLOps), com base na evidência desta página.
+
+- Semana 6 (#42): **não aprovado ainda** — a parte de ML e MLOps atende (portões do CI verdes, model cards, aprendizado ativo), mas a demo das três personas no app depende da #40. Reavaliar quando a #40 fechar.
