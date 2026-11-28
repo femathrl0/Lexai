@@ -28,6 +28,12 @@ def _device_padrao() -> str | None:
 
 def montar(buscador: str = "local", modelo: str | None = None, nli: bool = True, reranker: bool = True,
            jurisprudencia: str | None = None, device: str | None = None, **kw) -> Orquestrador:
+    """Reranker, verificador e limiares vêm das versões em uso (worker/modelos/registro.py: MLflow ou fixado)."""
+    from worker.modelos.registro import em_uso
+
+    modelos = em_uso()
+    rr, nli_cfg = modelos["reranker"], modelos["verificador_nli"]
+    device = device or os.getenv("DISPOSITIVO") or None
     llm = ClienteOllama(modelo)
     if buscador == "pgvector":
         from .buscadores import BuscadorPgvector
@@ -36,11 +42,15 @@ def montar(buscador: str = "local", modelo: str | None = None, nli: bool = True,
         from .buscadores import BuscadorLocal
         if jurisprudencia is None and JURISPRUDENCIA_PADRAO.exists():
             jurisprudencia = str(JURISPRUDENCIA_PADRAO)
-        busca = BuscadorLocal(jurisprudencia=jurisprudencia or None, usar_reranker=reranker, device=device)
+        busca = BuscadorLocal(jurisprudencia=jurisprudencia or None, usar_reranker=reranker, device=device,
+                              reranker_modelo=rr.repo, reranker_revisao=rr.revisao)
     verificador = None
     if nli:
         from worker.evidencia.verificador import VerificadorNLI
-        verificador = VerificadorNLI(device=device or _device_padrao())
+        verificador = VerificadorNLI(nli_cfg.repo, device=device or _device_padrao(), revisao=nli_cfg.revisao)
+    extra = dict(buscador=busca.versao, **({"reranker": rr.rotulo} if reranker else {}))
+    validacao = AgenteValidacao(verificador, limiar_sustenta=nli_cfg.limiar("sustenta", 0.55),
+                                limiar_lexical=nli_cfg.limiar("sobreposicao_lexical", 0.2), versoes_extra=extra)
     return Orquestrador(
-        AgenteTriagem(), AgentePesquisa(busca, llm=llm), AgenteAnalise(llm), AgenteComunicacao(llm),
-        AgenteValidacao(verificador, versoes_extra=dict(buscador=busca.versao)), **kw)
+        AgenteTriagem(), AgentePesquisa(busca, llm=llm, limiar=rr.limiar("nota_minima")), AgenteAnalise(llm),
+        AgenteComunicacao(llm), validacao, **kw)

@@ -1,4 +1,4 @@
-"""Os três pipelines do worker, um por fila. Esqueleto: só publica status e conclusão.
+"""Os três pipelines do worker, um por fila.
 
 Cada etapa abaixo tem dono e issue própria; os módulos conversam pelos contratos em contratos/.
 """
@@ -10,22 +10,62 @@ from contratos import Aviso, Concluido, Status, Versoes
 
 from .publicacao import publicar
 
+LIMIAR_QUALIDADE_LEITURA = 0.5
+
 
 def _redis() -> Redis:
     return Redis.from_url(os.getenv("REDIS_URL", "redis://127.0.0.1:16379/0"))
 
 
-def processar_documento(tarefa_id: str, usuario_id: str, caminho: str, guardar: bool) -> None:
-    r = _redis()
-    publicar(r, tarefa_id, Status(etapa="lendo"))          # leitura/leitor.py          -> DocumentoLido
-    publicar(r, tarefa_id, Status(etapa="classificando"))  # leitura/segmentador.py + modelos/ -> Classificacao
-    publicar(r, tarefa_id, Status(etapa="buscando"))       # evidencia/recuperador.py + reranker -> Evidencias
-    publicar(r, tarefa_id, Status(etapa="escrevendo"))     # evidencia/explicador.py -> Explicacao
-    publicar(r, tarefa_id, Status(etapa="verificando"))    # verificador + guarda de saída -> RespostaVerificada
-    publicar(r, tarefa_id, Aviso(categoria="incerteza", texto="Pipeline ainda não implementado (esqueleto)."))
-    publicar(r, tarefa_id, Concluido(versoes=Versoes()))
-    if not guardar and os.path.exists(caminho):
-        os.remove(caminho)  # sem opt-in, o original é descartado (RNF01)
+def processar_documento(tarefa_id: str, usuario_id: str, caminho: str, guardar: bool, redis: Redis | None = None,
+                        orquestrador=None) -> None:
+    """PDF → leitura → segmentos → tipo/fase, campos e resultado → frases sobre o documento (com o trecho literal) →
+    explicação da lei dos pedidos pelo sistema multiagente → concluído. Cada evento é publicado assim que sai."""
+    from .documento import analisar, pergunta_sobre_pedidos
+    from .leitura.leitor import ler_pdf
+    from .modelos.registro import em_uso, versoes
+
+    r = redis or _redis()
+
+    def pub(evento):
+        publicar(r, tarefa_id, evento)
+
+    try:
+        pub(Status(etapa="lendo"))
+        doc = ler_pdf(tarefa_id, caminho)
+        if doc.qualidade_leitura < LIMIAR_QUALIDADE_LEITURA:
+            pub(Aviso(categoria="nova_foto", texto="Não consegui ler bem o documento"
+                      + (f" ({doc.motivo_baixa_qualidade})" if doc.motivo_baixa_qualidade else "")
+                      + ". Envie de novo, com boa luz, sem cortes e com a página inteira."))
+            pub(Concluido(versoes=Versoes()))
+            return
+        pub(Status(etapa="classificando"))
+        modelos = em_uso()
+        analise = analisar(doc, modelos)
+        if analise.classificacao.abstencao:
+            pub(Aviso(categoria="incerteza", texto="Não tenho certeza do tipo deste documento; confira no cabeçalho."))
+        for frase in analise.frases:
+            pub(frase)
+        pergunta = pergunta_sobre_pedidos(analise)
+        orq = orquestrador if orquestrador is not None else (_orquestrador() if pergunta else None)
+        if pergunta and orq is not None:
+            base, dos_modelos = len(analise.frases), versoes(modelos)
+
+            def repassar(e):
+                if e.tipo == "frase":  # a numeração continua depois das frases sobre o documento
+                    e = e.model_copy(update={"ordem": e.ordem + base})
+                elif e.tipo == "concluido":
+                    e = e.model_copy(update={"versoes": e.versoes.model_copy(
+                        update={"modelos": {**dos_modelos, **e.versoes.modelos}})})
+                pub(e)
+
+            orq.publicar = repassar
+            orq.responder(pergunta, tarefa_id=tarefa_id)  # publica as frases verificadas e o próprio Concluido
+        else:
+            pub(Concluido(versoes=Versoes(modelos=versoes(modelos))))
+    finally:
+        if not guardar and os.path.exists(caminho):
+            os.remove(caminho)  # sem opt-in, o original é descartado (RNF01)
 
 
 _ORQUESTRADOR = None

@@ -24,12 +24,18 @@ from __future__ import annotations
 import argparse
 import hashlib
 import re
-import unicodedata
 import urllib.request
 from collections import Counter
 from pathlib import Path
 
 from treino.comum import RAIZ, RELATORIOS, salvar_json
+from worker.modelos.tipo_documento import (  # noqa: F401 - reexportados: regras e pré-processamento vivem no worker
+    CLASSES,
+    FASE_DO_TIPO,
+    MAX_CARACTERES,
+    regra_cabecalho,
+    sem_cabecalho,
+)
 
 REPOJUS_REVISAO = "91aa953b3c976a8688135dea49cf6644f7732243"
 LOTE = {
@@ -46,7 +52,6 @@ CAMINHOS_ALTERNATIVOS = (
 )
 
 SEMENTE = "lexai-divisao-v1"
-CLASSES = ("recurso_ordinario", "agravo_peticao", "embargos_declaracao", "agravo_instrumento", "acao_originaria")
 
 # classe processual do tribunal -> (tipo, fase). Fora do mapa = descartado (rótulo genérico ou raro demais).
 MAPA_CLASSE: dict[str, tuple[str, str | None]] = {
@@ -71,43 +76,6 @@ MAPA_CLASSE: dict[str, tuple[str, str | None]] = {
     "Exceção de Suspeição": ("acao_originaria", None),
     "Reclamação": ("acao_originaria", None),
 }
-# Fase prevista a partir do tipo previsto. Agravo de instrumento e embargos dependem do recurso de origem: o
-# baseline se abstém da fase nesses casos (RNF04) em vez de adivinhar.
-FASE_DO_TIPO = {"recurso_ordinario": "conhecimento", "agravo_peticao": "execucao"}
-
-MAX_CARACTERES = 30_000
-
-_PADROES_CLASSE = [
-    r"recursos?\s+ordin[aá]rios?",
-    r"agravos?\s+de\s+peti[cç][aã]o",
-    r"embargos\s+de\s+declara[cç][aã]o",
-    r"embargos\s+declarat[oó]rios",
-    r"agravos?\s+de\s+instrumento",
-    r"mandados?\s+de\s+seguran[cç]a",
-    r"a[cç][aã]o\s+rescis[oó]ria",
-    r"habeas\s+corpus",
-    r"conflito\s+de\s+compet[eê]ncia",
-    r"remessa\s+necess[aá]ria",
-    r"rito\s+sumar[ií]ssimo",
-    r"diss[ií]dio\s+coletivo",
-    r"\bagravante",
-    r"\bagravad[oa]",
-    r"\bembargante",
-    r"\bembargad[oa]",
-    r"\brecorrente",
-    r"\brecorrid[oa]",
-    r"\bimpetrante",
-    r"\bimpetrad[oa]",
-    r"\bsuscitante",
-    r"\bsuscitad[oa]",
-    r"\bexequente",
-    r"\bexecutad[oa]",
-]
-_RE_CLASSE = re.compile("|".join(_PADROES_CLASSE), re.IGNORECASE)
-_RE_CABECALHO = re.compile(r"^.*?\n\s*EMENTA\b", re.DOTALL)
-
-
-# ---------------------------------------------------------------- funções puras (testadas no CI)
 def rotular(classe_tribunal: str) -> tuple[str, str | None] | None:
     return MAPA_CLASSE.get(classe_tribunal.strip())
 
@@ -117,42 +85,6 @@ def divisao(processo: str, semente: str = SEMENTE) -> str:
     num = re.sub(r"\D", "", processo) or processo
     b = int(hashlib.sha256(f"{semente}:{num}".encode()).hexdigest(), 16) % 100
     return "treino" if b < 70 else "validacao" if b < 85 else "teste"
-
-
-def sem_cabecalho(texto: str) -> str:
-    """Remove o bloco de identificação até EMENTA e mascara nomes de classe e de papéis processuais."""
-    t = _RE_CABECALHO.sub("EMENTA", texto[:MAX_CARACTERES], count=1)
-    return _RE_CLASSE.sub(" CLASSEMASCARADA ", t)
-
-
-def _sem_acento(s: str) -> str:
-    return "".join(c for c in unicodedata.normalize("NFKD", s) if not unicodedata.combining(c)).lower()
-
-
-# Ordem importa: embargos repetem no cabeçalho a classe do recurso embargado, então o papel "embargante" vem
-# primeiro; agravo de instrumento antes de "recurso ordinário"/"agravo de petição", que aparecem no nome dele.
-_REGRAS = [
-    (r"\bembargantes?\b|embargos de declaracao|\bed\b", "embargos_declaracao"),
-    (r"agravo de instrumento|\bairo\b|\baiap\b|\bai\b", "agravo_instrumento"),
-    (r"agravo de peticao|\bap\b|\bagravantes?\b", "agravo_peticao"),
-    (r"recurso ordinario|remessa necessaria|\brot\b|\brops\b|\bro\b|\brecorrentes?\b", "recurso_ordinario"),
-    (
-        r"mandado de seguranca|\bmsciv\b|\bms\b|\bimpetrantes?\b|acao rescisoria|\bar\b|habeas corpus"
-        r"|conflito de competencia"
-        r"|tutela (cautelar|antecipada)|dissidio coletivo|acao anulatoria|\bsuscitantes?\b|\bautor(es)?\b",
-        "acao_originaria",
-    ),
-]
-_RE_REGRAS = [(re.compile(p), tipo) for p, tipo in _REGRAS]
-
-
-def regra_cabecalho(texto: str) -> str | None:
-    """Baseline de regras: procura a classe ou o papel processual no bloco de identificação (antes de EMENTA).
-
-    None = não encontrou (abstém)."""
-    fim = texto.find("EMENTA", 0, 4000)
-    alvo = _sem_acento(texto[: fim if fim > 0 else 2000])
-    return next((tipo for padrao, tipo in _RE_REGRAS if padrao.search(alvo)), None)
 
 
 def corrigir_rotulo(classe: str, texto: str) -> tuple[str, bool]:

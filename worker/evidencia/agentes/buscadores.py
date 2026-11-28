@@ -109,7 +109,8 @@ def rrf(rankings: list[list[str]], k: int = RRF_K) -> dict[str, float]:
 class BuscadorLocal:
     def __init__(self, artigos: Path = ARTIGOS, jurisprudencia: Path | None = None, normas: tuple[str, ...] | None = None,
                  usar_vetor: bool = True, usar_reranker: bool = True, device: str | None = None,
-                 incluir_subsidiarias: bool = False):
+                 incluir_subsidiarias: bool = False, reranker_modelo: str = "BAAI/bge-reranker-v2-m3",
+                 reranker_revisao: str | None = None):
         self.docs: list[dict] = []
         todos = json.loads(Path(artigos).read_text(encoding="utf-8"))
         inicio_adct = _inicio_adct(todos)
@@ -141,7 +142,7 @@ class BuscadorLocal:
         if usar_reranker:
             try:
                 from sentence_transformers import CrossEncoder
-                self.reranker = CrossEncoder("BAAI/bge-reranker-v2-m3", max_length=256, device=device)
+                self.reranker = CrossEncoder(reranker_modelo, max_length=256, device=device, revision=reranker_revisao)
             except Exception as e:  # noqa: BLE001 - reranker é opcional na demo
                 print(f"[buscador] reranker indisponível ({type(e).__name__}); seguindo com RRF")
 

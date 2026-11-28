@@ -8,6 +8,7 @@ from redis import Redis
 from rq import Queue, Worker
 
 from .filas import ORDEM_PRIORIDADE
+from .modelos.registro import em_uso
 
 
 def filas(redis: Redis) -> list[Queue]:
@@ -16,7 +17,8 @@ def filas(redis: Redis) -> list[Queue]:
 
 def main() -> None:
     redis = Redis.from_url(os.getenv("REDIS_URL", "redis://127.0.0.1:16379/0"))
-    # TODO (Eng. de ML): worker.modelos.registro.carregar_em_uso() e checar orçamento de memória.
+    for nome, m in em_uso().items():  # resolve uma vez; os pesos carregam na primeira tarefa
+        print(f"[worker] {nome}: {m.rotulo} ({m.origem})", flush=True)
     Worker(filas(redis), connection=redis).work(with_scheduler=False)
 
 

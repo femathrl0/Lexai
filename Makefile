@@ -2,7 +2,8 @@ COMPOSE = docker compose -f infra/docker-compose.yml --env-file .env
 
 .PHONY: setup up down migrar backend worker frontend test lint preparar-modelos \
 	teste-congelado medir-memoria baseline-tipo benchmark-rerankers \
-	portao-regressao lora-tipo lora-tipo-amostra benchmark-nli segmentador resultado-pedido configuracoes
+	portao-regressao lora-tipo lora-tipo-amostra benchmark-nli segmentador resultado-pedido configuracoes \
+	extrator-campos intencao registrar-cross-encoders
 
 setup:            ## instala dependências (backend + dev)
 	uv sync
@@ -48,3 +49,9 @@ resultado-pedido: ## regras × modelo do resultado do recurso
 	uv run --group treino python -m treino.resultado_pedido
 configuracoes:    ## quatro configurações (LLM, +RAG, +reranker, +verificador) com Ollama aberto
 	uv run --group worker python -m avaliacao.configuracoes.rodar --modelos $(or $(MODELOS),qwen3:8b)
+extrator-campos:  ## acerto do extrator de campos contra os metadados do RepoJus
+	uv run --group treino python -m treino.extrator_campos
+intencao:         ## intenção da guarda: regras × TF-IDF de caracteres
+	uv run --group treino python -m treino.intencao avaliar
+registrar-cross-encoders: ## reranker, NLI e embeddings no registro do MLflow (alias candidato)
+	uv run --group treino python -m treino.registrar_cross_encoders

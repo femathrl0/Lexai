@@ -1,0 +1,39 @@
+# Versões EM USO fixadas no repositório (Eng. de ML e MLOps) — a fonte da verdade quando o MLflow não está no ar
+# (CI, máquina sem o Compose, contêiner offline). Com o MLflow no ar, o alias "em-uso" do registro tem precedência
+# (worker/modelos/registro.py). Mudar este arquivo = promover: só com Eng. de ML + Curadoria, pelo treino/promover.py,
+# com linha em docs/changelog_modelos.md.
+#
+# tipo: regras  -> código em worker/ (versão = commit); hf -> repositório do Hugging Face com revisão fixa;
+#       sklearn -> artefato do MLflow (sem versão em uso aqui = o worker usa as regras e se abstém quando não sabe).
+classificador_tipo_fase:
+  tipo: regras
+  versao: regras_cabecalho@0004
+  nota: "TF-IDF + LR v1 é só candidato (rótulo provisório); sem cabeçalho o worker se abstém"
+  limiares: {abstencao: 0.44}
+segmentador:
+  tipo: regras
+  versao: marcadores-sentenca-acordao@2026-11-27
+extrator_campos:
+  tipo: regras
+  versao: regex-campos@2026-11-27
+resultado_pedido:
+  tipo: regras
+  versao: formula-dispositivo@2026-11-27
+  limiares: {abstencao: 0.5}
+intencao_guarda:
+  tipo: regras
+  versao: guardas.verificar_entrada
+reranker:
+  tipo: hf
+  repo: BAAI/bge-reranker-v2-m3
+  revisao: 953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e
+  limiares: {nota_minima: null, nota_sumula: 0.5, janela_caracteres: 500}
+verificador_nli:
+  tipo: hf
+  repo: MoritzLaurer/mDeBERTa-v3-base-mnli-xnli
+  revisao: 8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c
+  limiares: {sustenta: 0.55, sobreposicao_lexical: 0.2}
+embeddings:
+  tipo: hf
+  repo: BAAI/bge-m3
+  revisao: 5617a9f61b028005a4858fdac845db406aefb181

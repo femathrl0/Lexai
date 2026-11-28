@@ -29,12 +29,15 @@ services:
       retries: 20
 
   mlflow:
-    image: ghcr.io/mlflow/mlflow:v2.17.2
+    image: ghcr.io/mlflow/mlflow:v3.18.0
     restart: unless-stopped
+    # "db upgrade" migra o banco criado pelo MLflow 2.17 (semanas 1–2) antes de subir o servidor 3.x
     command: >
+      sh -c "mlflow db upgrade sqlite:////mlflow/mlflow.db 2>/dev/null || true;
       mlflow server --host 0.0.0.0 --port 5000
       --backend-store-uri sqlite:////mlflow/mlflow.db
       --artifacts-destination /mlflow/artifacts
+      --allowed-hosts 'localhost:*,127.0.0.1:*,mlflow:*'"
     ports: ["127.0.0.1:15000:5000"]
     volumes: [mlflow_data:/mlflow]
     healthcheck:

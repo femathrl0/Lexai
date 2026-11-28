@@ -5,30 +5,131 @@
       "relatorio": "treino/relatorios/classificador_tipo_baseline.json",
       "caminho": "resultados.tfidf_lr_sem_cabecalho.teste",
       "versao_referencia": "v1 (tfidf_lr_sem_cabecalho, candidato)",
-      "metricas": {"f1_macro": {"valor": 0.9526, "direcao": "maior", "tolerancia": 0.005},
-                   "ece": {"valor": 0.0161, "direcao": "menor", "tolerancia": 0.01}},
-      "erros_graves": {"fase_trocada": 23}
+      "metricas": {
+        "f1_macro": {
+          "valor": 0.9526,
+          "direcao": "maior",
+          "tolerancia": 0.005
+        },
+        "ece": {
+          "valor": 0.0161,
+          "direcao": "menor",
+          "tolerancia": 0.01
+        }
+      },
+      "erros_graves": {
+        "fase_trocada": 23
+      }
     },
     "segmentador": {
       "relatorio": "treino/relatorios/segmentador.json",
       "caminho": "resultados.tfidf_lr_texto_posicao.teste",
       "versao_referencia": "tfidf_lr_texto_posicao (candidato, amostra de 3.000 acórdãos)",
-      "metricas": {"f1_macro": {"valor": 0.924, "direcao": "maior", "tolerancia": 0.01}},
+      "metricas": {
+        "f1_macro": {
+          "valor": 0.924,
+          "direcao": "maior",
+          "tolerancia": 0.01
+        }
+      },
       "erros_graves": {}
     },
     "resultado_pedido": {
       "relatorio": "treino/relatorios/resultado_pedido.json",
       "caminho": "resultados.regras_conclusao.teste",
       "versao_referencia": "regras_conclusao (em uso)",
-      "metricas": {"f1_macro": {"valor": 0.982, "direcao": "maior", "tolerancia": 0.005}},
-      "erros_graves": {"troca_grave": 1}
+      "metricas": {
+        "f1_macro": {
+          "valor": 0.982,
+          "direcao": "maior",
+          "tolerancia": 0.005
+        }
+      },
+      "erros_graves": {
+        "troca_grave": 1
+      }
     },
     "reranker": {
       "relatorio": "treino/relatorios/benchmark_rerankers.json",
       "caminho": "resultados.reranker:BAAI/bge-reranker-v2-m3.metricas.test",
       "versao_referencia": "BAAI/bge-reranker-v2-m3 (em uso)",
-      "metricas": {"ndcg@5": {"valor": 0.9562, "direcao": "maior", "tolerancia": 0.0}},
+      "metricas": {
+        "ndcg@5": {
+          "valor": 0.9562,
+          "direcao": "maior",
+          "tolerancia": 0.0
+        }
+      },
       "erros_graves": {}
+    },
+    "extrator_campos.numero_processo": {
+      "relatorio": "treino/relatorios/extrator_campos.json",
+      "caminho": "campos.numero_processo",
+      "versao_referencia": "regex-campos (em uso)",
+      "metricas": {
+        "acerto": {
+          "valor": 0.9849,
+          "direcao": "maior",
+          "tolerancia": 0.005
+        },
+        "inventado": {
+          "valor": 0.0071,
+          "direcao": "menor",
+          "tolerancia": 0.005
+        }
+      },
+      "erros_graves": {}
+    },
+    "extrator_campos.relator": {
+      "relatorio": "treino/relatorios/extrator_campos.json",
+      "caminho": "campos.relator",
+      "versao_referencia": "regex-campos (em uso)",
+      "metricas": {
+        "acerto": {
+          "valor": 0.9658,
+          "direcao": "maior",
+          "tolerancia": 0.005
+        },
+        "inventado": {
+          "valor": 0.0211,
+          "direcao": "menor",
+          "tolerancia": 0.005
+        }
+      },
+      "erros_graves": {}
+    },
+    "extrator_campos.data_julgamento": {
+      "relatorio": "treino/relatorios/extrator_campos.json",
+      "caminho": "campos.data_julgamento",
+      "versao_referencia": "regex-campos (em uso)",
+      "metricas": {
+        "acerto": {
+          "valor": 0.82,
+          "direcao": "maior",
+          "tolerancia": 0.005
+        },
+        "inventado": {
+          "valor": 0.0349,
+          "direcao": "menor",
+          "tolerancia": 0.005
+        }
+      },
+      "erros_graves": {}
+    },
+    "intencao_guarda": {
+      "relatorio": "treino/relatorios/intencao.json",
+      "caminho": "resultados.casos_reais.regras",
+      "versao_referencia": "guardas.verificar_entrada (em uso)",
+      "metricas": {
+        "f1_macro": {
+          "valor": 1.0,
+          "direcao": "maior",
+          "tolerancia": 0.0
+        }
+      },
+      "erros_graves": {
+        "erros_graves": 0
+      }
     }
   }
 }

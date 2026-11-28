@@ -18,13 +18,15 @@ class Verificador(Protocol):
 
 
 class VerificadorNLI:
-    def __init__(self, modelo: str = MODELO_PADRAO, device: str | None = None, max_length: int = 512):
+    def __init__(self, modelo: str = MODELO_PADRAO, device: str | None = None, max_length: int = 512,
+                 revisao: str | None = None):
         import torch
         from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-        self.modelo, self.max_length, self._torch = modelo, max_length, torch
-        self.tok = AutoTokenizer.from_pretrained(modelo)
-        self.net = AutoModelForSequenceClassification.from_pretrained(modelo).eval()
+        # revisão fixa = a versão em uso (worker/modelos/em_uso.yml); None = a mais recente do repositório
+        self.modelo, self.revisao, self.max_length, self._torch = modelo, revisao, max_length, torch
+        self.tok = AutoTokenizer.from_pretrained(modelo, revision=revisao)
+        self.net = AutoModelForSequenceClassification.from_pretrained(modelo, revision=revisao).eval()
         if device:
             self.net.to(device)
         self.device = device

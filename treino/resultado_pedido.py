@@ -24,59 +24,13 @@ e precisa do rótulo-ouro por pedido para ser medido.
 from __future__ import annotations
 
 import argparse
-import re
-import unicodedata
 from collections import Counter
 
 from treino.comum import RELATORIOS, salvar_json
+from worker.modelos.resultado_pedido import classificar_regra, trecho_acordam, trecho_conclusao  # noqa: F401
 
 CLASSES = ("provido", "parcialmente_provido", "desprovido", "nao_conhecido")
 TROCAS_GRAVES = {("provido", "desprovido"), ("desprovido", "provido")}
-
-
-def _norm(s: str) -> str:
-    s = "".join(c for c in unicodedata.normalize("NFKD", s) if not unicodedata.combining(c)).lower()
-    return re.sub(r"\s+", " ", s)
-
-
-# formas impessoais (ACORDAM: "negar provimento") e de 1ª pessoa (conclusão: "nego provimento")
-_NEGA = re.compile(r"\b(negar|nego|negam|nega|negou|negaram)(-lhe|-lhes)? provimento|\bdesprovid[oa]s?\b|\bdesprovimento\b")
-_PARCIAL = re.compile(r"\b(dar|dou|dao|deu|deram)(-lhe|-lhes)? (parcial provimento|provimento parcial)"
-                      r"|\bparcialmente provid[oa]s?\b|\bprovimento parcial\b|\bparcial provimento\b")
-_DA = re.compile(r"\b(dar|dou|dao|deu|deram)(-lhe|-lhes)? provimento\b|(?<!des)(?<!parcialmente )\bprovid[oa]s?\b")
-_NAO_CONHECE = re.compile(r"\bnao (conhecer|conheco|conhecem|conheceu|conhecido)\b")
-
-
-# ---------------------------------------------------------------- funções puras (testadas no CI)
-def classificar_regra(texto: str) -> str | None:
-    """Resultado pela fórmula. None = misto (resultados diferentes para recursos diferentes) ou não encontrado."""
-    t = _norm(texto)
-    achados = set()
-    if _PARCIAL.search(t):
-        achados.add("parcialmente_provido")
-    sem_parcial = _PARCIAL.sub(" ", t)
-    if _NEGA.search(sem_parcial):
-        achados.add("desprovido")
-    if _DA.search(_NEGA.sub(" ", sem_parcial)):
-        achados.add("provido")
-    if not achados and _NAO_CONHECE.search(t):
-        return "nao_conhecido"
-    return achados.pop() if len(achados) == 1 else None
-
-
-_RE_ACORDAM = re.compile(r"\n\s*ACORDAM\b(.{0,3000}?)(?:\n\s*\n\s*[A-Z][^\n]{0,60}\(DF\)|\n\s*Bras[ií]lia|\Z)", re.S)
-_RE_CONCLUSAO = re.compile(r"\n\s*(?:[IVX]+\s*[-–.)]\s*|\d+\s*[-–.)]\s*|\(\d+\)\s*)?CONCLUS[ÃA]O\s*:?\s*\n(.{0,4000}?)"
-                           r"(?:\n\s*[ÉE] (?:o|como) voto|\n\s*AC[ÓO]RD[ÃA]O\s*\n|\Z)", re.S | re.I)
-
-
-def trecho_acordam(texto: str) -> str | None:
-    m = _RE_ACORDAM.search(texto)
-    return m.group(1).strip() if m else None
-
-
-def trecho_conclusao(texto: str) -> str | None:
-    m = _RE_CONCLUSAO.search(texto)
-    return m.group(1).strip() if m else None
 
 
 def avaliar(y_true: list[str], y_pred: list[str | None]) -> dict:
