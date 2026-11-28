@@ -42,3 +42,11 @@ def test_fixados_tem_revisao_para_todo_modelo_do_hugging_face():
 def test_rotulo_para_versoes():
     v = versoes(carregar_em_uso(tracking_uri=""))
     assert v["reranker"].startswith("BAAI/bge-reranker-v2-m3@") and v["segmentador"].startswith("segmentador@")
+
+
+def test_mlflow_fora_do_ar_cai_para_os_fixados_rapido():
+    import time
+
+    t = time.perf_counter()
+    m = carregar_em_uso(tracking_uri="http://127.0.0.1:9")  # porta sem servidor
+    assert time.perf_counter() - t < 5 and m["reranker"].origem == "fixado"
