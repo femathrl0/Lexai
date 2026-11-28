@@ -19,9 +19,11 @@ jobs:
         run: uv run pytest tests/contratos -q
       - name: Portão — conjunto de teste congelado (Eng. de ML)
         run: uv run python -m treino.teste_congelado
+      - name: Portão — regressão de modelo e erros graves (Eng. de ML)
+        run: uv run python -m treino.portao_regressao
       - name: Testes (sem serviços externos)
         run: uv run pytest -q -m "not integracao"
-      # TODO (Eng. de ML + Cientista de dados): portões de regressão de modelo, erros graves e fidelidade (semana 3+).
+      # TODO (Eng. de ML + Cientista de dados): portão de fidelidade quando a revisão humana do juiz existir (#16).
       # TODO (Eng. de software): portão de isolamento contra Postgres (services: postgres) e teste de "apagar meus dados".
 
   frontend:

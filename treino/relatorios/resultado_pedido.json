@@ -1,0 +1,350 @@
+{
+  "motivos": {
+    "usado": 17118,
+    "sem_conclusao": 997,
+    "acordam_misto_ou_sem_formula": 2977,
+    "sem_acordam": 2678
+  },
+  "distribuicao": {
+    "treino": {
+      "parcialmente_provido": 2736,
+      "desprovido": 7306,
+      "nao_conhecido": 757,
+      "provido": 1201
+    },
+    "validacao": {
+      "parcialmente_provido": 616,
+      "desprovido": 1572,
+      "nao_conhecido": 163,
+      "provido": 277
+    },
+    "teste": {
+      "desprovido": 1479,
+      "nao_conhecido": 170,
+      "parcialmente_provido": 576,
+      "provido": 265
+    }
+  },
+  "resultados": {
+    "majoritaria": {
+      "validacao": {
+        "acuracia": 0.5981735159817352,
+        "f1_macro": 0.18714285714285714,
+        "por_classe": {
+          "provido": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 277
+          },
+          "parcialmente_provido": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 616
+          },
+          "desprovido": {
+            "precisao": 0.5981735159817352,
+            "recall": 1.0,
+            "f1": 0.7485714285714286,
+            "suporte": 1572
+          },
+          "nao_conhecido": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 163
+          }
+        },
+        "abstencoes": 0,
+        "troca_grave": 277,
+        "matriz_confusao": {
+          "provido": {
+            "desprovido": 277
+          },
+          "parcialmente_provido": {
+            "desprovido": 616
+          },
+          "desprovido": {
+            "desprovido": 1572
+          },
+          "nao_conhecido": {
+            "desprovido": 163
+          }
+        }
+      },
+      "teste": {
+        "acuracia": 0.5939759036144578,
+        "f1_macro": 0.18631897203325776,
+        "por_classe": {
+          "provido": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 265
+          },
+          "parcialmente_provido": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 576
+          },
+          "desprovido": {
+            "precisao": 0.5939759036144578,
+            "recall": 1.0,
+            "f1": 0.745275888133031,
+            "suporte": 1479
+          },
+          "nao_conhecido": {
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "suporte": 170
+          }
+        },
+        "abstencoes": 0,
+        "troca_grave": 265,
+        "matriz_confusao": {
+          "provido": {
+            "desprovido": 265
+          },
+          "parcialmente_provido": {
+            "desprovido": 576
+          },
+          "desprovido": {
+            "desprovido": 1479
+          },
+          "nao_conhecido": {
+            "desprovido": 170
+          }
+        }
+      }
+    },
+    "regras_conclusao": {
+      "validacao": {
+        "acuracia": 0.9748858447488584,
+        "f1_macro": 0.9802261390428906,
+        "por_classe": {
+          "provido": {
+            "precisao": 0.966789667896679,
+            "recall": 0.9458483754512635,
+            "f1": 0.956204379562044,
+            "suporte": 277
+          },
+          "parcialmente_provido": {
+            "precisao": 0.9884105960264901,
+            "recall": 0.9691558441558441,
+            "f1": 0.978688524590164,
+            "suporte": 616
+          },
+          "desprovido": {
+            "precisao": 0.9980569948186528,
+            "recall": 0.9802798982188295,
+            "f1": 0.9890885750962773,
+            "suporte": 1572
+          },
+          "nao_conhecido": {
+            "precisao": 1.0,
+            "recall": 0.9938650306748467,
+            "f1": 0.9969230769230769,
+            "suporte": 163
+          }
+        },
+        "abstencoes": 47,
+        "troca_grave": 2,
+        "matriz_confusao": {
+          "provido": {
+            "provido": 262,
+            "parcialmente_provido": 5,
+            "__abstencao__": 10
+          },
+          "parcialmente_provido": {
+            "parcialmente_provido": 597,
+            "provido": 7,
+            "__abstencao__": 10,
+            "desprovido": 2
+          },
+          "desprovido": {
+            "desprovido": 1541,
+            "__abstencao__": 27,
+            "parcialmente_provido": 2,
+            "provido": 2
+          },
+          "nao_conhecido": {
+            "nao_conhecido": 162,
+            "desprovido": 1
+          }
+        }
+      },
+      "teste": {
+        "acuracia": 0.9803212851405623,
+        "f1_macro": 0.9815213061218542,
+        "por_classe": {
+          "provido": {
+            "precisao": 0.9766536964980544,
+            "recall": 0.9471698113207547,
+            "f1": 0.9616858237547892,
+            "suporte": 265
+          },
+          "parcialmente_provido": {
+            "precisao": 0.9876760563380281,
+            "recall": 0.9739583333333334,
+            "f1": 0.9807692307692308,
+            "suporte": 576
+          },
+          "desprovido": {
+            "precisao": 0.9965916837082481,
+            "recall": 0.9885057471264368,
+            "f1": 0.9925322471147319,
+            "suporte": 1479
+          },
+          "nao_conhecido": {
+            "precisao": 1.0,
+            "recall": 0.9823529411764705,
+            "f1": 0.9910979228486646,
+            "suporte": 170
+          }
+        },
+        "abstencoes": 31,
+        "troca_grave": 1,
+        "matriz_confusao": {
+          "provido": {
+            "provido": 251,
+            "parcialmente_provido": 6,
+            "__abstencao__": 7,
+            "desprovido": 1
+          },
+          "parcialmente_provido": {
+            "parcialmente_provido": 561,
+            "desprovido": 3,
+            "__abstencao__": 6,
+            "provido": 6
+          },
+          "desprovido": {
+            "desprovido": 1462,
+            "__abstencao__": 16,
+            "parcialmente_provido": 1
+          },
+          "nao_conhecido": {
+            "nao_conhecido": 167,
+            "__abstencao__": 2,
+            "desprovido": 1
+          }
+        }
+      }
+    },
+    "tfidf_lr_conclusao": {
+      "validacao": {
+        "acuracia": 0.9882039573820396,
+        "f1_macro": 0.9824227373350376,
+        "por_classe": {
+          "provido": {
+            "precisao": 0.9636363636363636,
+            "recall": 0.9566787003610109,
+            "f1": 0.9601449275362319,
+            "suporte": 277
+          },
+          "parcialmente_provido": {
+            "precisao": 0.9743178170144462,
+            "recall": 0.9853896103896104,
+            "f1": 0.9798224374495561,
+            "suporte": 616
+          },
+          "desprovido": {
+            "precisao": 0.9974473516273133,
+            "recall": 0.9942748091603053,
+            "f1": 0.9958585536795158,
+            "suporte": 1572
+          },
+          "nao_conhecido": {
+            "precisao": 0.9938650306748467,
+            "recall": 0.9938650306748467,
+            "f1": 0.9938650306748467,
+            "suporte": 163
+          }
+        },
+        "abstencoes": 0,
+        "troca_grave": 4,
+        "matriz_confusao": {
+          "provido": {
+            "provido": 265,
+            "parcialmente_provido": 11,
+            "desprovido": 1
+          },
+          "parcialmente_provido": {
+            "parcialmente_provido": 607,
+            "provido": 7,
+            "desprovido": 2
+          },
+          "desprovido": {
+            "desprovido": 1563,
+            "nao_conhecido": 1,
+            "provido": 3,
+            "parcialmente_provido": 5
+          },
+          "nao_conhecido": {
+            "nao_conhecido": 162,
+            "desprovido": 1
+          }
+        },
+        "ece": 0.020508191355234677
+      },
+      "teste": {
+        "acuracia": 0.9839357429718876,
+        "f1_macro": 0.9770538608128922,
+        "por_classe": {
+          "provido": {
+            "precisao": 0.9653846153846154,
+            "recall": 0.9471698113207547,
+            "f1": 0.9561904761904761,
+            "suporte": 265
+          },
+          "parcialmente_provido": {
+            "precisao": 0.9642857142857143,
+            "recall": 0.984375,
+            "f1": 0.9742268041237113,
+            "suporte": 576
+          },
+          "desprovido": {
+            "precisao": 0.9945689069925322,
+            "recall": 0.9905341446923597,
+            "f1": 0.9925474254742547,
+            "suporte": 1479
+          },
+          "nao_conhecido": {
+            "precisao": 0.9881656804733728,
+            "recall": 0.9823529411764705,
+            "f1": 0.9852507374631269,
+            "suporte": 170
+          }
+        },
+        "abstencoes": 0,
+        "troca_grave": 5,
+        "matriz_confusao": {
+          "provido": {
+            "provido": 251,
+            "parcialmente_provido": 12,
+            "desprovido": 2
+          },
+          "parcialmente_provido": {
+            "parcialmente_provido": 567,
+            "desprovido": 3,
+            "provido": 6
+          },
+          "desprovido": {
+            "desprovido": 1465,
+            "parcialmente_provido": 9,
+            "provido": 3,
+            "nao_conhecido": 2
+          },
+          "nao_conhecido": {
+            "nao_conhecido": 167,
+            "desprovido": 3
+          }
+        },
+        "ece": 0.015207454681210526
+      }
+    }
+  },
+  "rotulo": "prata — fórmula do ACORDAM; recurso, não pedido"
+}

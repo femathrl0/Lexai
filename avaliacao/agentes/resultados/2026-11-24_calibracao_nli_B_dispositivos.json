@@ -1,0 +1,1169 @@
+{
+  "modelo": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+  "pares": "avaliacao/pares_ouro/verificador_v1.jsonl",
+  "n": 105,
+  "rotulos": {
+    "sustenta": 68,
+    "contradiz": 24,
+    "nao_trata": 13
+  },
+  "regra": "menor limiar com precisão ≥ 0.9",
+  "atingiu_portao": true,
+  "escolhido": {
+    "limiar": 0.9,
+    "precisao": 0.9,
+    "recall": 0.794,
+    "f1": 0.844,
+    "liberadas_falsas": 6,
+    "barradas_boas": 14
+  },
+  "limiar_anterior_0_5": {
+    "limiar": 0.5,
+    "precisao": 0.849,
+    "recall": 0.912,
+    "f1": 0.879,
+    "liberadas_falsas": 11,
+    "barradas_boas": 6
+  },
+  "so_nli_no_escolhido": {
+    "limiar": 0.9,
+    "precisao": 0.871,
+    "recall": 0.794,
+    "f1": 0.831,
+    "liberadas_falsas": 8,
+    "barradas_boas": 14
+  },
+  "so_nli_em_0_5": {
+    "limiar": 0.5,
+    "precisao": 0.805,
+    "recall": 0.912,
+    "f1": 0.855,
+    "liberadas_falsas": 15,
+    "barradas_boas": 6
+  },
+  "barradas_por_regra": [
+    {
+      "id": "adv-00",
+      "rotulo": "contradiz",
+      "motivo": "número ou prazo que não está no trecho: 10%"
+    },
+    {
+      "id": "adv-01",
+      "rotulo": "contradiz",
+      "motivo": "número ou prazo que não está no trecho: 60 minutos"
+    },
+    {
+      "id": "adv-06",
+      "rotulo": "contradiz",
+      "motivo": "número ou prazo que não está no trecho: 120 dias"
+    },
+    {
+      "id": "adv-10",
+      "rotulo": "contradiz",
+      "motivo": "número ou prazo que não está no trecho: 50%"
+    },
+    {
+      "id": "adv-16",
+      "rotulo": "contradiz",
+      "motivo": "número ou prazo que não está no trecho: trinta dias"
+    },
+    {
+      "id": "adv-22",
+      "rotulo": "contradiz",
+      "motivo": "número ou prazo que não está no trecho: 180 dias"
+    },
+    {
+      "id": "adv-23",
+      "rotulo": "nao_trata",
+      "motivo": "número ou prazo que não está no trecho: 30 dias"
+    },
+    {
+      "id": "adv-25",
+      "rotulo": "nao_trata",
+      "motivo": "número ou prazo que não está no trecho: dois salarios"
+    },
+    {
+      "id": "adv-26",
+      "rotulo": "nao_trata",
+      "motivo": "número ou prazo que não está no trecho: 40%"
+    },
+    {
+      "id": "adv-27",
+      "rotulo": "nao_trata",
+      "motivo": "número ou prazo que não está no trecho: 21 horas"
+    }
+  ],
+  "tabela": [
+    {
+      "limiar": 0.05,
+      "precisao": 0.815,
+      "recall": 0.971,
+      "f1": 0.886,
+      "liberadas_falsas": 15,
+      "barradas_boas": 2
+    },
+    {
+      "limiar": 0.1,
+      "precisao": 0.825,
+      "recall": 0.971,
+      "f1": 0.892,
+      "liberadas_falsas": 14,
+      "barradas_boas": 2
+    },
+    {
+      "limiar": 0.15,
+      "precisao": 0.831,
+      "recall": 0.941,
+      "f1": 0.883,
+      "liberadas_falsas": 13,
+      "barradas_boas": 4
+    },
+    {
+      "limiar": 0.2,
+      "precisao": 0.842,
+      "recall": 0.941,
+      "f1": 0.889,
+      "liberadas_falsas": 12,
+      "barradas_boas": 4
+    },
+    {
+      "limiar": 0.25,
+      "precisao": 0.842,
+      "recall": 0.941,
+      "f1": 0.889,
+      "liberadas_falsas": 12,
+      "barradas_boas": 4
+    },
+    {
+      "limiar": 0.3,
+      "precisao": 0.842,
+      "recall": 0.941,
+      "f1": 0.889,
+      "liberadas_falsas": 12,
+      "barradas_boas": 4
+    },
+    {
+      "limiar": 0.35,
+      "precisao": 0.84,
+      "recall": 0.926,
+      "f1": 0.881,
+      "liberadas_falsas": 12,
+      "barradas_boas": 5
+    },
+    {
+      "limiar": 0.4,
+      "precisao": 0.849,
+      "recall": 0.912,
+      "f1": 0.879,
+      "liberadas_falsas": 11,
+      "barradas_boas": 6
+    },
+    {
+      "limiar": 0.45,
+      "precisao": 0.849,
+      "recall": 0.912,
+      "f1": 0.879,
+      "liberadas_falsas": 11,
+      "barradas_boas": 6
+    },
+    {
+      "limiar": 0.5,
+      "precisao": 0.849,
+      "recall": 0.912,
+      "f1": 0.879,
+      "liberadas_falsas": 11,
+      "barradas_boas": 6
+    },
+    {
+      "limiar": 0.55,
+      "precisao": 0.861,
+      "recall": 0.912,
+      "f1": 0.886,
+      "liberadas_falsas": 10,
+      "barradas_boas": 6
+    },
+    {
+      "limiar": 0.6,
+      "precisao": 0.861,
+      "recall": 0.912,
+      "f1": 0.886,
+      "liberadas_falsas": 10,
+      "barradas_boas": 6
+    },
+    {
+      "limiar": 0.65,
+      "precisao": 0.859,
+      "recall": 0.897,
+      "f1": 0.878,
+      "liberadas_falsas": 10,
+      "barradas_boas": 7
+    },
+    {
+      "limiar": 0.7,
+      "precisao": 0.859,
+      "recall": 0.897,
+      "f1": 0.878,
+      "liberadas_falsas": 10,
+      "barradas_boas": 7
+    },
+    {
+      "limiar": 0.75,
+      "precisao": 0.855,
+      "recall": 0.868,
+      "f1": 0.861,
+      "liberadas_falsas": 10,
+      "barradas_boas": 9
+    },
+    {
+      "limiar": 0.8,
+      "precisao": 0.866,
+      "recall": 0.853,
+      "f1": 0.859,
+      "liberadas_falsas": 9,
+      "barradas_boas": 10
+    },
+    {
+      "limiar": 0.85,
+      "precisao": 0.862,
+      "recall": 0.824,
+      "f1": 0.842,
+      "liberadas_falsas": 9,
+      "barradas_boas": 12
+    },
+    {
+      "limiar": 0.9,
+      "precisao": 0.9,
+      "recall": 0.794,
+      "f1": 0.844,
+      "liberadas_falsas": 6,
+      "barradas_boas": 14
+    },
+    {
+      "limiar": 0.95,
+      "precisao": 0.898,
+      "recall": 0.779,
+      "f1": 0.835,
+      "liberadas_falsas": 6,
+      "barradas_boas": 15
+    }
+  ],
+  "por_origem": {
+    "adversarial (escrita a partir do texto da fonte)": {
+      "n": 38,
+      "no_escolhido": {
+        "limiar": 0.9,
+        "precisao": 0.556,
+        "recall": 0.625,
+        "f1": 0.588,
+        "liberadas_falsas": 4,
+        "barradas_boas": 3
+      },
+      "em_0_5": {
+        "limiar": 0.5,
+        "precisao": 0.438,
+        "recall": 0.875,
+        "f1": 0.583,
+        "liberadas_falsas": 9,
+        "barradas_boas": 1
+      }
+    },
+    "bateria 17/11 (frase real do sistema)": {
+      "n": 67,
+      "no_escolhido": {
+        "limiar": 0.9,
+        "precisao": 0.961,
+        "recall": 0.817,
+        "f1": 0.883,
+        "liberadas_falsas": 2,
+        "barradas_boas": 11
+      },
+      "em_0_5": {
+        "limiar": 0.5,
+        "precisao": 0.965,
+        "recall": 0.917,
+        "f1": 0.94,
+        "liberadas_falsas": 2,
+        "barradas_boas": 5
+      }
+    }
+  },
+  "erros_no_escolhido": [
+    {
+      "id": "bat17-06",
+      "rotulo": "sustenta",
+      "p": 0.893,
+      "frase": "O art. 462 também proíbe que as empresas restringam a liberdade dos funcionários de usar o seu salário como quiserem.",
+      "fonte": "CLT, Art. 462"
+    },
+    {
+      "id": "bat17-09",
+      "rotulo": "sustenta",
+      "p": 0.733,
+      "frase": "O art. 462 também proíbe que as empresas obriguem os funcionários a usar o seu salário de uma forma específica.",
+      "fonte": "CLT, Art. 462"
+    },
+    {
+      "id": "bat17-10",
+      "rotulo": "sustenta",
+      "p": 0.336,
+      "frase": "A remuneração do trabalho noturno urbano é maior em 20% do que a do diurno, conforme o CLT, Art. 73.",
+      "fonte": "CLT, Art. 73"
+    },
+    {
+      "id": "bat17-11",
+      "rotulo": "sustenta",
+      "p": 0.735,
+      "frase": "A hora de trabalho noturno urbano é contada como 52 minutos e 30 segundos, conforme o CLT, Art. 73, § 1º.",
+      "fonte": "CLT, Art. 73"
+    },
+    {
+      "id": "bat17-12",
+      "rotulo": "sustenta",
+      "p": 0.001,
+      "frase": "O acréscimo de 20% é calculado sobre a hora diurna, conforme a LC 150/2015, Art. 14, § 2º.",
+      "fonte": "LC 150/2015 (doméstico), Art. 14"
+    },
+    {
+      "id": "bat17-14",
+      "rotulo": "sustenta",
+      "p": 0.369,
+      "frase": "O trabalho noturno urbano é considerado aquele executado entre as 22 horas de um dia e as 5 horas do dia seguinte, conforme o CLT, Art. 73, § 2º.",
+      "fonte": "CLT, Art. 73"
+    },
+    {
+      "id": "bat17-20",
+      "rotulo": "contradiz",
+      "p": 0.999,
+      "frase": "O tempo que passa além da jornada normal, mesmo que seja um pouco mais, não é considerado hora extra, a menos que haja uma regra específica.",
+      "fonte": "CLT, Art. 4º"
+    },
+    {
+      "id": "bat17-49",
+      "rotulo": "sustenta",
+      "p": 0.822,
+      "frase": "O trabalhador demitido sem justa causa (falta grave que permite encerrar o contrato sem algumas verbas) tem direito à remuneração das férias não gozadas, se o contrato acaba antes de 12 meses de trabalho, conforme o Art. 147 da CLT.",
+      "fonte": "CLT, Art. 147"
+    },
+    {
+      "id": "bat17-51",
+      "rotulo": "sustenta",
+      "p": 0.644,
+      "frase": "O seguro-desemprego para empregados domésticos demitidos sem justa causa tem valor de 1 salário-mínimo, por até 3 meses, conforme o Art. 26 da LC 150/2015.",
+      "fonte": "LC 150/2015 (doméstico), Art. 26"
+    },
+    {
+      "id": "bat17-56",
+      "rotulo": "nao_trata",
+      "p": 0.984,
+      "frase": "A mulher grávida pode parar de trabalhar se o emprego prejudicar a gravidez, conforme o Art. 394 da CLT.",
+      "fonte": "CLT, Art. 394"
+    },
+    {
+      "id": "bat17-61",
+      "rotulo": "sustenta",
+      "p": 0.024,
+      "frase": "A notificação do empregador relativa aos débitos com o FGTS interrompe o prazo prescricional, conforme o art. 23-A, § 1º, da Lei 8.036/1990.",
+      "fonte": "Lei 8.036/1990 (FGTS), Art. 23-A"
+    },
+    {
+      "id": "bat17-62",
+      "rotulo": "sustenta",
+      "p": 0.125,
+      "frase": "Os resultados financeiros da Caixa Econômica Federal no período entre o repasse dos bancos e o depósito nas contas vinculadas destinar-se-ão à cobertura das despesas de administração do FGTS, conforme o art. 4º da Lei 8.036/1990.",
+      "fonte": "Lei 8.036/1990 (FGTS), Art. 12"
+    },
+    {
+      "id": "bat17-63",
+      "rotulo": "sustenta",
+      "p": 0.873,
+      "frase": "A Caixa Econômica Federal passa a gerenciar as contas do FGTS (Fundo de Garantia do Tempo de Serviço) dentro de um ano, a partir da promulgação da Lei 8.036/1990, conforme o art. 12, caput, da mesma lei.",
+      "fonte": "Lei 8.036/1990 (FGTS), Art. 12"
+    },
+    {
+      "id": "adv-03",
+      "rotulo": "contradiz",
+      "p": 0.999,
+      "frase": "O empregado pode faltar até 5 dias consecutivos por causa do casamento sem perder o salário.",
+      "fonte": "CLT, Art. 473"
+    },
+    {
+      "id": "adv-05",
+      "rotulo": "contradiz",
+      "p": 0.997,
+      "frase": "O empregado pode faltar um dia a cada 6 meses para doar sangue.",
+      "fonte": "CLT, Art. 473"
+    },
+    {
+      "id": "adv-15",
+      "rotulo": "contradiz",
+      "p": 0.997,
+      "frase": "Na dispensa sem justa causa, o empregador deposita no FGTS uma multa de 20% sobre os depósitos do contrato.",
+      "fonte": "Lei 8.036/1990 (FGTS), Art. 18"
+    },
+    {
+      "id": "adv-17",
+      "rotulo": "contradiz",
+      "p": 0.963,
+      "frase": "Na primeira solicitação do seguro-desemprego, basta ter recebido salários em 6 dos últimos 12 meses.",
+      "fonte": "Lei 7.998/1990 (seguro-desemprego), Art. 3º"
+    },
+    {
+      "id": "adv-33",
+      "rotulo": "sustenta",
+      "p": 0.751,
+      "frase": "Se a reintegração não acontece dentro do período de estabilidade, a gestante tem direito aos salários desse período.",
+      "fonte": "Súmula 244 do TST"
+    },
+    {
+      "id": "adv-34",
+      "rotulo": "sustenta",
+      "p": 0.843,
+      "frase": "A empregada gestante não pode ser dispensada sem justa causa desde a confirmação da gravidez até cinco meses após o parto.",
+      "fonte": "ADCT, Art. 10"
+    },
+    {
+      "id": "adv-35",
+      "rotulo": "sustenta",
+      "p": 0.104,
+      "frase": "A multa do art. 477 é devida mesmo quando o vínculo de emprego só foi reconhecido na Justiça.",
+      "fonte": "Súmula 462 do TST"
+    }
+  ],
+  "probabilidades": [
+    {
+      "id": "bat17-00",
+      "rotulo": "sustenta",
+      "p_nli": 0.9844,
+      "p": 0.9844,
+      "janela": "Art. 60 Nas atividades insalubres, assim consideradas as constantes dos quadros mencionados no capítulo \"Da Segurança e da Medicina do Trabalho\", ou que neles venham a ser incluídas por ato do Ministro do Trabalho, Industria e Comercio, quaisquer prorrogações só poderão ser acordadas mediante licença prévia das autoridades competentes em matéria de higiene do trabalho, as quais, para esse efeito, procederão aos necessários exames locais e à verificação dos métodos e processos de trabalho, quer diretamente, quer por intermédio de autoridades sanitárias federais, estaduais e municipais, com quem entrarão em entendimento para tal fim."
+    },
+    {
+      "id": "bat17-01",
+      "rotulo": "sustenta",
+      "p_nli": 0.9497,
+      "p": 0.9497,
+      "janela": "Art. 60 Nas atividades insalubres, assim consideradas as constantes dos quadros mencionados no capítulo \"Da Segurança e da Medicina do Trabalho\", ou que neles venham a ser incluídas por ato do Ministro do Trabalho, Industria e Comercio, quaisquer prorrogações só poderão ser acordadas mediante licenç (…) Parágrafo único. Excetuam-se da exigência de licença prévia as jornadas de doze horas de trabalho por trinta e seis horas ininterruptas de descanso. (Incluído pela Lei nº 13.467, de 2017) (Vigência)"
+    },
+    {
+      "id": "bat17-02",
+      "rotulo": "sustenta",
+      "p_nli": 0.9717,
+      "p": 0.9717,
+      "janela": "Art. 60 Nas atividades insalubres, assim consideradas as constantes dos quadros mencionados no capítulo \"Da Segurança e da Medicina do Trabalho\", ou que neles venham a ser incluídas por ato do Ministro do Trabalho, Industria e Comercio, quaisquer prorrogações só poderão ser acordadas mediante licença prévia das autoridades competentes em matéria de higiene do trabalho, as quais, para esse efeito, procederão aos necessários exames locais e à verificação dos métodos e processos de trabalho, quer diretamente, quer por intermédio de autoridades sanitárias federais, estaduais e municipais, com quem entrarão em entendimento para tal fim."
+    },
+    {
+      "id": "bat17-03",
+      "rotulo": "sustenta",
+      "p_nli": 0.9951,
+      "p": 0.9951,
+      "janela": "Art. 60 Nas atividades insalubres, assim consideradas as constantes dos quadros mencionados no capítulo \"Da Segurança e da Medicina do Trabalho\", ou que neles venham a ser incluídas por ato do Ministro do Trabalho, Industria e Comercio, quaisquer prorrogações só poderão ser acordadas mediante licenç (…) Parágrafo único. Excetuam-se da exigência de licença prévia as jornadas de doze horas de trabalho por trinta e seis horas ininterruptas de descanso. (Incluído pela Lei nº 13.467, de 2017) (Vigência)"
+    },
+    {
+      "id": "bat17-04",
+      "rotulo": "sustenta",
+      "p_nli": 0.9917,
+      "p": 0.9917,
+      "janela": "Art. 462 Ao empregador é vedado efetuar qualquer desconto nos salários do empregado, salvo quando este resultar de adiantamentos, de dispositivos de lei ou de contrato coletivo. § 1º - Em caso de dano causado pelo empregado, o desconto será lícito, desde de que esta possibilidade tenha sido acordada ou na ocorrência de dolo do empregado. (Parágrafo único renumerado pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "bat17-05",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0126,
+      "p": 0.0126,
+      "janela": "Art. 462\n\nAo empregador é vedado efetuar qualquer desconto nos salários do empregado, salvo quando este resultar de adiantamentos, de dispositivos de lei ou de contrato coletivo.\n\n§ 1º - Em caso de dano causado pelo empregado, o desconto será lícito, desde de que esta possibilidade tenha sido acordada ou na ocorrência de dolo do empregado. (Parágrafo único renumerado pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 2º - É vedado à emprêsa que mantiver armazém para venda de mercadorias aos empregados ou serviços estimados a proporcionar-lhes prestações \" in natura \" exercer qualquer coação ou induzimento no sentido de que os empregados se utilizem do armazém ou dos serviços. (Incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 3º - Sempre que não fôr possível o acesso dos empregados a armazéns ou serviços não mantidos pela Emprêsa, é lícito à autoridade competente determinar a adoção de medidas adequadas, visando a que as mercadorias sejam vendidas e os serviços prestados a preços razoáveis, sem intuito de lucro e sempre em benefício das empregados. (Incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 4º - Observado o disposto neste Capítulo, é vedado às emprêsas limitar, por qualquer forma,"
+    },
+    {
+      "id": "bat17-06",
+      "rotulo": "sustenta",
+      "p_nli": 0.8931,
+      "p": 0.8931,
+      "janela": "Art. 462 Ao empregador é vedado efetuar qualquer desconto nos salários do empregado, salvo quando este resultar de adiantamentos, de dispositivos de lei ou de contrato coletivo. § 4º - Observado o disposto neste Capítulo, é vedado às emprêsas limitar, por qualquer forma, a liberdade dos empregados de dispôr do seu salário. (Incluído pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "bat17-07",
+      "rotulo": "sustenta",
+      "p_nli": 0.9941,
+      "p": 0.9941,
+      "janela": "Art. 462 Ao empregador é vedado efetuar qualquer desconto nos salários do empregado, salvo quando este resultar de adiantamentos, de dispositivos de lei ou de contrato coletivo. § 1º - Em caso de dano causado pelo empregado, o desconto será lícito, desde de que esta possibilidade tenha sido acordada ou na ocorrência de dolo do empregado. (Parágrafo único renumerado pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "bat17-08",
+      "rotulo": "nao_trata",
+      "p_nli": 0.1065,
+      "p": 0.1065,
+      "janela": "Art. 462\n\nAo empregador é vedado efetuar qualquer desconto nos salários do empregado, salvo quando este resultar de adiantamentos, de dispositivos de lei ou de contrato coletivo.\n\n§ 1º - Em caso de dano causado pelo empregado, o desconto será lícito, desde de que esta possibilidade tenha sido acordada ou na ocorrência de dolo do empregado. (Parágrafo único renumerado pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 2º - É vedado à emprêsa que mantiver armazém para venda de mercadorias aos empregados ou serviços estimados a proporcionar-lhes prestações \" in natura \" exercer qualquer coação ou induzimento no sentido de que os empregados se utilizem do armazém ou dos serviços. (Incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 3º - Sempre que não fôr possível o acesso dos empregados a armazéns ou serviços não mantidos pela Emprêsa, é lícito à autoridade competente determinar a adoção de medidas adequadas, visando a que as mercadorias sejam vendidas e os serviços prestados a preços razoáveis, sem intuito de lucro e sempre em benefício das empregados. (Incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 4º - Observado o disposto neste Capítulo, é vedado às emprêsas limitar, por qualquer forma,"
+    },
+    {
+      "id": "bat17-09",
+      "rotulo": "sustenta",
+      "p_nli": 0.7329,
+      "p": 0.7329,
+      "janela": "Art. 462 Ao empregador é vedado efetuar qualquer desconto nos salários do empregado, salvo quando este resultar de adiantamentos, de dispositivos de lei ou de contrato coletivo. § 2º - É vedado à emprêsa que mantiver armazém para venda de mercadorias aos empregados ou serviços estimados a proporcionar-lhes prestações \" in natura \" exercer qualquer coação ou induzimento no sentido de que os empregados se utilizem do armazém ou dos serviços. (Incluído pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "bat17-10",
+      "rotulo": "sustenta",
+      "p_nli": 0.3359,
+      "p": 0.3359,
+      "janela": "Art. 73.\n\nSalvo nos casos de revezamento semanal ou quinzenal, o trabalho noturno terá remuneração superior a do diurno e, para esse efeito, sua remuneração terá um acréscimo de 20 % (vinte por cento), pelo menos, sobre a hora diurna. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 1º A hora do trabalho noturno será computada como de 52 minutos e 30 segundos. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 2º Considera-se noturno, para os efeitos deste artigo, o trabalho executado entre as 22 horas de um dia e as 5 horas do dia seguinte. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 3º O acréscimo, a que se refere o presente artigo, em se tratando de empresas que não mantêm, pela natureza de suas atividades, trabalho noturno habitual, será feito, tendo em vista os quantitativos pagos por trabalhos diurnos de natureza semelhante. Em relação às empresas cujo trabalho noturno decorra da natureza de suas atividades, o aumento será calculado sobre o salário mínimo geral vigente na região, não sendo devido quando exceder desse limite, já acrescido da percentagem. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 4º Nos horários mistos, assim entendidos os que abrangem"
+    },
+    {
+      "id": "bat17-11",
+      "rotulo": "sustenta",
+      "p_nli": 0.7354,
+      "p": 0.7354,
+      "janela": "Art. 73.\n\nSalvo nos casos de revezamento semanal ou quinzenal, o trabalho noturno terá remuneração superior a do diurno e, para esse efeito, sua remuneração terá um acréscimo de 20 % (vinte por cento), pelo menos, sobre a hora diurna. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 1º A hora do trabalho noturno será computada como de 52 minutos e 30 segundos. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 2º Considera-se noturno, para os efeitos deste artigo, o trabalho executado entre as 22 horas de um dia e as 5 horas do dia seguinte. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 3º O acréscimo, a que se refere o presente artigo, em se tratando de empresas que não mantêm, pela natureza de suas atividades, trabalho noturno habitual, será feito, tendo em vista os quantitativos pagos por trabalhos diurnos de natureza semelhante. Em relação às empresas cujo trabalho noturno decorra da natureza de suas atividades, o aumento será calculado sobre o salário mínimo geral vigente na região, não sendo devido quando exceder desse limite, já acrescido da percentagem. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 4º Nos horários mistos, assim entendidos os que abrangem"
+    },
+    {
+      "id": "bat17-12",
+      "rotulo": "sustenta",
+      "p_nli": 0.0014,
+      "p": 0.0014,
+      "janela": "Art. 14.\n\nConsidera-se noturno, para os efeitos desta Lei, o trabalho executado entre as 22 horas de um dia e as 5 horas do dia seguinte.\n\n§ 1º A hora de trabalho noturno terá duração de 52 (cinquenta e dois) minutos e 30 (trinta) segundos.\n\n§ 2º A remuneração do trabalho noturno deve ter acréscimo de, no mínimo, 20% (vinte por cento) sobre o valor da hora diurna.\n\n§ 3º Em caso de contratação, pelo empregador, de empregado exclusivamente para desempenhar trabalho noturno, o acréscimo será calculado sobre o salário anotado na Carteira de Trabalho e Previdência Social.\n\n§ 4º Nos horários mistos, assim entendidos os que abrangem períodos diurnos e noturnos, aplica-se às horas de trabalho noturno o disposto neste artigo e seus parágrafos."
+    },
+    {
+      "id": "bat17-13",
+      "rotulo": "nao_trata",
+      "p_nli": 0.1525,
+      "p": 0.1525,
+      "janela": "Art. 14.\n\nConsidera-se noturno, para os efeitos desta Lei, o trabalho executado entre as 22 horas de um dia e as 5 horas do dia seguinte.\n\n§ 1º A hora de trabalho noturno terá duração de 52 (cinquenta e dois) minutos e 30 (trinta) segundos.\n\n§ 2º A remuneração do trabalho noturno deve ter acréscimo de, no mínimo, 20% (vinte por cento) sobre o valor da hora diurna.\n\n§ 3º Em caso de contratação, pelo empregador, de empregado exclusivamente para desempenhar trabalho noturno, o acréscimo será calculado sobre o salário anotado na Carteira de Trabalho e Previdência Social.\n\n§ 4º Nos horários mistos, assim entendidos os que abrangem períodos diurnos e noturnos, aplica-se às horas de trabalho noturno o disposto neste artigo e seus parágrafos."
+    },
+    {
+      "id": "bat17-14",
+      "rotulo": "sustenta",
+      "p_nli": 0.3689,
+      "p": 0.3689,
+      "janela": "Art. 73.\n\nSalvo nos casos de revezamento semanal ou quinzenal, o trabalho noturno terá remuneração superior a do diurno e, para esse efeito, sua remuneração terá um acréscimo de 20 % (vinte por cento), pelo menos, sobre a hora diurna. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 1º A hora do trabalho noturno será computada como de 52 minutos e 30 segundos. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 2º Considera-se noturno, para os efeitos deste artigo, o trabalho executado entre as 22 horas de um dia e as 5 horas do dia seguinte. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 3º O acréscimo, a que se refere o presente artigo, em se tratando de empresas que não mantêm, pela natureza de suas atividades, trabalho noturno habitual, será feito, tendo em vista os quantitativos pagos por trabalhos diurnos de natureza semelhante. Em relação às empresas cujo trabalho noturno decorra da natureza de suas atividades, o aumento será calculado sobre o salário mínimo geral vigente na região, não sendo devido quando exceder desse limite, já acrescido da percentagem. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 4º Nos horários mistos, assim entendidos os que abrangem"
+    },
+    {
+      "id": "bat17-15",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 391-A\n\nA confirmação do estado de gravidez advindo no curso do contrato de trabalho, ainda que durante o prazo do aviso prévio trabalhado ou indenizado, garante à empregada gestante a estabilidade provisória prevista na alínea b do inciso II do art. 10 do Ato das Disposições Constitucionais Transitórias. (Incluído pela Lei nº 12.812, de 2013)\n\nParágrafo único. O disposto no caput deste artigo aplica-se ao empregado adotante ao qual tenha sido concedida guarda provisória para fins de adoção. (Incluído pela Lei nº 13.509, de 2017)"
+    },
+    {
+      "id": "bat17-16",
+      "rotulo": "sustenta",
+      "p_nli": 0.9976,
+      "p": 0.9976,
+      "janela": "Art. 391-A A confirmação do estado de gravidez advindo no curso do contrato de trabalho, ainda que durante o prazo do aviso prévio trabalhado ou indenizado, garante à empregada gestante a estabilidade provisória prevista na alínea b do inciso II do art. 10 do Ato das Disposições Constitucionais Tran (…) Parágrafo único. O disposto no caput deste artigo aplica-se ao empregado adotante ao qual tenha sido concedida guarda provisória para fins de adoção. (Incluído pela Lei nº 13.509, de 2017)"
+    },
+    {
+      "id": "bat17-17",
+      "rotulo": "sustenta",
+      "p_nli": 0.9888,
+      "p": 0.9888,
+      "janela": "Art. 25.\n\nA empregada doméstica gestante tem direito a licença-maternidade de 120 (cento e vinte) dias, sem prejuízo do emprego e do salário, nos termos da Seção V do Capítulo III do Título III da Consolidação das Leis do Trabalho (CLT), aprovada pelo Decreto-Lei nº 5.452, de 1º de maio de 1943.\n\nParágrafo único. A confirmação do estado de gravidez durante o curso do contrato de trabalho, ainda que durante o prazo do aviso prévio trabalhado ou indenizado, garante à empregada gestante a estabilidade provisória prevista na alínea “b” do inciso II do art. 10 do Ato das Disposições Constitucionais Transitórias."
+    },
+    {
+      "id": "bat17-18",
+      "rotulo": "sustenta",
+      "p_nli": 0.9966,
+      "p": 0.9966,
+      "janela": "Art. 4º Considera-se como de serviço efetivo o período em que o empregado esteja à disposição do empregador, aguardando ou executando ordens, salvo disposição especial expressamente consignada. § 2º Por não se considerar tempo à disposição do empregador, não será computado como período extraordinário o que exceder a jornada normal, ainda que ultrapasse o limite de cinco minutos previsto no § 1º do art. 58 desta Consolidação, quando o empregado, por escolha própria, buscar proteção pessoal, em caso de insegurança nas vias públicas ou más condições climáticas, bem como adentrar ou permanecer nas dependências da empresa para exercer atividades particulares, entre outras: (Incluído pela Lei nº 13.467, de 2017) (Vigência)"
+    },
+    {
+      "id": "bat17-19",
+      "rotulo": "sustenta",
+      "p_nli": 0.9878,
+      "p": 0.9878,
+      "janela": "Art. 4º Considera-se como de serviço efetivo o período em que o empregado esteja à disposição do empregador, aguardando ou executando ordens, salvo disposição especial expressamente consignada. § 1º Computar-se-ão, na contagem de tempo de serviço, para efeito de indenização e estabilidade, os períodos em que o empregado estiver afastado do trabalho prestando serviço militar e por motivo de acidente do trabalho. (Redação dada pela Lei nº 13.467, de 2017) (Vigência)"
+    },
+    {
+      "id": "bat17-20",
+      "rotulo": "contradiz",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 4º Considera-se como de serviço efetivo o período em que o empregado esteja à disposição do empregador, aguardando ou executando ordens, salvo disposição especial expressamente consignada. § 2º Por não se considerar tempo à disposição do empregador, não será computado como período extraordinário o que exceder a jornada normal, ainda que ultrapasse o limite de cinco minutos previsto no § 1º do art. 58 desta Consolidação, quando o empregado, por escolha própria, buscar proteção pessoal, em caso de insegurança nas vias públicas ou más condições climáticas, bem como adentrar ou permanecer nas dependências da empresa para exercer atividades particulares, entre outras: (Incluído pela Lei nº 13.467, de 2017) (Vigência)"
+    },
+    {
+      "id": "bat17-21",
+      "rotulo": "sustenta",
+      "p_nli": 0.998,
+      "p": 0.998,
+      "janela": "Art. 4º Considera-se como de serviço efetivo o período em que o empregado esteja à disposição do empregador, aguardando ou executando ordens, salvo disposição especial expressamente consignada. § 2º Por não se considerar tempo à disposição do empregador, não será computado como período extraordinário o que exceder a jornada normal, ainda que ultrapasse o limite de cinco minutos previsto no § 1º do art. 58 desta Consolidação, quando o empregado, por escolha própria, buscar proteção pessoal, em caso de insegurança nas vias públicas ou más condições climáticas, bem como adentrar ou permanecer nas dependências da empresa para exercer atividades particulares, entre outras: (Incluído pela Lei nº 13.467, de 2017) (Vigência)"
+    },
+    {
+      "id": "bat17-22",
+      "rotulo": "sustenta",
+      "p_nli": 0.981,
+      "p": 0.981,
+      "janela": "Art. 4º Considera-se como de serviço efetivo o período em que o empregado esteja à disposição do empregador, aguardando ou executando ordens, salvo disposição especial expressamente consignada. § 1º Computar-se-ão, na contagem de tempo de serviço, para efeito de indenização e estabilidade, os períodos em que o empregado estiver afastado do trabalho prestando serviço militar e por motivo de acidente do trabalho. (Redação dada pela Lei nº 13.467, de 2017) (Vigência)"
+    },
+    {
+      "id": "bat17-23",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 4º Considera-se como de serviço efetivo o período em que o empregado esteja à disposição do empregador, aguardando ou executando ordens, salvo disposição especial expressamente consignada. § 2º Por não se considerar tempo à disposição do empregador, não será computado como período extraordinário o que exceder a jornada normal, ainda que ultrapasse o limite de cinco minutos previsto no § 1º do art. 58 desta Consolidação, quando o empregado, por escolha própria, buscar proteção pessoal, em caso de insegurança nas vias públicas ou más condições climáticas, bem como adentrar ou permanecer nas dependências da empresa para exercer atividades particulares, entre outras: (Incluído pela Lei nº 13.467, de 2017) (Vigência)"
+    },
+    {
+      "id": "bat17-24",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0325,
+      "p": 0.0325,
+      "janela": "Art. 458 Além do pagamento em dinheiro, compreende-se no salário, para todos os efeitos legais, a alimentação, habitação, vestuário ou outras prestações \"in natura\" que a empresa, por fôrça do contrato ou do costume, fornecer habitualmente ao empregado. Em caso algum será permitido o pagamento com bebidas alcoólicas ou drogas nocivas. (Redação dada pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "bat17-25",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 458 Além do pagamento em dinheiro, compreende-se no salário, para todos os efeitos legais, a alimentação, habitação, vestuário ou outras prestações \"in natura\" que a empresa, por fôrça do contrato ou do costume, fornecer habitualmente ao empregado. Em caso algum será permitido o pagamento com b (…) § 4º - Tratando-se de habitação coletiva, o valor do salário-utilidade a ela correspondente será obtido mediante a divisão do justo valor da habitação pelo número de co-habitantes, vedada, em qualquer hipótese, a utilização da mesma unidade residencial por mais de uma família. (Incluído pela Lei nº 8.860, de 24.3.1994)"
+    },
+    {
+      "id": "bat17-26",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 458 Além do pagamento em dinheiro, compreende-se no salário, para todos os efeitos legais, a alimentação, habitação, vestuário ou outras prestações \"in natura\" que a empresa, por fôrça do contrato ou do costume, fornecer habitualmente ao empregado. Em caso algum será permitido o pagamento com b (…) § 1º Os valôres atribuídos às prestações \"in natura\" deverão ser justos e razoáveis, não podendo exceder, em cada caso, os dos percentuais das parcelas componentes do salário-mínimo (arts. 81 e 82).Incluído pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "bat17-27",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 458 Além do pagamento em dinheiro, compreende-se no salário, para todos os efeitos legais, a alimentação, habitação, vestuário ou outras prestações \"in natura\" que a empresa, por fôrça do contrato ou do costume, fornecer habitualmente ao empregado. Em caso algum será permitido o pagamento com b (…) § 3º - A habitação e a alimentação fornecidas como salário-utilidade deverão atender aos fins a que se destinam e não poderão exceder, respectivamente, a 25% (vinte e cinco por cento) e 20% (vinte por cento) do salário-contratual. (Incluído pela Lei nº 8.860, de 24.3.1994)"
+    },
+    {
+      "id": "bat17-28",
+      "rotulo": "sustenta",
+      "p_nli": 0.9946,
+      "p": 0.9946,
+      "janela": "Art. 457\n\nCompreendem-se na remuneração do empregado, para todos os efeitos legais, além do salário devido e pago diretamente pelo empregador, como contraprestação do serviço, as gorjetas que receber. (Redação dada pela Lei nº 1.999, de 1.10.1953)\n\n§ 1º Integram o salário a importância fixa estipulada, as gratificações legais e as comissões pagas pelo empregador. (Redação dada pela Lei nº 13.467, de 2017)\n\n§ 2º As importâncias, ainda que habituais, pagas a título de ajuda de custo, auxílio-alimentação, vedado seu pagamento em dinheiro, diárias para viagem, prêmios e abonos não integram a remuneração do empregado, não se incorporam ao contrato de trabalho e não constituem base de incidência de qualquer encargo trabalhista e previdenciário. (Redação dada pela Lei nº 13.467, de 2017)\n\n§ 3º Considera-se gorjeta não só a importância espontaneamente dada pelo cliente ao empregado, como também o valor cobrado pela empresa, como serviço ou adicional, a qualquer título, e destinado à distribuição aos empregados. (Redação dada pela Lei nº 13.419, de 2017)\n\n§ 4º Consideram-se prêmios as liberalidades concedidas pelo empregador em forma de bens, serviços ou valor em dinheiro a empregado ou a g"
+    },
+    {
+      "id": "bat17-29",
+      "rotulo": "sustenta",
+      "p_nli": 0.9932,
+      "p": 0.9932,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) I - até 2 (dois) dias consecutivos, em caso de falecimento do cônjuge, ascendente, descendente, irmão ou pessoa que, declarada em sua carteira de trabalho e previdência social, viva sob sua dependência econômica; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "bat17-30",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) II - até 3 (três) dias consecutivos, em virtude de casamento; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "bat17-31",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473\n\nO empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967)\n\nI - até 2 (dois) dias consecutivos, em caso de falecimento do cônjuge, ascendente, descendente, irmão ou pessoa que, declarada em sua carteira de trabalho e previdência social, viva sob sua dependência econômica; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nII - até 3 (três) dias consecutivos, em virtude de casamento; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nIII - por 5 (cinco) dias consecutivos, em caso de nascimento de filho, de adoção ou de guarda compartilhada; (Redação dada pela Lei nº 14.457, de 2022)\n\nIV - por um dia, em cada 12 (doze) meses de trabalho, em caso de doação voluntária de sangue devidamente comprovada; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nV - até 2 (dois) dias consecutivos ou não, para o fim de se alistar eleitor, nos têrmos da lei respectiva. (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nVI - no período de tempo em que tiver de cumprir as exigências do Serviço Militar referidas na letra \"c\" do art. 65 da Lei nº 4.375, de 17 de agosto de 1964 (Lei do Serviço Militar"
+    },
+    {
+      "id": "bat17-32",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) IV - por um dia, em cada 12 (doze) meses de trabalho, em caso de doação voluntária de sangue devidamente comprovada; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "bat17-33",
+      "rotulo": "sustenta",
+      "p_nli": 0.999,
+      "p": 0.999,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) V - até 2 (dois) dias consecutivos ou não, para o fim de se alistar eleitor, nos têrmos da lei respectiva. (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "bat17-34",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) VI - no período de tempo em que tiver de cumprir as exigências do Serviço Militar referidas na letra \"c\" do art. 65 da Lei nº 4.375, de 17 de agosto de 1964 (Lei do Serviço Militar). (Incluído pelo Decreto-lei nº 757, de 12.8.1969)"
+    },
+    {
+      "id": "bat17-35",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) VII - nos dias em que estiver comprovadamente realizando provas de exame vestibular para ingresso em estabelecimento de ensino superior. (Inciso incluído pela Lei nº 9.471, de 14.7.1997)"
+    },
+    {
+      "id": "bat17-36",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) IX - pelo tempo que se fizer necessário, quando, na qualidade de representante de entidade sindical, estiver participando de reunião oficial de organismo internacional do qual o Brasil seja membro. (Incluído pela Lei nº 11.304, de 2006)"
+    },
+    {
+      "id": "bat17-37",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) X - pelo tempo necessário para acompanhar sua esposa ou companheira em até 6 (seis) consultas médicas, ou em exames complementares, durante o período de gravidez; (Redação dada pela Lei nº 14.457, de 2022)"
+    },
+    {
+      "id": "bat17-38",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) X - pelo tempo necessário para acompanhar sua esposa ou companheira em até 6 (seis) consultas médicas, ou em exames complementares, durante o período de gravidez; (Redação dada pela Lei nº 14.457, de 2022)"
+    },
+    {
+      "id": "bat17-39",
+      "rotulo": "sustenta",
+      "p_nli": 0.9844,
+      "p": 0.9844,
+      "janela": "Art. 473\n\nO empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967)\n\nI - até 2 (dois) dias consecutivos, em caso de falecimento do cônjuge, ascendente, descendente, irmão ou pessoa que, declarada em sua carteira de trabalho e previdência social, viva sob sua dependência econômica; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nII - até 3 (três) dias consecutivos, em virtude de casamento; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nIII - por 5 (cinco) dias consecutivos, em caso de nascimento de filho, de adoção ou de guarda compartilhada; (Redação dada pela Lei nº 14.457, de 2022)\n\nIV - por um dia, em cada 12 (doze) meses de trabalho, em caso de doação voluntária de sangue devidamente comprovada; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nV - até 2 (dois) dias consecutivos ou não, para o fim de se alistar eleitor, nos têrmos da lei respectiva. (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nVI - no período de tempo em que tiver de cumprir as exigências do Serviço Militar referidas na letra \"c\" do art. 65 da Lei nº 4.375, de 17 de agosto de 1964 (Lei do Serviço Militar"
+    },
+    {
+      "id": "bat17-40",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) II - até 3 (três) dias consecutivos, em virtude de casamento; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "bat17-41",
+      "rotulo": "sustenta",
+      "p_nli": 0.998,
+      "p": 0.998,
+      "janela": "Art. 473\n\nO empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967)\n\nI - até 2 (dois) dias consecutivos, em caso de falecimento do cônjuge, ascendente, descendente, irmão ou pessoa que, declarada em sua carteira de trabalho e previdência social, viva sob sua dependência econômica; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nII - até 3 (três) dias consecutivos, em virtude de casamento; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nIII - por 5 (cinco) dias consecutivos, em caso de nascimento de filho, de adoção ou de guarda compartilhada; (Redação dada pela Lei nº 14.457, de 2022)\n\nIV - por um dia, em cada 12 (doze) meses de trabalho, em caso de doação voluntária de sangue devidamente comprovada; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nV - até 2 (dois) dias consecutivos ou não, para o fim de se alistar eleitor, nos têrmos da lei respectiva. (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nVI - no período de tempo em que tiver de cumprir as exigências do Serviço Militar referidas na letra \"c\" do art. 65 da Lei nº 4.375, de 17 de agosto de 1964 (Lei do Serviço Militar"
+    },
+    {
+      "id": "bat17-42",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) IV - por um dia, em cada 12 (doze) meses de trabalho, em caso de doação voluntária de sangue devidamente comprovada; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "bat17-43",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473\n\nO empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967)\n\nI - até 2 (dois) dias consecutivos, em caso de falecimento do cônjuge, ascendente, descendente, irmão ou pessoa que, declarada em sua carteira de trabalho e previdência social, viva sob sua dependência econômica; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nII - até 3 (três) dias consecutivos, em virtude de casamento; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nIII - por 5 (cinco) dias consecutivos, em caso de nascimento de filho, de adoção ou de guarda compartilhada; (Redação dada pela Lei nº 14.457, de 2022)\n\nIV - por um dia, em cada 12 (doze) meses de trabalho, em caso de doação voluntária de sangue devidamente comprovada; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nV - até 2 (dois) dias consecutivos ou não, para o fim de se alistar eleitor, nos têrmos da lei respectiva. (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nVI - no período de tempo em que tiver de cumprir as exigências do Serviço Militar referidas na letra \"c\" do art. 65 da Lei nº 4.375, de 17 de agosto de 1964 (Lei do Serviço Militar"
+    },
+    {
+      "id": "bat17-44",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473\n\nO empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967)\n\nI - até 2 (dois) dias consecutivos, em caso de falecimento do cônjuge, ascendente, descendente, irmão ou pessoa que, declarada em sua carteira de trabalho e previdência social, viva sob sua dependência econômica; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nII - até 3 (três) dias consecutivos, em virtude de casamento; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nIII - por 5 (cinco) dias consecutivos, em caso de nascimento de filho, de adoção ou de guarda compartilhada; (Redação dada pela Lei nº 14.457, de 2022)\n\nIV - por um dia, em cada 12 (doze) meses de trabalho, em caso de doação voluntária de sangue devidamente comprovada; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nV - até 2 (dois) dias consecutivos ou não, para o fim de se alistar eleitor, nos têrmos da lei respectiva. (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nVI - no período de tempo em que tiver de cumprir as exigências do Serviço Militar referidas na letra \"c\" do art. 65 da Lei nº 4.375, de 17 de agosto de 1964 (Lei do Serviço Militar"
+    },
+    {
+      "id": "bat17-45",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) VII - nos dias em que estiver comprovadamente realizando provas de exame vestibular para ingresso em estabelecimento de ensino superior. (Inciso incluído pela Lei nº 9.471, de 14.7.1997)"
+    },
+    {
+      "id": "bat17-46",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) IX - pelo tempo que se fizer necessário, quando, na qualidade de representante de entidade sindical, estiver participando de reunião oficial de organismo internacional do qual o Brasil seja membro. (Incluído pela Lei nº 11.304, de 2006)"
+    },
+    {
+      "id": "bat17-47",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) X - pelo tempo necessário para acompanhar sua esposa ou companheira em até 6 (seis) consultas médicas, ou em exames complementares, durante o período de gravidez; (Redação dada pela Lei nº 14.457, de 2022)"
+    },
+    {
+      "id": "bat17-48",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) X - pelo tempo necessário para acompanhar sua esposa ou companheira em até 6 (seis) consultas médicas, ou em exames complementares, durante o período de gravidez; (Redação dada pela Lei nº 14.457, de 2022)"
+    },
+    {
+      "id": "bat17-49",
+      "rotulo": "sustenta",
+      "p_nli": 0.8223,
+      "p": 0.8223,
+      "janela": "Art. 147\n\nO empregado que for despedido sem justa causa, ou cujo contrato de trabalho se extinguir em prazo predeterminado, antes de completar 12 (doze) meses de serviço, terá direito à remuneração relativa ao período incompleto de férias, de conformidade com o disposto no artigo anterior. (Redação dada pelo Decreto-lei nº 1.535, de 13.4.1977"
+    },
+    {
+      "id": "bat17-50",
+      "rotulo": "sustenta",
+      "p_nli": 0.9922,
+      "p": 0.9922,
+      "janela": "Art. 3º\n\nTerá direito à percepção do seguro-desemprego o trabalhador dispensado sem justa causa que comprove:\n\nI - ter recebido salários de pessoa jurídica ou de pessoa física a ela equiparada, relativos a: (Redação dada pela Lei nº 13.134, de 2015)\n\na) pelo menos 12 (doze) meses nos últimos 18 (dezoito) meses imediatamente anteriores à data de dispensa, quando da primeira solicitação; (Incluído pela Lei nº 13.134, de 2015)\n\nb) pelo menos 9 (nove) meses nos últimos 12 (doze) meses imediatamente anteriores à data de dispensa, quando da segunda solicitação; e (Incluído pela Lei nº 13.134, de 2015)\n\nc) cada um dos 6 (seis) meses imediatamente anteriores à data de dispensa, quando das demais solicitações; (Incluído pela Lei nº 13.134, de 2015)\n\nII - (Revogado); (Redação dada pela Lei nº 13.134, de 2015)\n\nIII - não estar em gozo de qualquer benefício previdenciário de prestação continuada, previsto no Regulamento dos Benefícios da Previdência Social, excetuado o auxílio-acidente e o auxílio suplementar previstos na Lei nº 6.367, de 19 de outubro de 1976, bem como o abono de permanência em serviço previsto na Lei nº 5.890, de 8 de junho de 1973;\n\nIV - não estar em gozo do auxílio-desempr"
+    },
+    {
+      "id": "bat17-51",
+      "rotulo": "sustenta",
+      "p_nli": 0.6436,
+      "p": 0.6436,
+      "janela": "Art. 26. O\n\nempregado doméstico que for dispensado sem justa causa fará jus ao benefício do seguro-desemprego, na forma da Lei nº 7.998, de 11 de janeiro de 1990, no valor de 1 (um) salário-mínimo, por período máximo de 3 (três) meses, de forma contínua ou alternada.\n\n§ 1º O benefício de que trata o caput será concedido ao empregado nos termos do regulamento do Conselho Deliberativo do Fundo de Amparo ao Trabalhador (Codefat).\n\n§ 2º O benefício do seguro-desemprego será cancelado, sem prejuízo das demais sanções cíveis e penais cabíveis:\n\nI - pela recusa, por parte do trabalhador desempregado, de outro emprego condizente com sua qualificação registrada ou declarada e com sua remuneração anterior;\n\nII - por comprovação de falsidade na prestação das informações necessárias à habilitação;\n\nIII - por comprovação de fraude visando à percepção indevida do benefício do seguro-desemprego; ou\n\nIV - por morte do segurado."
+    },
+    {
+      "id": "bat17-52",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 1º\n\nO aviso prévio, de que trata o Capítulo VI do Título IV da Consolidação das Leis do Trabalho - CLT, aprovada pelo Decreto-Lei nº 5.452, de 1º de maio de 1943, será concedido na proporção de 30 (trinta) dias aos empregados que contem até 1 (um) ano de serviço na mesma empresa.\n\nParágrafo único. Ao aviso prévio previsto neste artigo serão acrescidos 3 (três) dias por ano de serviço prestado na mesma empresa, até o máximo de 60 (sessenta) dias, perfazendo um total de até 90 (noventa) dias."
+    },
+    {
+      "id": "bat17-53",
+      "rotulo": "sustenta",
+      "p_nli": 0.998,
+      "p": 0.998,
+      "janela": "Art. 1º\n\nO aviso prévio, de que trata o Capítulo VI do Título IV da Consolidação das Leis do Trabalho - CLT, aprovada pelo Decreto-Lei nº 5.452, de 1º de maio de 1943, será concedido na proporção de 30 (trinta) dias aos empregados que contem até 1 (um) ano de serviço na mesma empresa.\n\nParágrafo único. Ao aviso prévio previsto neste artigo serão acrescidos 3 (três) dias por ano de serviço prestado na mesma empresa, até o máximo de 60 (sessenta) dias, perfazendo um total de até 90 (noventa) dias."
+    },
+    {
+      "id": "bat17-54",
+      "rotulo": "sustenta",
+      "p_nli": 0.9966,
+      "p": 0.9966,
+      "janela": "Art. 23. Não havendo prazo estipulado no contrato, a parte que, sem justo motivo, quiser rescindi-lo deverá avisar a outra de sua intenção. § 3º A falta de aviso prévio por parte do empregador dá ao empregado o direito aos salários correspondentes ao prazo do aviso, garantida sempre a integração desse período ao seu tempo de serviço."
+    },
+    {
+      "id": "bat17-55",
+      "rotulo": "sustenta",
+      "p_nli": 0.9956,
+      "p": 0.9956,
+      "janela": "Art. 23. Não havendo prazo estipulado no contrato, a parte que, sem justo motivo, quiser rescindi-lo deverá avisar a outra de sua intenção. § 3º A falta de aviso prévio por parte do empregador dá ao empregado o direito aos salários correspondentes ao prazo do aviso, garantida sempre a integração desse período ao seu tempo de serviço."
+    },
+    {
+      "id": "bat17-56",
+      "rotulo": "nao_trata",
+      "p_nli": 0.9844,
+      "p": 0.9844,
+      "janela": "Art. 394\n\nMediante atestado médico, à mulher grávida é facultado romper o compromisso resultante de qualquer contrato de trabalho, desde que este seja prejudicial à gestação."
+    },
+    {
+      "id": "bat17-57",
+      "rotulo": "sustenta",
+      "p_nli": 0.9639,
+      "p": 0.9639,
+      "janela": "Art. 72. O salário-maternidade para a segurada empregada ou trabalhadora avulsa consistirá numa renda mensal igual a sua remuneração integral. (Redação Dada pela Lei nº 9.876, de 26.11.99)"
+    },
+    {
+      "id": "bat17-58",
+      "rotulo": "sustenta",
+      "p_nli": 0.9795,
+      "p": 0.9795,
+      "janela": "Art. 394-A Sem prejuízo de sua remuneração, nesta incluído o valor do adicional de insalubridade, a empregada deverá ser afastada de: (Redação dada pela Lei nº 13.467, de 2017) III - atividades consideradas insalubres em qualquer grau, , durante a lactação. (Incluído pela Lei nº 13.467, de 2017) (Vide ADIN 5938)"
+    },
+    {
+      "id": "bat17-59",
+      "rotulo": "sustenta",
+      "p_nli": 0.9946,
+      "p": 0.9946,
+      "janela": "Art. 72. O\n\nsalário-maternidade para a segurada empregada ou trabalhadora avulsa consistirá numa renda mensal igual a sua remuneração integral. (Redação Dada pela Lei nº 9.876, de 26.11.99)\n\n§ 1º Cabe à empresa pagar o salário-maternidade devido à respectiva empregada gestante, efetivando-se a compensação, observado o disposto no art. 248 da Constituição Federal, quando do recolhimento das contribuições incidentes sobre a folha de salários e demais rendimentos pagos ou creditados, a qualquer título, à pessoa física que lhe preste serviço. (Incluído pela Lei nº 10.710, de.2003)\n\n§ 2º A empresa deverá conservar durante 10 (dez) anos os comprovantes dos pagamentos e os atestados correspondentes para exame pela fiscalização da Previdência Social. (Incluído pela Lei nº 10.710, de 2003)\n\n§ 3º O salário-maternidade devido à trabalhadora avulsa e à empregada do microempreendedor individual de que trata o art. 18-A da Lei Complementar nº 123, de 14 de dezembro de 2006, será pago diretamente pela Previdência Social. (Redação dada pela Lei nº 12.470, de 2011)"
+    },
+    {
+      "id": "bat17-60",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0179,
+      "p": 0.0179,
+      "janela": "Art. 23-A A notificação do empregador relativa aos débitos com o FGTS, o início de procedimento administrativo ou a medida de fiscalização interrompem o prazo prescricional. (Incluído dada pela Lei nº 13.932, de 2019) § 3º Todos os documentos relativos às obrigações perante o FGTS, referentes a todo o contrato de trabalho de cada trabalhador, devem ser mantidos à disposição da fiscalização por até 5 (cinco) anos após o fim de cada contrato. (Incluído dada pela Lei nº 13.932, de 2019)"
+    },
+    {
+      "id": "bat17-61",
+      "rotulo": "sustenta",
+      "p_nli": 0.0238,
+      "p": 0.0238,
+      "janela": "Art. 23-A A notificação do empregador relativa aos débitos com o FGTS, o início de procedimento administrativo ou a medida de fiscalização interrompem o prazo prescricional. (Incluído dada pela Lei nº 13.932, de 2019)"
+    },
+    {
+      "id": "bat17-62",
+      "rotulo": "sustenta",
+      "p_nli": 0.1247,
+      "p": 0.1247,
+      "janela": "ida para o estabelecimento bancário da escolha do novo empregador.\n\n§4º Os resultados financeiros auferidos pela Caixa Econômica Federal no período entre o repasse dos bancos e o depósito nas contas vinculadas dos trabalhadores destinar-se-ão à cobertura das despesas de administração do FGTS e ao pagamento da tarifa aos bancos depositários, devendo os eventuais saldos ser incorporados ao patrimônio do Fundo nos termos do art. 2º, § 1º.\n\n§5º (Revogado pela Lei nº 14.438, de 2022)"
+    },
+    {
+      "id": "bat17-63",
+      "rotulo": "sustenta",
+      "p_nli": 0.8726,
+      "p": 0.8726,
+      "janela": "Art. 12. No prazo de um ano, a contar da promulgação desta lei, a Caixa Econômica Federal assumirá o controle de todas as contas vinculadas, nos termos do item I do art. 7º, passando os demais estabelecimentos bancários, findo esse prazo, à condição de agentes recebedores e pagadores do FGTS, median (…) §5º (Revogado pela Lei nº 14.438, de 2022)"
+    },
+    {
+      "id": "bat17-64",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 12. No prazo de um ano, a contar da promulgação desta lei, a Caixa Econômica Federal assumirá o controle de todas as contas vinculadas, nos termos do item I do art. 7º, passando os demais estabelecimentos bancários, findo esse prazo, à condição de agentes recebedores e pagadores do FGTS, median (…) §1º Enquanto não ocorrer a centralização prevista no caput deste artigo, o depósito efetuado no decorrer do mês será contabilizado no saldo da conta vinculada do trabalhador, no primeiro dia útil do mês subseqüente."
+    },
+    {
+      "id": "bat17-65",
+      "rotulo": "sustenta",
+      "p_nli": 0.9971,
+      "p": 0.9971,
+      "janela": "Art. 12. No prazo de um ano, a contar da promulgação desta lei, a Caixa Econômica Federal assumirá o controle de todas as contas vinculadas, nos termos do item I do art. 7º, passando os demais estabelecimentos bancários, findo esse prazo, à condição de agentes recebedores e pagadores do FGTS, median (…) §3º Verificando-se mudança de emprego, até que venha a ser implementada a centralização no caput deste artigo, a conta vinculada será transferida para o estabelecimento bancário da escolha do novo empregador."
+    },
+    {
+      "id": "bat17-66",
+      "rotulo": "sustenta",
+      "p_nli": 0.9922,
+      "p": 0.9922,
+      "janela": "ida para o estabelecimento bancário da escolha do novo empregador.\n\n§4º Os resultados financeiros auferidos pela Caixa Econômica Federal no período entre o repasse dos bancos e o depósito nas contas vinculadas dos trabalhadores destinar-se-ão à cobertura das despesas de administração do FGTS e ao pagamento da tarifa aos bancos depositários, devendo os eventuais saldos ser incorporados ao patrimônio do Fundo nos termos do art. 2º, § 1º.\n\n§5º (Revogado pela Lei nº 14.438, de 2022)"
+    },
+    {
+      "id": "adv-00",
+      "rotulo": "contradiz",
+      "p_nli": 0.0122,
+      "p": 0.0,
+      "janela": "Art. 73. Salvo nos casos de revezamento semanal ou quinzenal, o trabalho noturno terá remuneração superior a do diurno e, para esse efeito, sua remuneração terá um acréscimo de 20 % (vinte por cento), pelo menos, sobre a hora diurna. (Redação dada pelo Decreto-lei nº 9.666, de 1946) § 1º A hora do trabalho noturno será computada como de 52 minutos e 30 segundos. (Redação dada pelo Decreto-lei nº 9.666, de 1946)"
+    },
+    {
+      "id": "adv-01",
+      "rotulo": "contradiz",
+      "p_nli": 0.6846,
+      "p": 0.0,
+      "janela": "Art. 73.\n\nSalvo nos casos de revezamento semanal ou quinzenal, o trabalho noturno terá remuneração superior a do diurno e, para esse efeito, sua remuneração terá um acréscimo de 20 % (vinte por cento), pelo menos, sobre a hora diurna. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 1º A hora do trabalho noturno será computada como de 52 minutos e 30 segundos. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 2º Considera-se noturno, para os efeitos deste artigo, o trabalho executado entre as 22 horas de um dia e as 5 horas do dia seguinte. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 3º O acréscimo, a que se refere o presente artigo, em se tratando de empresas que não mantêm, pela natureza de suas atividades, trabalho noturno habitual, será feito, tendo em vista os quantitativos pagos por trabalhos diurnos de natureza semelhante. Em relação às empresas cujo trabalho noturno decorra da natureza de suas atividades, o aumento será calculado sobre o salário mínimo geral vigente na região, não sendo devido quando exceder desse limite, já acrescido da percentagem. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 4º Nos horários mistos, assim entendidos os que abrangem"
+    },
+    {
+      "id": "adv-02",
+      "rotulo": "contradiz",
+      "p_nli": 0.3533,
+      "p": 0.3533,
+      "janela": "Art. 73.\n\nSalvo nos casos de revezamento semanal ou quinzenal, o trabalho noturno terá remuneração superior a do diurno e, para esse efeito, sua remuneração terá um acréscimo de 20 % (vinte por cento), pelo menos, sobre a hora diurna. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 1º A hora do trabalho noturno será computada como de 52 minutos e 30 segundos. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 2º Considera-se noturno, para os efeitos deste artigo, o trabalho executado entre as 22 horas de um dia e as 5 horas do dia seguinte. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 3º O acréscimo, a que se refere o presente artigo, em se tratando de empresas que não mantêm, pela natureza de suas atividades, trabalho noturno habitual, será feito, tendo em vista os quantitativos pagos por trabalhos diurnos de natureza semelhante. Em relação às empresas cujo trabalho noturno decorra da natureza de suas atividades, o aumento será calculado sobre o salário mínimo geral vigente na região, não sendo devido quando exceder desse limite, já acrescido da percentagem. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 4º Nos horários mistos, assim entendidos os que abrangem"
+    },
+    {
+      "id": "adv-03",
+      "rotulo": "contradiz",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 473\n\nO empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967)\n\nI - até 2 (dois) dias consecutivos, em caso de falecimento do cônjuge, ascendente, descendente, irmão ou pessoa que, declarada em sua carteira de trabalho e previdência social, viva sob sua dependência econômica; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nII - até 3 (três) dias consecutivos, em virtude de casamento; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nIII - por 5 (cinco) dias consecutivos, em caso de nascimento de filho, de adoção ou de guarda compartilhada; (Redação dada pela Lei nº 14.457, de 2022)\n\nIV - por um dia, em cada 12 (doze) meses de trabalho, em caso de doação voluntária de sangue devidamente comprovada; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nV - até 2 (dois) dias consecutivos ou não, para o fim de se alistar eleitor, nos têrmos da lei respectiva. (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nVI - no período de tempo em que tiver de cumprir as exigências do Serviço Militar referidas na letra \"c\" do art. 65 da Lei nº 4.375, de 17 de agosto de 1964 (Lei do Serviço Militar"
+    },
+    {
+      "id": "adv-04",
+      "rotulo": "contradiz",
+      "p_nli": 0.7554,
+      "p": 0.7554,
+      "janela": "Art. 473\n\nO empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967)\n\nI - até 2 (dois) dias consecutivos, em caso de falecimento do cônjuge, ascendente, descendente, irmão ou pessoa que, declarada em sua carteira de trabalho e previdência social, viva sob sua dependência econômica; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nII - até 3 (três) dias consecutivos, em virtude de casamento; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nIII - por 5 (cinco) dias consecutivos, em caso de nascimento de filho, de adoção ou de guarda compartilhada; (Redação dada pela Lei nº 14.457, de 2022)\n\nIV - por um dia, em cada 12 (doze) meses de trabalho, em caso de doação voluntária de sangue devidamente comprovada; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nV - até 2 (dois) dias consecutivos ou não, para o fim de se alistar eleitor, nos têrmos da lei respectiva. (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\nVI - no período de tempo em que tiver de cumprir as exigências do Serviço Militar referidas na letra \"c\" do art. 65 da Lei nº 4.375, de 17 de agosto de 1964 (Lei do Serviço Militar"
+    },
+    {
+      "id": "adv-05",
+      "rotulo": "contradiz",
+      "p_nli": 0.9971,
+      "p": 0.9971,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) IV - por um dia, em cada 12 (doze) meses de trabalho, em caso de doação voluntária de sangue devidamente comprovada; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "adv-06",
+      "rotulo": "contradiz",
+      "p_nli": 0.9741,
+      "p": 0.0,
+      "janela": "Art. 1º\n\nO aviso prévio, de que trata o Capítulo VI do Título IV da Consolidação das Leis do Trabalho - CLT, aprovada pelo Decreto-Lei nº 5.452, de 1º de maio de 1943, será concedido na proporção de 30 (trinta) dias aos empregados que contem até 1 (um) ano de serviço na mesma empresa.\n\nParágrafo único. Ao aviso prévio previsto neste artigo serão acrescidos 3 (três) dias por ano de serviço prestado na mesma empresa, até o máximo de 60 (sessenta) dias, perfazendo um total de até 90 (noventa) dias."
+    },
+    {
+      "id": "adv-07",
+      "rotulo": "contradiz",
+      "p_nli": 0.8735,
+      "p": 0.8735,
+      "janela": "Art. 1º\n\nO aviso prévio, de que trata o Capítulo VI do Título IV da Consolidação das Leis do Trabalho - CLT, aprovada pelo Decreto-Lei nº 5.452, de 1º de maio de 1943, será concedido na proporção de 30 (trinta) dias aos empregados que contem até 1 (um) ano de serviço na mesma empresa.\n\nParágrafo único. Ao aviso prévio previsto neste artigo serão acrescidos 3 (três) dias por ano de serviço prestado na mesma empresa, até o máximo de 60 (sessenta) dias, perfazendo um total de até 90 (noventa) dias."
+    },
+    {
+      "id": "adv-08",
+      "rotulo": "contradiz",
+      "p_nli": 0.5107,
+      "p": 0.5107,
+      "janela": "Art. 462\n\nAo empregador é vedado efetuar qualquer desconto nos salários do empregado, salvo quando este resultar de adiantamentos, de dispositivos de lei ou de contrato coletivo.\n\n§ 1º - Em caso de dano causado pelo empregado, o desconto será lícito, desde de que esta possibilidade tenha sido acordada ou na ocorrência de dolo do empregado. (Parágrafo único renumerado pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 2º - É vedado à emprêsa que mantiver armazém para venda de mercadorias aos empregados ou serviços estimados a proporcionar-lhes prestações \" in natura \" exercer qualquer coação ou induzimento no sentido de que os empregados se utilizem do armazém ou dos serviços. (Incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 3º - Sempre que não fôr possível o acesso dos empregados a armazéns ou serviços não mantidos pela Emprêsa, é lícito à autoridade competente determinar a adoção de medidas adequadas, visando a que as mercadorias sejam vendidas e os serviços prestados a preços razoáveis, sem intuito de lucro e sempre em benefício das empregados. (Incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 4º - Observado o disposto neste Capítulo, é vedado às emprêsas limitar, por qualquer forma,"
+    },
+    {
+      "id": "adv-09",
+      "rotulo": "contradiz",
+      "p_nli": 0.0007,
+      "p": 0.0007,
+      "janela": "Art. 462\n\nAo empregador é vedado efetuar qualquer desconto nos salários do empregado, salvo quando este resultar de adiantamentos, de dispositivos de lei ou de contrato coletivo.\n\n§ 1º - Em caso de dano causado pelo empregado, o desconto será lícito, desde de que esta possibilidade tenha sido acordada ou na ocorrência de dolo do empregado. (Parágrafo único renumerado pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 2º - É vedado à emprêsa que mantiver armazém para venda de mercadorias aos empregados ou serviços estimados a proporcionar-lhes prestações \" in natura \" exercer qualquer coação ou induzimento no sentido de que os empregados se utilizem do armazém ou dos serviços. (Incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 3º - Sempre que não fôr possível o acesso dos empregados a armazéns ou serviços não mantidos pela Emprêsa, é lícito à autoridade competente determinar a adoção de medidas adequadas, visando a que as mercadorias sejam vendidas e os serviços prestados a preços razoáveis, sem intuito de lucro e sempre em benefício das empregados. (Incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 4º - Observado o disposto neste Capítulo, é vedado às emprêsas limitar, por qualquer forma,"
+    },
+    {
+      "id": "adv-10",
+      "rotulo": "contradiz",
+      "p_nli": 0.001,
+      "p": 0.0,
+      "janela": "01)\n\nII – educação, em estabelecimento de ensino próprio ou de terceiros, compreendendo os valores relativos a matrícula, mensalidade, anuidade, livros e material didático; (Incluído pela Lei nº 10.243, de 19.6.2001)\n\nIII – transporte destinado ao deslocamento para o trabalho e retorno, em percurso servido ou não por transporte público; (Incluído pela Lei nº 10.243, de 19.6.2001)\n\nIV – assistência médica, hospitalar e odontológica, prestada diretamente ou mediante seguro-saúde; (Incluído pela Lei nº 10.243, de 19.6.2001)\n\nV – seguros de vida e de acidentes pessoais; (Incluído pela Lei nº 10.243, de 19.6.2001)\n\nVI – previdência privada; (Incluído pela Lei nº 10.243, de 19.6.2001)\n\nVII – (VETADO) (Incluído pela Lei nº 10.243, de 19.6.2001)\n\nVIII - o valor correspondente ao vale-cultura. (Incluído pela Lei nº 12.761, de 2012)\n\n§ 3º - A habitação e a alimentação fornecidas como salário-utilidade deverão atender aos fins a que se destinam e não poderão exceder, respectivamente, a 25% (vinte e cinco por cento) e 20% (vinte por cento) do salário-contratual. (Incluído pela Lei nº 8.860, de 24.3.1994)\n\n§ 4º - Tratando-se de habitação coletiva, o valor do salário-utilidade a ela corresponden"
+    },
+    {
+      "id": "adv-11",
+      "rotulo": "contradiz",
+      "p_nli": 0.0012,
+      "p": 0.0012,
+      "janela": "Gestante. Estabilidade provisória. I - O desconhecimento do estado gravídico pelo empregador não afasta o direito ao pagamento da indenização decorrente da estabilidade (art. 10, II, \"b\" do ADCT). II - A garantia de emprego à gestante só autoriza a reintegração se esta se der durante o período de estabilidade. Do contrário, a garantia restringe-se aos salários e demais direitos correspondentes ao período de estabilidade. III - A empregada gestante tem direito à estabilidade provisória prevista no art. 10, inciso II, alínea “b”, do Ato das Disposições Constitucionais Transitórias, mesmo na hipótese de admissão mediante contrato por tempo determinado."
+    },
+    {
+      "id": "adv-12",
+      "rotulo": "contradiz",
+      "p_nli": 0.0032,
+      "p": 0.0032,
+      "janela": "Gestante. Estabilidade provisória. I - O desconhecimento do estado gravídico pelo empregador não afasta o direito ao pagamento da indenização decorrente da estabilidade (art. 10, II, \"b\" do ADCT). II - A garantia de emprego à gestante só autoriza a reintegração se esta se der durante o período de estabilidade. Do contrário, a garantia restringe-se aos salários e demais direitos correspondentes ao período de estabilidade. III - A empregada gestante tem direito à estabilidade provisória prevista no art. 10, inciso II, alínea “b”, do Ato das Disposições Constitucionais Transitórias, mesmo na hipótese de admissão mediante contrato por tempo determinado."
+    },
+    {
+      "id": "adv-13",
+      "rotulo": "contradiz",
+      "p_nli": 0.8706,
+      "p": 0.8706,
+      "janela": "Art. 10. Até que seja promulgada a lei complementar a que se refere o art. 7º, I, da Constituição: a) do empregado eleito para cargo de direção de comissões internas de prevenção de acidentes, desde o registro de sua candidatura até um ano após o final de seu mandato;"
+    },
+    {
+      "id": "adv-14",
+      "rotulo": "contradiz",
+      "p_nli": 0.0005,
+      "p": 0.0005,
+      "janela": "Art. 391-A\n\nA confirmação do estado de gravidez advindo no curso do contrato de trabalho, ainda que durante o prazo do aviso prévio trabalhado ou indenizado, garante à empregada gestante a estabilidade provisória prevista na alínea b do inciso II do art. 10 do Ato das Disposições Constitucionais Transitórias. (Incluído pela Lei nº 12.812, de 2013)\n\nParágrafo único. O disposto no caput deste artigo aplica-se ao empregado adotante ao qual tenha sido concedida guarda provisória para fins de adoção. (Incluído pela Lei nº 13.509, de 2017)"
+    },
+    {
+      "id": "adv-15",
+      "rotulo": "contradiz",
+      "p_nli": 0.9971,
+      "p": 0.9971,
+      "janela": "Art. 18. Ocorrendo rescisão do contrato de trabalho, por parte do empregador, ficará este obrigado a depositar na conta vinculada do trabalhador no FGTS os valores relativos aos depósitos referentes ao mês da rescisão e ao imediatamente anterior, que ainda não houver sido recolhido, sem prejuízo das (…) § 2º Quando ocorrer despedida por culpa recíproca ou força maior, reconhecida pela Justiça do Trabalho, o percentual de que trata o § 1º será de 20 (vinte) por cento."
+    },
+    {
+      "id": "adv-16",
+      "rotulo": "contradiz",
+      "p_nli": 0.6831,
+      "p": 0.0,
+      "janela": "m dinheiro ou depósito bancário quando o empregado for analfabeto. (Incluído pela Lei nº 13.467, de 2017)\n\n§ 5º - Qualquer compensação no pagamento de que trata o parágrafo anterior não poderá exceder o equivalente a um mês de remuneração do empregado. (Redação dada pela Lei nº 5.584, de 26.6.1970)\n\n§ 6º A entrega ao empregado de documentos que comprovem a comunicação da extinção contratual aos órgãos competentes bem como o pagamento dos valores constantes do instrumento de rescisão ou recibo de quitação deverão ser efetuados até dez dias contados a partir do término do contrato. (Redação dada pela Lei nº 13.467, de 2017)\n\na) (revogado); (Redação dada pela Lei nº 13.467, de 2017)\n\nb) (revogado). (Redação dada pela Lei nº 13.467, de 2017)\n\n§ 7º (Revogado). (Redação dada pela Lei nº 13.467, de 2017)\n\n§ 8º - A inobservância do disposto no § 6º deste artigo sujeitará o infrator à multa de 160 BTN, por trabalhador, bem assim ao pagamento da multa a favor do empregado, em valor equivalente ao seu salário, devidamente corrigido pelo índice de variação do BTN, salvo quando, comprovadamente, o trabalhador der causa à mora. (Incluído pela Lei nº 7.855, de 24.10.1989)\n\n§ 9º (vetado). (Incluíd"
+    },
+    {
+      "id": "adv-17",
+      "rotulo": "contradiz",
+      "p_nli": 0.9634,
+      "p": 0.9634,
+      "janela": "Art. 3º\n\nTerá direito à percepção do seguro-desemprego o trabalhador dispensado sem justa causa que comprove:\n\nI - ter recebido salários de pessoa jurídica ou de pessoa física a ela equiparada, relativos a: (Redação dada pela Lei nº 13.134, de 2015)\n\na) pelo menos 12 (doze) meses nos últimos 18 (dezoito) meses imediatamente anteriores à data de dispensa, quando da primeira solicitação; (Incluído pela Lei nº 13.134, de 2015)\n\nb) pelo menos 9 (nove) meses nos últimos 12 (doze) meses imediatamente anteriores à data de dispensa, quando da segunda solicitação; e (Incluído pela Lei nº 13.134, de 2015)\n\nc) cada um dos 6 (seis) meses imediatamente anteriores à data de dispensa, quando das demais solicitações; (Incluído pela Lei nº 13.134, de 2015)\n\nII - (Revogado); (Redação dada pela Lei nº 13.134, de 2015)\n\nIII - não estar em gozo de qualquer benefício previdenciário de prestação continuada, previsto no Regulamento dos Benefícios da Previdência Social, excetuado o auxílio-acidente e o auxílio suplementar previstos na Lei nº 6.367, de 19 de outubro de 1976, bem como o abono de permanência em serviço previsto na Lei nº 5.890, de 8 de junho de 1973;\n\nIV - não estar em gozo do auxílio-desempr"
+    },
+    {
+      "id": "adv-18",
+      "rotulo": "contradiz",
+      "p_nli": 0.0009,
+      "p": 0.0009,
+      "janela": "Art. 60 Nas atividades insalubres, assim consideradas as constantes dos quadros mencionados no capítulo \"Da Segurança e da Medicina do Trabalho\", ou que neles venham a ser incluídas por ato do Ministro do Trabalho, Industria e Comercio, quaisquer prorrogações só poderão ser acordadas mediante licenç (…) Parágrafo único. Excetuam-se da exigência de licença prévia as jornadas de doze horas de trabalho por trinta e seis horas ininterruptas de descanso. (Incluído pela Lei nº 13.467, de 2017) (Vigência)"
+    },
+    {
+      "id": "adv-19",
+      "rotulo": "contradiz",
+      "p_nli": 0.0298,
+      "p": 0.0298,
+      "janela": "Art. 4º\n\nConsidera-se como de serviço efetivo o período em que o empregado esteja à disposição do empregador, aguardando ou executando ordens, salvo disposição especial expressamente consignada.\n\n§ 1º Computar-se-ão, na contagem de tempo de serviço, para efeito de indenização e estabilidade, os períodos em que o empregado estiver afastado do trabalho prestando serviço militar e por motivo de acidente do trabalho. (Redação dada pela Lei nº 13.467, de 2017) (Vigência)\n\n§ 2º Por não se considerar tempo à disposição do empregador, não será computado como período extraordinário o que exceder a jornada normal, ainda que ultrapasse o limite de cinco minutos previsto no § 1º do art. 58 desta Consolidação, quando o empregado, por escolha própria, buscar proteção pessoal, em caso de insegurança nas vias públicas ou más condições climáticas, bem como adentrar ou permanecer nas dependências da empresa para exercer atividades particulares, entre outras: (Incluído pela Lei nº 13.467, de 2017) (Vigência)\n\nI - práticas religiosas; (Incluído pela Lei nº 13.467, de 2017) (Vigência)\n\nII - descanso; (Incluído pela Lei nº 13.467, de 2017) (Vigência)\n\nIII - lazer; (Incluído pela Lei nº 13.467, de 2017) "
+    },
+    {
+      "id": "adv-20",
+      "rotulo": "contradiz",
+      "p_nli": 0.8735,
+      "p": 0.8735,
+      "janela": "Art. 457 Compreendem-se na remuneração do empregado, para todos os efeitos legais, além do salário devido e pago diretamente pelo empregador, como contraprestação do serviço, as gorjetas que receber. (Redação dada pela Lei nº 1.999, de 1.10.1953) § 2º As importâncias, ainda que habituais, pagas a título de ajuda de custo, auxílio-alimentação, vedado seu pagamento em dinheiro, diárias para viagem, prêmios e abonos não integram a remuneração do empregado, não se incorporam ao contrato de trabalho e não constituem base de incidência de qualquer encargo trabalhista e previdenciário. (Redação dada pela Lei nº 13.467, de 2017)"
+    },
+    {
+      "id": "adv-21",
+      "rotulo": "contradiz",
+      "p_nli": 0.0344,
+      "p": 0.0344,
+      "janela": "Aviso prévio. Renúncia pelo empregado. O direito ao aviso prévio é irrenunciável pelo empregado. O pedido de dispensa de cumprimento não exime o empregador de pagar o respectivo valor, salvo comprovação de haver o prestador dos serviços obtido novo emprego."
+    },
+    {
+      "id": "adv-22",
+      "rotulo": "contradiz",
+      "p_nli": 0.9766,
+      "p": 0.0,
+      "janela": "Art. 25. A empregada doméstica gestante tem direito a licença-maternidade de 120 (cento e vinte) dias, sem prejuízo do emprego e do salário, nos termos da Seção V do Capítulo III do Título III da Consolidação das Leis do Trabalho (CLT), aprovada pelo Decreto-Lei nº 5.452, de 1º de maio de 1943."
+    },
+    {
+      "id": "adv-23",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0271,
+      "p": 0.0,
+      "janela": "Art. 473 O empregado poderá deixar de comparecer ao serviço sem prejuízo do salário: (Redação dada pelo Decreto-lei nº 229, de 28.2.1967) II - até 3 (três) dias consecutivos, em virtude de casamento; (Inciso incluído pelo Decreto-lei nº 229, de 28.2.1967)"
+    },
+    {
+      "id": "adv-24",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0009,
+      "p": 0.0009,
+      "janela": "Art. 18.\n\nOcorrendo rescisão do contrato de trabalho, por parte do empregador, ficará este obrigado a depositar na conta vinculada do trabalhador no FGTS os valores relativos aos depósitos referentes ao mês da rescisão e ao imediatamente anterior, que ainda não houver sido recolhido, sem prejuízo das cominações legais. (Redação dada pela Lei nº 9.491, de 1997)\n\n§ 1º Na hipótese de despedida pelo empregador sem justa causa, depositará este, na conta vinculada do trabalhador no FGTS, importância igual a quarenta por cento do montante de todos os depósitos realizados na conta vinculada durante a vigência do contrato de trabalho, atualizados monetariamente e acrescidos dos respectivos juros. (Redação dada pela Lei nº 9.491, de 1997)\n\n§ 2º Quando ocorrer despedida por culpa recíproca ou força maior, reconhecida pela Justiça do Trabalho, o percentual de que trata o § 1º será de 20 (vinte) por cento.\n\n§ 3° As importâncias de que trata este artigo deverão constar da documentação comprobatória do recolhimento dos valores devidos a título de rescisão do contrato de trabalho, observado o disposto no art. 477 da CLT, eximindo o empregador, exclusivamente, quanto aos valores discriminados. (Red"
+    },
+    {
+      "id": "adv-25",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0002,
+      "p": 0.0,
+      "janela": "Art. 391-A\n\nA confirmação do estado de gravidez advindo no curso do contrato de trabalho, ainda que durante o prazo do aviso prévio trabalhado ou indenizado, garante à empregada gestante a estabilidade provisória prevista na alínea b do inciso II do art. 10 do Ato das Disposições Constitucionais Transitórias. (Incluído pela Lei nº 12.812, de 2013)\n\nParágrafo único. O disposto no caput deste artigo aplica-se ao empregado adotante ao qual tenha sido concedida guarda provisória para fins de adoção. (Incluído pela Lei nº 13.509, de 2017)"
+    },
+    {
+      "id": "adv-26",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0003,
+      "p": 0.0,
+      "janela": "Art. 60\n\nNas atividades insalubres, assim consideradas as constantes dos quadros mencionados no capítulo \"Da Segurança e da Medicina do Trabalho\", ou que neles venham a ser incluídas por ato do Ministro do Trabalho, Industria e Comercio, quaisquer prorrogações só poderão ser acordadas mediante licença prévia das autoridades competentes em matéria de higiene do trabalho, as quais, para esse efeito, procederão aos necessários exames locais e à verificação dos métodos e processos de trabalho, quer diretamente, quer por intermédio de autoridades sanitárias federais, estaduais e municipais, com quem entrarão em entendimento para tal fim.\n\nParágrafo único. Excetuam-se da exigência de licença prévia as jornadas de doze horas de trabalho por trinta e seis horas ininterruptas de descanso. (Incluído pela Lei nº 13.467, de 2017) (Vigência)"
+    },
+    {
+      "id": "adv-27",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0062,
+      "p": 0.0,
+      "janela": "Art. 73.\n\nSalvo nos casos de revezamento semanal ou quinzenal, o trabalho noturno terá remuneração superior a do diurno e, para esse efeito, sua remuneração terá um acréscimo de 20 % (vinte por cento), pelo menos, sobre a hora diurna. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 1º A hora do trabalho noturno será computada como de 52 minutos e 30 segundos. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 2º Considera-se noturno, para os efeitos deste artigo, o trabalho executado entre as 22 horas de um dia e as 5 horas do dia seguinte. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 3º O acréscimo, a que se refere o presente artigo, em se tratando de empresas que não mantêm, pela natureza de suas atividades, trabalho noturno habitual, será feito, tendo em vista os quantitativos pagos por trabalhos diurnos de natureza semelhante. Em relação às empresas cujo trabalho noturno decorra da natureza de suas atividades, o aumento será calculado sobre o salário mínimo geral vigente na região, não sendo devido quando exceder desse limite, já acrescido da percentagem. (Redação dada pelo Decreto-lei nº 9.666, de 1946)\n\n§ 4º Nos horários mistos, assim entendidos os que abrangem"
+    },
+    {
+      "id": "adv-28",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0015,
+      "p": 0.0015,
+      "janela": "Art. 462\n\nAo empregador é vedado efetuar qualquer desconto nos salários do empregado, salvo quando este resultar de adiantamentos, de dispositivos de lei ou de contrato coletivo.\n\n§ 1º - Em caso de dano causado pelo empregado, o desconto será lícito, desde de que esta possibilidade tenha sido acordada ou na ocorrência de dolo do empregado. (Parágrafo único renumerado pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 2º - É vedado à emprêsa que mantiver armazém para venda de mercadorias aos empregados ou serviços estimados a proporcionar-lhes prestações \" in natura \" exercer qualquer coação ou induzimento no sentido de que os empregados se utilizem do armazém ou dos serviços. (Incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 3º - Sempre que não fôr possível o acesso dos empregados a armazéns ou serviços não mantidos pela Emprêsa, é lícito à autoridade competente determinar a adoção de medidas adequadas, visando a que as mercadorias sejam vendidas e os serviços prestados a preços razoáveis, sem intuito de lucro e sempre em benefício das empregados. (Incluído pelo Decreto-lei nº 229, de 28.2.1967)\n\n§ 4º - Observado o disposto neste Capítulo, é vedado às emprêsas limitar, por qualquer forma,"
+    },
+    {
+      "id": "adv-29",
+      "rotulo": "nao_trata",
+      "p_nli": 0.0631,
+      "p": 0.0631,
+      "janela": "Art. 18. Ocorrendo rescisão do contrato de trabalho, por parte do empregador, ficará este obrigado a depositar na conta vinculada do trabalhador no FGTS os valores relativos aos depósitos referentes ao mês da rescisão e ao imediatamente anterior, que ainda não houver sido recolhido, sem prejuízo das (…) § 1º Na hipótese de despedida pelo empregador sem justa causa, depositará este, na conta vinculada do trabalhador no FGTS, importância igual a quarenta por cento do montante de todos os depósitos realizados na conta vinculada durante a vigência do contrato de trabalho, atualizados monetariamente e acrescidos dos respectivos juros. (Redação dada pela Lei nº 9.491, de 1997)"
+    },
+    {
+      "id": "adv-30",
+      "rotulo": "sustenta",
+      "p_nli": 0.9937,
+      "p": 0.9937,
+      "janela": "Art. 18. Ocorrendo rescisão do contrato de trabalho, por parte do empregador, ficará este obrigado a depositar na conta vinculada do trabalhador no FGTS os valores relativos aos depósitos referentes ao mês da rescisão e ao imediatamente anterior, que ainda não houver sido recolhido, sem prejuízo das (…) § 1º Na hipótese de despedida pelo empregador sem justa causa, depositará este, na conta vinculada do trabalhador no FGTS, importância igual a quarenta por cento do montante de todos os depósitos realizados na conta vinculada durante a vigência do contrato de trabalho, atualizados monetariamente e acrescidos dos respectivos juros. (Redação dada pela Lei nº 9.491, de 1997)"
+    },
+    {
+      "id": "adv-31",
+      "rotulo": "sustenta",
+      "p_nli": 0.9941,
+      "p": 0.9941,
+      "janela": "Art. 477. Na extinção do contrato de trabalho, o empregador deverá proceder à anotação na Carteira de Trabalho e Previdência Social, comunicar a dispensa aos órgãos competentes e realizar o pagamento das verbas rescisórias no prazo e na forma estabelecidos neste artigo. (Redação dada pela Lei nº 13. (…) § 6º A entrega ao empregado de documentos que comprovem a comunicação da extinção contratual aos órgãos competentes bem como o pagamento dos valores constantes do instrumento de rescisão ou recibo de quitação deverão ser efetuados até dez dias contados a partir do término do contrato. (Redação dada pela Lei nº 13.467, de 2017)"
+    },
+    {
+      "id": "adv-32",
+      "rotulo": "sustenta",
+      "p_nli": 0.999,
+      "p": 0.999,
+      "janela": "Gestante. Estabilidade provisória. I - O desconhecimento do estado gravídico pelo empregador não afasta o direito ao pagamento da indenização decorrente da estabilidade (art. 10, II, \"b\" do ADCT). II - A garantia de emprego à gestante só autoriza a reintegração se esta se der durante o período de estabilidade. Do contrário, a garantia restringe-se aos salários e demais direitos correspondentes ao período de estabilidade. III - A empregada gestante tem direito à estabilidade provisória prevista no art. 10, inciso II, alínea “b”, do Ato das Disposições Constitucionais Transitórias, mesmo na hipótese de admissão mediante contrato por tempo determinado."
+    },
+    {
+      "id": "adv-33",
+      "rotulo": "sustenta",
+      "p_nli": 0.7515,
+      "p": 0.7515,
+      "janela": "Gestante. Estabilidade provisória. I - O desconhecimento do estado gravídico pelo empregador não afasta o direito ao pagamento da indenização decorrente da estabilidade (art. 10, II, \"b\" do ADCT). II - A garantia de emprego à gestante só autoriza a reintegração se esta se der durante o período de estabilidade. Do contrário, a garantia restringe-se aos salários e demais direitos correspondentes ao período de estabilidade. III - A empregada gestante tem direito à estabilidade provisória prevista no art. 10, inciso II, alínea “b”, do Ato das Disposições Constitucionais Transitórias, mesmo na hipótese de admissão mediante contrato por tempo determinado."
+    },
+    {
+      "id": "adv-34",
+      "rotulo": "sustenta",
+      "p_nli": 0.8433,
+      "p": 0.8433,
+      "janela": "Art. 10.\n\nAté que seja promulgada a lei complementar a que se refere o art. 7º, I, da Constituição:\n\nI - fica limitada a proteção nele referida ao aumento, para quatro vezes, da porcentagem prevista no art. 6º, \"caput\" e § 1º, da\n\nLei nº 5.107, de 13 de setembro de 1966;\n\nII - fica vedada a dispensa arbitrária ou sem justa causa:\n\na) do empregado eleito para cargo de direção de comissões internas de prevenção de acidentes, desde o registro de sua candidatura até um ano após o final de seu mandato;\n\nb) da empregada gestante, desde a confirmação da gravidez até cinco meses após o parto. (Vide Lei Complementar nº 146, de 2014)\n\n§ 1º Até que a lei venha a disciplinar o disposto no art. 7º, XIX, da Constituição, o prazo da licença-paternidade a que se refere o inciso é de cinco dias.\n\n§ 2º Até ulterior disposição legal, a cobrança das contribuições para o custeio das atividades dos sindicatos rurais será feita juntamente com a do imposto territorial rural, pelo mesmo órgão arrecadador.\n\n§ 3º Na primeira comprovação do cumprimento das obrigações trabalhistas pelo empregador rural, na forma do art. 233, após a promulgação da Constituição, será certificada perante a Justiça do Trabalho a r"
+    },
+    {
+      "id": "adv-35",
+      "rotulo": "sustenta",
+      "p_nli": 0.1038,
+      "p": 0.1038,
+      "janela": "Multa do art. 477, § 8º, da CLT. Incidência. Reconhecimento judicial da relação de emprego. A circunstância de a relação de emprego ter sido reconhecida apenas em juízo não tem o condão de afastar a incidência da multa prevista no art. 477, §8º, da CLT. A referida multa não será devida apenas quando, comprovadamente, o empregado der causa à mora no pagamento das verbas rescisórias."
+    },
+    {
+      "id": "adv-36",
+      "rotulo": "sustenta",
+      "p_nli": 0.998,
+      "p": 0.998,
+      "janela": "Aviso prévio. Proporcionalidade. O direito ao aviso prévio proporcional ao tempo de serviço somente é assegurado nas rescisões de contrato de trabalho ocorridas a partir da publicação da Lei nº 12.506, em 13 de outubro de 2011."
+    },
+    {
+      "id": "adv-37",
+      "rotulo": "sustenta",
+      "p_nli": 0.9985,
+      "p": 0.9985,
+      "janela": "Art. 391-A A confirmação do estado de gravidez advindo no curso do contrato de trabalho, ainda que durante o prazo do aviso prévio trabalhado ou indenizado, garante à empregada gestante a estabilidade provisória prevista na alínea b do inciso II do art. 10 do Ato das Disposições Constitucionais Tran (…) Parágrafo único. O disposto no caput deste artigo aplica-se ao empregado adotante ao qual tenha sido concedida guarda provisória para fins de adoção. (Incluído pela Lei nº 13.509, de 2017)"
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 COMPOSE = docker compose -f infra/docker-compose.yml --env-file .env
 
 .PHONY: setup up down migrar backend worker frontend test lint preparar-modelos \
-	teste-congelado medir-memoria baseline-tipo benchmark-rerankers
+	teste-congelado medir-memoria baseline-tipo benchmark-rerankers \
+	portao-regressao lora-tipo lora-tipo-amostra benchmark-nli segmentador resultado-pedido configuracoes
 
 setup:            ## instala dependências (backend + dev)
 	uv sync
@@ -33,3 +34,17 @@ baseline-tipo:    ## baseline TF-IDF + LR do tipo de documento e fase
 	uv run --group treino python -m treino.classificador_tipo treinar
 benchmark-rerankers: ## nDCG dos rerankers candidatos nos pares de legislação
 	uv run --group worker --group treino python -m treino.benchmark_rerankers
+portao-regressao: ## portão: nenhum modelo piorou em métrica principal nem em erro grave
+	uv run python -m treino.portao_regressao
+lora-tipo:        ## BERTimbau + LoRA contra o baseline (rodada completa, M4/MPS)
+	uv run --group treino python -m treino.lora_tipo
+lora-tipo-amostra: ## fumaça do LoRA na CPU (200 por divisão, não registra)
+	uv run --group treino python -m treino.lora_tipo --amostra 200 --epocas 1 --max-tokens 256
+benchmark-nli:    ## verificadores NLI candidatos nos pares-ouro (M4: DEVICE=mps)
+	uv run --group worker --group treino python -m treino.benchmark_nli $(if $(DEVICE),--device $(DEVICE))
+segmentador:      ## regras × modelo do segmentador (rótulo prata dos títulos)
+	uv run --group treino python -m treino.segmentador
+resultado-pedido: ## regras × modelo do resultado do recurso
+	uv run --group treino python -m treino.resultado_pedido
+configuracoes:    ## quatro configurações (LLM, +RAG, +reranker, +verificador) com Ollama aberto
+	uv run --group worker python -m avaliacao.configuracoes.rodar --modelos $(or $(MODELOS),qwen3:8b)

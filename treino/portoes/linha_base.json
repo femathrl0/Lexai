@@ -1,0 +1,34 @@
+{
+  "_doc": "Métricas de referência por modelo (versão em uso ou, se nenhuma está em uso, a última aprovada pelo grupo). O portão de regressão (treino/portao_regressao.py) compara o relatório gravado de cada modelo com estes valores. Só treino/promover.py (ou um PR revisado pelo Eng. de ML) muda este arquivo.",
+  "modelos": {
+    "classificador_tipo_fase": {
+      "relatorio": "treino/relatorios/classificador_tipo_baseline.json",
+      "caminho": "resultados.tfidf_lr_sem_cabecalho.teste",
+      "versao_referencia": "v1 (tfidf_lr_sem_cabecalho, candidato)",
+      "metricas": {"f1_macro": {"valor": 0.9526, "direcao": "maior", "tolerancia": 0.005},
+                   "ece": {"valor": 0.0161, "direcao": "menor", "tolerancia": 0.01}},
+      "erros_graves": {"fase_trocada": 23}
+    },
+    "segmentador": {
+      "relatorio": "treino/relatorios/segmentador.json",
+      "caminho": "resultados.tfidf_lr_texto_posicao.teste",
+      "versao_referencia": "tfidf_lr_texto_posicao (candidato, amostra de 3.000 acórdãos)",
+      "metricas": {"f1_macro": {"valor": 0.924, "direcao": "maior", "tolerancia": 0.01}},
+      "erros_graves": {}
+    },
+    "resultado_pedido": {
+      "relatorio": "treino/relatorios/resultado_pedido.json",
+      "caminho": "resultados.regras_conclusao.teste",
+      "versao_referencia": "regras_conclusao (em uso)",
+      "metricas": {"f1_macro": {"valor": 0.982, "direcao": "maior", "tolerancia": 0.005}},
+      "erros_graves": {"troca_grave": 1}
+    },
+    "reranker": {
+      "relatorio": "treino/relatorios/benchmark_rerankers.json",
+      "caminho": "resultados.reranker:BAAI/bge-reranker-v2-m3.metricas.test",
+      "versao_referencia": "BAAI/bge-reranker-v2-m3 (em uso)",
+      "metricas": {"ndcg@5": {"valor": 0.9562, "direcao": "maior", "tolerancia": 0.0}},
+      "erros_graves": {}
+    }
+  }
+}
